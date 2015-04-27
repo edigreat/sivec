@@ -1,7 +1,8 @@
+//plugins utilizados
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp' 
-
+//version del proyecto
 version = '1.0'
  
 
@@ -12,29 +13,45 @@ targetCompatibility = 1.7
 
 def encoding = {it.encoding = 'UTF-8'}
 
+//Repositorios
 repositories{
-    mavenCentral();
+    mavenCentral()
+    mavenLocal()
 }
 
 configurations {
    all*.exclude group: 'javax.jms', module: 'jms'
+   all*.exclude group: 'javax.mail', module: 'mail'
    all*.exclude group: 'com.sun.jdmk', module: 'jmxtools'
    all*.exclude group: 'com.sun.jmx', module: 'jmxri'
    all*.exclude group: 'commons-logging', module: 'commons-logging'
    published
 }
 
-dependencies{
+def SPRING_VERSION="3.0.1.RELEASE"
+def TILES_VERSION="2.2.2"
+def HIBERNATE_VERSION="3.5.0-Final"
 
-	compile 'org.springframework:spring-jdbc:3.0.1.RELEASE'
-	compile 'org.springframework:spring-webmvc:3.0.1.RELEASE'
+dependencies{
+    //Dependencias spring 
+	  compile 'org.springframework:spring-jdbc:'+SPRING_VERSION
+	  compile 'org.springframework:spring-webmvc:'+SPRING_VERSION
+    compile 'org.springframework:spring-test:'+SPRING_VERSION
+    //Dependencias hibernate
+    compile 'org.hibernate:hibernate-core:'+HIBERNATE_VERSION
+    compile 'org.hibernate:hibernate-entitymanager:'+HIBERNATE_VERSION
+
+
+    //Dependencias tiles
+    compile 'org.apache.tiles:tiles-api:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-core:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-jsp:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-servlet:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-template:'+TILES_VERSION
+
     compile 'javax.servlet:servlet-api:2.5'
     compile 'javax.servlet:jstl:1.2'
-    compile 'org.apache.tiles:tiles-api:2.2.2'
-    compile 'org.apache.tiles:tiles-core:2.2.2'
-    compile 'org.apache.tiles:tiles-jsp:2.2.2'
-    compile 'org.apache.tiles:tiles-servlet:2.2.2'
-    compile 'org.apache.tiles:tiles-template:2.2.2'
+   
     compile 'log4j:log4j:1.2.15'
     compile 'org.slf4j:slf4j-api:1.5.8'
     compile 'org.slf4j:slf4j-log4j12:1.4.2'
@@ -44,6 +61,7 @@ dependencies{
     compile 'com.h2database:h2:1.4.186'
     compile 'javax.validation:validation-api:1.1.0.Final'
 
+    compile 'junit:junit:4.12'
 
 }
 
