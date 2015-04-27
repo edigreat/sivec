@@ -1,0 +1,29 @@
+# Archivos de Eclipse 
+
+*.classpath
+*.project
+*.settings
+
+
+
+#archivos Java
+*.class
+.classpath
+*.war
+*.ear
+
+#Archivos de sistema operativo
+.DS_Store
+.Trashes
+*~
+Thumbs.db
+
+
+# Archivos de artefactos de construccion
+
+.gradle/
+build/
+out/
+bin/
+target/
+
