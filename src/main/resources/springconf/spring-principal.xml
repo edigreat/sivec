@@ -56,6 +56,8 @@
             <value>
                 hibernate.dialect=org.hibernate.dialect.H2Dialect
                 hibernate.hbm2ddl.auto=create
+                hibernate.format_sql=true
+                hibernate.show_sql=true
             </value>
         </property>
     </bean>

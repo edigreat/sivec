@@ -20,7 +20,7 @@
         <property name="fechaCreacion" type="java.sql.Timestamp">
             <column name="fecha_creacion" length="19" not-null="true" />
         </property>
-        <property name="fechaActualizacion" type="java.sql.Timestamp">
+        <property name="fechaActualizacion" update="false" insert="false" generated="always"  type="java.sql.Timestamp">
             <column name="fecha_actualizacion" length="19" />
         </property>
         <property name="correoEletronico" type="java.lang.String">

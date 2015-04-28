@@ -6,13 +6,17 @@ import java.util.Set;
 
 import javax.persistence.PrePersist;
 
-/**
- * Usuario entity. @author MyEclipse Persistence Tools
- */
+import org.apache.log4j.Logger;
 
 public class Usuario implements java.io.Serializable {
 
-	// Fields
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7034203322585204901L;
+	
+	private static final Logger log = Logger.getLogger(Usuario.class);
 
 	private Integer idUsuario;
 	private String nombre;
@@ -51,8 +55,9 @@ public class Usuario implements java.io.Serializable {
 	@PrePersist
     public void setLastUpdate() {
         //o.setLastUpdate( new Date() );
-		System.out.println("seteano......");
+		log.warn("ejecutando lastUpdate......");
     }
+	
 	/** full constructor */
 	public Usuario(String nombre, String apPaterno, String apMaterno,
 			Timestamp fechaCreacion, Timestamp fechaActualizacion,
@@ -202,6 +207,17 @@ public class Usuario implements java.io.Serializable {
 	public void setReparacionEquiposForIdUsuarioResponsable(
 			Set reparacionEquiposForIdUsuarioResponsable) {
 		this.reparacionEquiposForIdUsuarioResponsable = reparacionEquiposForIdUsuarioResponsable;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre
+				+ ", apPaterno=" + apPaterno + ", apMaterno=" + apMaterno
+				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
+				+ fechaActualizacion + ", correoEletronico=" + correoEletronico
+				+ ", password=" + password + ", indVigenciaUsuario="
+				+ indVigenciaUsuario + ", dependenciaUniversitaria="
+				+ dependenciaUniversitaria + "]";
 	}
 
 }

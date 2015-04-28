@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,14 @@ public class UsuarioDao {
      * @return
      */
     public List<Usuario> buscarTodos() {
-        // TODO implement here
-        return null;
+    	try {
+			String queryString = "from Usuario";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return  queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
     }
 
     /**
@@ -57,8 +64,15 @@ public class UsuarioDao {
      * @return
      */
     public List<Usuario> buscarTodos(int startResult, int maxRows) {
-        // TODO implement here
-        return null;
+    	
+    	try {
+			String queryString = "from Usuario";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return  queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
     }
 
     /**

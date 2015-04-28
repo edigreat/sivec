@@ -2,6 +2,7 @@ package unit.repositorio;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -27,8 +28,12 @@ public class UsuarioDaoUnitTestCase {
 	@Test
 	public void initTest(){
 		log.info("Iniciando "+usuarioDao);
-		Usuario usuario = new Usuario("nombre","apPaterno", "correo","pass",1,"dependencia");
-		usuario=usuarioDao.insertarUsuario(usuario);
+		Usuario usuarioNew = new Usuario("nombre","apPaterno", "correo","pass",1,"dependencia");
+		usuarioNew=usuarioDao.insertarUsuario(usuarioNew);
+		List<Usuario> usuarioList = usuarioDao.buscarTodos();
+		for(Usuario usuario:usuarioList){
+			log.info(usuario);
+		}
 	}
 
 }
