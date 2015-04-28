@@ -34,12 +34,16 @@ def HIBERNATE_VERSION="3.5.0-Final"
 
 dependencies{
     //Dependencias spring 
-	  compile 'org.springframework:spring-jdbc:'+SPRING_VERSION
-	  compile 'org.springframework:spring-webmvc:'+SPRING_VERSION
+    compile 'org.springframework:spring-jdbc:'+SPRING_VERSION
+    compile 'org.springframework:spring-webmvc:'+SPRING_VERSION
     compile 'org.springframework:spring-test:'+SPRING_VERSION
+    compile 'org.springframework:spring-orm:'+SPRING_VERSION
+    compile 'org.springframework:spring-tx:'+SPRING_VERSION
+    
     //Dependencias hibernate
     compile 'org.hibernate:hibernate-core:'+HIBERNATE_VERSION
     compile 'org.hibernate:hibernate-entitymanager:'+HIBERNATE_VERSION
+    compile 'javax.validation:validation-api:1.1.0.Final'
 
 
     //Dependencias tiles
@@ -59,7 +63,6 @@ dependencies{
     compile 'commons-digester:commons-digester:2.0'
     compile 'commons-dbcp:commons-dbcp:1.4'  
     compile 'com.h2database:h2:1.4.186'
-    compile 'javax.validation:validation-api:1.1.0.Final'
 
     compile 'junit:junit:4.12'
 
@@ -83,11 +86,11 @@ eclipse {
           node3.appendNode('fixed', [facet:"java"])
         }
         whenMerged { config -> 
-        	config.facets.each { 
-        		if (it.type.toString() == 'installed' && it.name == 'jst.web') { 
-        			it.version = 2.5 
-        		} 
-        	}
+          config.facets.each { 
+            if (it.type.toString() == 'installed' && it.name == 'jst.web') { 
+              it.version = 2.5 
+            } 
+          }
         } 
       }
     }
