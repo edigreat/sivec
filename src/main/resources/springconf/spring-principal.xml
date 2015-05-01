@@ -28,21 +28,21 @@
 			<property name="password" value="${jdbc.password}" />
 	</bean>
 	
-	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script -->
+	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script 	-->
 	<jdbc:initialize-database data-source="dataSource">
 	      <jdbc:script location="classpath:${jdbc.scriptSql}" />
 	</jdbc:initialize-database>
-		
-	<!-- Crea un servidor web para la consola del bean h2Server -->
+	
+	<!-- Crea un servidor web para la consola del bean h2Server 
 	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
 	    <constructor-arg value="-web,-webAllowOthers,-webPort,${h2.webport}"/>
-	</bean>
+	</bean>-->
 			
-	<!--Levanta el  Servidor de la base de datos  -->
+	<!--Levanta el  Servidor de la base de datos  
 	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" 
 			init-method="start" destroy-method="stop" depends-on="h2WebServer">
 	    <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,${h2.tcpport}"/>
-	</bean>  
+	</bean>  -->
 	
 	<bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -61,12 +61,15 @@
         </property>
     </bean>
 	
-       
+<!--                 hibernate.hbm2ddl.auto=create
+ -->       
        <bean id="transactionManager"
           class="org.springframework.orm.hibernate3.HibernateTransactionManager"
           p:sessionFactory-ref="sessionFactory"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+   
+   	<bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
        
        
 </beans>

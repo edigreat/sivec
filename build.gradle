@@ -50,6 +50,8 @@ dependencies{
     compile 'org.hibernate:hibernate-core:'+HIBERNATE_VERSION
     compile 'org.hibernate:hibernate-entitymanager:'+HIBERNATE_VERSION
     compile 'javax.validation:validation-api:1.1.0.Final'
+    compile 'org.hibernate:hibernate-validator:4.2.0.Final'
+    
 
 
     //Dependencias tiles

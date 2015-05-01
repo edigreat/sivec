@@ -18,7 +18,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @ContextConfiguration(locations = { "classpath:/springconf/spring-principal.xml" })
 @TestExecutionListeners({TransactionalTestExecutionListener.class})
 @TransactionConfiguration(transactionManager = "transactionManager")
-public class AbstractDaoTest extends AbstractJUnit4SpringContextTests  {
+public class AbstractUtilityTest extends AbstractJUnit4SpringContextTests  {
 	/**
 	 * Metodo vacio, gradle se queja si no 
 	 * tiene runner

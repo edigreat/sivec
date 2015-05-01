@@ -1,16 +1,12 @@
 package integration.repositorio;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import static org.hamcrest.Matchers.*;
 
@@ -18,13 +14,10 @@ import dominio.Usuario;
 import repositorio.UsuarioDao;
 
 @Transactional
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/springconf/spring-principal.xml" })
-public class UsuarioDaoUnitTestCase {
+public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	
-	private static final Logger log = Logger.getLogger(UsuarioDaoUnitTestCase.class);
+	private static final Logger log = Logger.getLogger(UsuarioDaoIntegrationTestCase.class);
 
 	@Autowired
 	UsuarioDao usuarioDao;
