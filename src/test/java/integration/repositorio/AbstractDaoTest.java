@@ -1,4 +1,4 @@
-package unit.repositorio;
+package integration.repositorio;
 /**
  * Clase base para realizar los test de los daos
  * Implementa lo necesario para la integracion de 
