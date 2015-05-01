@@ -1,5 +1,10 @@
 ;              
 
+CREATE MEMORY TABLE IF NOT EXISTS PUBLIC.DependenciaUniversitaria (
+  id_dependencia INT NOT NULL AUTO_INCREMENT,
+  descripcion VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_dependencia));
+  
 CREATE MEMORY TABLE IF NOT EXISTS   PUBLIC.Usuario (
   id_usuario INT NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(45) NOT NULL,
@@ -35,6 +40,65 @@ CREATE MEMORY TABLE IF NOT EXISTS PUBLIC.MenuRol (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+  CREATE MEMORY TABLE IF NOT EXISTS MenuItem (
+  id_menuItem INT NOT NULL AUTO_INCREMENT,
+  id_menuParent INT NULL DEFAULT NULL,
+  etiqueta VARCHAR(45) NOT NULL,
+  accion VARCHAR(45) NOT NULL,
+  nombre_menu VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_menuItem),
+  CONSTRAINT fk_MenuItems_MenuItems
+    FOREIGN KEY (id_menuParent)
+    REFERENCES MenuItem (id_menuItem)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+    
+
+
+CREATE MEMORY TABLE IF NOT EXISTS MenuItemRol (
+  id_menuRol INT NOT NULL,
+  id_menuItem INT NOT NULL,
+  PRIMARY KEY (id_menuRol, id_menuItem),
+ CONSTRAINT fk_MenuItemsRoles_MenuRoles1
+    FOREIGN KEY (id_menuRol)
+    REFERENCES MenuRol (id_menuRol)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_MenuItemsRoles_MenuItems1
+    FOREIGN KEY (id_menuItem)
+    REFERENCES MenuItem (id_menuItem)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ CREATE MEMORY TABLE IF NOT EXISTS CaracteristicaEquipo (
+  id_caractaristica_equipo INT NOT NULL AUTO_INCREMENT,
+  etiqueta_caracteristica VARCHAR(45) NOT NULL,
+  desc_caracteristica VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_caractaristica_equipo));   
+ 
+
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(1,'RAM','Memoria Ram');
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(2,'CPU','CPU');
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(3,'Monitor','Monitor');
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(4,'HD','Disco Duro');
+  
+    
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(1,null,'USUARIOS','etiqueta','memu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(2,null,'EQUIPOS','etiqueta','memu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(3,null,'REPORTES','etiqueta','memu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(4,1,'Administrar Usuarios','etiqueta','memu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(5,2,'Administrar Equipos','etiqueta','memu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(6,2,'Equipos Asignados','etiqueta','memu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(7,3,'Reporte Movimiento','etiqueta','memu');
+
+
+INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(1,'AUDITORIA INTERNA');
+INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(2,'BIBLIOTECA NACIONAL');
+INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(3,'CASA DEL LAGO');
+INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(4,'CENTRO DE CIENCIAS FISICAS');
+INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(5,'CENTRO DE ESTUDIOS SOBRE LA UNIVERSIDAD');    
+    
 INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(1,'REF_ADMIN',' Usuario Administrador');
 INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(2,'REF_CAPTURISTA',' Usuario capturista');
 INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(3,'REF_RESPONSABLE','Usuario Responsable');  
@@ -58,3 +122,11 @@ INSERT INTO PUBLIC.UsuarioMenuRol (id_menuRol,id_usuario) values(2,2);
 INSERT INTO PUBLIC.UsuarioMenuRol (id_menuRol,id_usuario) values(3,3);
 INSERT INTO PUBLIC.UsuarioMenuRol (id_menuRol,id_usuario) values(2,4);
 INSERT INTO PUBLIC.UsuarioMenuRol (id_menuRol,id_usuario) values(3,5);
+
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,1);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,2);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,3);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,4);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,5);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,6);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,7);

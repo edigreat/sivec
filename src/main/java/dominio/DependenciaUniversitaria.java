@@ -6,23 +6,21 @@ package dominio;
 
 public class DependenciaUniversitaria implements java.io.Serializable {
 
-	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3839984637280883483L;
 	private Integer idDependencia;
 	private String descripcion;
 
-	// Constructors
-
-	/** default constructor */
 	public DependenciaUniversitaria() {
 	}
 
-	/** full constructor */
 	public DependenciaUniversitaria(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	// Property accessors
 
 	public Integer getIdDependencia() {
 		return this.idDependencia;

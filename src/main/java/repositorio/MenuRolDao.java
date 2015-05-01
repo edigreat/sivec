@@ -18,7 +18,6 @@ import dominio.*;
 @Repository
 public class MenuRolDao {
 
-	private static final Logger log = Logger.getLogger(MenuRolDao.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;

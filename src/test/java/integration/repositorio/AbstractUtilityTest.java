@@ -24,7 +24,7 @@ public class AbstractUtilityTest extends AbstractJUnit4SpringContextTests  {
 	 * Metodo vacio, gradle se queja si no 
 	 * tiene runner
 	 */
-	@Ignore(value="Esta clase es base")
+	//@Ignore(value="Esta clase es base")
 	@Test
 	public void abstractTest(){
 		

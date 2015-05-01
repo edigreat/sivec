@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * MenuItem entity. @author MyEclipse Persistence Tools
+ * Clase que contiene los items de los menus
+ * a presentar, contiene una lista de menuRols
+ * los cuales son los roles asociados a esos items
  */
 
 public class MenuItem implements java.io.Serializable {
@@ -99,6 +101,13 @@ public class MenuItem implements java.io.Serializable {
 
 	public void setMenuRols(Set menuRols) {
 		this.menuRols = menuRols;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuItem [idMenuItem=" + idMenuItem + ", menuItem=" + menuItem
+				+ ", etiqueta=" + etiqueta + ", accion=" + accion
+				+ ", nombreMenu=" + nombreMenu + "]";
 	}
 
 }

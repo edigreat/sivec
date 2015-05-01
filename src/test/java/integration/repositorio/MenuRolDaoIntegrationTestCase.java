@@ -2,6 +2,7 @@ package integration.repositorio;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.Arrays;
@@ -32,12 +33,16 @@ public class MenuRolDaoIntegrationTestCase  extends AbstractUtilityTest {
 	public void buscarTodosTest(){
 		List<MenuRol> menuRolList = menuRolDao.buscarTodos();
 		assertThat(menuRolList,is(notNullValue()));
+		assertThat(menuRolList.isEmpty(), is(not(true)));
+
 	}
 	
 	@Test
 	public void buscarTodosPaginaTest(){
 		List<MenuRol> menuRolList = menuRolDao.buscarTodos(0,10);
 		assertThat(menuRolList,is(notNullValue()));
+		assertThat(menuRolList.isEmpty(), is(not(true)));
+
 	}
 	
 	@Test

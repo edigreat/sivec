@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * MenuRol entity. @author MyEclipse Persistence Tools
+ * Clase que representa los roles asignados a los 
+ * usuarios
+ * 
  */
 
 public class MenuRol implements java.io.Serializable {
