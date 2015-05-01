@@ -8,6 +8,8 @@
             <column name="id_usuario" />
             <generator class="identity" />
         </id>
+        <timestamp column="fecha_actualizacion" name="fechaActualizacion" />
+       
         <property name="nombre" type="java.lang.String">
             <column name="nombre" length="45" not-null="true" />
         </property>
@@ -20,9 +22,9 @@
         <property name="fechaCreacion"  update="false" insert="false" generated="insert" type="timestamp" >
             <column name="fecha_creacion" length="19" not-null="true" />
         </property>
-        <property name="fechaActualizacion" generated="always"  type="timestamp">
+        <!--  property name="fechaActualizacion" update="false" insert="false" generated="always"  type="timestamp">
             <column name="fecha_actualizacion" length="19" />
-        </property>
+        </property -->
         <property name="correoEletronico" type="java.lang.String">
             <column name="correo_eletronico" length="80" not-null="true" unique="true" />
         </property>
@@ -35,6 +37,7 @@
         <property name="dependenciaUniversitaria" type="java.lang.String">
             <column name="dependencia_universitaria" length="80" not-null="true" />
         </property>
+        
         <!-- 
         <set name="equipoComputosForIdUsuarioAsignado" inverse="true">
             <key>

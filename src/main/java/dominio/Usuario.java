@@ -28,6 +28,7 @@ public class Usuario implements java.io.Serializable {
 	private String password;
 	private Integer indVigenciaUsuario;
 	private String dependenciaUniversitaria;
+	
 	private Set equipoComputosForIdUsuarioAsignado = new HashSet(0);
 	private Set equipoComputosForIdUsuarioResponsable = new HashSet(0);
 	private Set menuRols = new HashSet(0);
@@ -214,5 +215,7 @@ public class Usuario implements java.io.Serializable {
 				+ indVigenciaUsuario + ", dependenciaUniversitaria="
 				+ dependenciaUniversitaria + "]";
 	}
+
+	
 
 }

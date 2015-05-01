@@ -5,6 +5,7 @@ package unit.repositorio;
  * spring con junit y el transaction manager
  * de spring
  */
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -18,5 +19,14 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @TestExecutionListeners({TransactionalTestExecutionListener.class})
 @TransactionConfiguration(transactionManager = "transactionManager")
 public class AbstractDaoTest extends AbstractJUnit4SpringContextTests  {
+	/**
+	 * Metodo vacio, gradle se queja si no 
+	 * tiene runner
+	 */
+	
+	@Test
+	public void abstractTest(){
+		
+	}
 
 }
