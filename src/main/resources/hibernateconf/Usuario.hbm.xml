@@ -17,10 +17,10 @@
         <property name="apMaterno" type="java.lang.String">
             <column name="ap_materno" length="45" />
         </property>
-        <property name="fechaCreacion" type="java.sql.Timestamp">
+        <property name="fechaCreacion"  update="false" insert="false" generated="insert" type="timestamp" >
             <column name="fecha_creacion" length="19" not-null="true" />
         </property>
-        <property name="fechaActualizacion" update="false" insert="false" generated="always"  type="java.sql.Timestamp">
+        <property name="fechaActualizacion" generated="always"  type="timestamp">
             <column name="fecha_actualizacion" length="19" />
         </property>
         <property name="correoEletronico" type="java.lang.String">

@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,90 +44,83 @@ public class UsuarioDao {
     }
 
     /**
-     * JPQL Query - findAllUsuarios
-     * @return
+     * Obtiene toda la lista de usuarios
+     * @return lista de usuarios
      */
+	@SuppressWarnings("unchecked")
     public List<Usuario> buscarTodos() {
-    	try {
-			String queryString = "from Usuario";
+    		String queryString = "from Usuario";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			return  queryObject.list();
-		} catch (RuntimeException re) {
-			log.error("find all failed", re);
-			throw re;
-		}
+		
     }
 
     /**
-     * JPQL Query - findAllUsuarios
-     * @param startResult 
-     * @param maxRows 
-     * @return
+     * Realiza la busqueda de usuarios con paginacion
+     * @param startResult numero de pagina
+     * @param maxRows  tamanio de pagina
+     * @return lista de usuarios
      */
-    public List<Usuario> buscarTodos(int startResult, int maxRows) {
-    	
-    	try {
-			String queryString = "from Usuario";
-			Query queryObject = getCurrentSession().createQuery(queryString);
-			return  queryObject.list();
-		} catch (RuntimeException re) {
-			log.error("find all failed", re);
-			throw re;
-		}
+    @SuppressWarnings("unchecked")
+	public List<Usuario> buscarTodos(int startResult, int maxRows) {
+		String queryString = "from Usuario";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		queryObject.setFirstResult(startResult);
+		queryObject.setMaxResults(maxRows);
+		return  queryObject.list();
     }
 
     /**
-     * @param email 
-     * @return
+     * Realiza la busqueda de un usuario por correo electronico
+     * @param email correo electronico
+     * @return Usuario correspondiente al correo electronico
      */
     public Usuario buscarUsuarioPorEmail(String email) {
-        // TODO implement here
-        return null;
+    	String queryString = "from Usuario u WHERE u.correoEletronico = :email ";
+		Query queryObject = getCurrentSession().createQuery(queryString)
+				.setString("email",email);
+		return  (Usuario)queryObject.uniqueResult();
+        
     }
 
     /**
-     * @param usuario 
-     * @return
+     * Guarda un usuario 
+     * @param usuario a guardar
+     * @return usuario persistido
      */
     public Usuario insertarUsuario(Usuario usuario) {
-    	log.debug("saving Usuario instance");
-    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    	Date date=null;
-		try {
-			date = dateFormat.parse("23/09/2007");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	long time = date.getTime();
-    	Timestamp tiempo=new Timestamp(time);
-    	usuario.setFechaCreacion(tiempo);
-		try {
-			getCurrentSession().save(usuario);
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save failed", re);
-			throw re;
-		}
+    	log.debug("Guardando instancia  Usuario ");
+    		getCurrentSession().save(usuario);
+		log.debug("Usuario Guardado exitosamente");
+		
 		return usuario;
     }
 
     /**
-     * @param usuario 
-     * @return
+     * Actualiza la informacion de un usuario
+     * @param usuario a actualizar
+     * @return usuario actualizado
      */
-    public Usuario actualizarUsuario(Usuario usuario) {
-        // TODO implement here
-        return null;
+    public boolean actualizarUsuario(Usuario usuario) {
+    	getCurrentSession().update(usuario);
+        return true;
     }
 
     /**
-     * @param usuario 
-     * @return
+     * Borra la informacion de un usuario
+     * @param usuario a borrar
+     * @return boolean resultado de la eliminacion del usuario
      */
     public boolean borrarUsuario(Usuario usuario) {
-        // TODO implement here
-        return false;
+    	boolean resultado=false;
+    	try{
+    	getCurrentSession().delete(usuario);
+    	resultado=true;
+    	}
+    	catch(HibernateException hbex){
+    		log.warn(hbex.getMessage());
+    	}
+        return resultado;
     }
 
     /**
@@ -142,9 +136,12 @@ public class UsuarioDao {
      * @param idUsuario 
      * @return
      */
-    public List<Usuario> buscarEquipoResponsable(int idUsuario) {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<Usuario> buscarEquipoResponsable(int idUsuario) {
+    	String queryString = "from Usuario u WHERE u.idUsuario = :idUsuario ";
+		Query queryObject = getCurrentSession().createQuery(queryString)
+				.setInteger("idUsuario",idUsuario);
+        return queryObject.list();
     }
 
 }

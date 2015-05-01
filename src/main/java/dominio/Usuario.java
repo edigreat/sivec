@@ -52,11 +52,6 @@ public class Usuario implements java.io.Serializable {
 		this.dependenciaUniversitaria = dependenciaUniversitaria;
 	}
 	
-	@PrePersist
-    public void setLastUpdate() {
-        //o.setLastUpdate( new Date() );
-		log.warn("ejecutando lastUpdate......");
-    }
 	
 	/** full constructor */
 	public Usuario(String nombre, String apPaterno, String apMaterno,
