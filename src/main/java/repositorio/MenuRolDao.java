@@ -1,14 +1,33 @@
 package repositorio;
 
 import java.util.*;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import dominio.*;
 
 /**
  * DAO to manage Menurol entities.
  * @author Heriberto Galdamez
  */
+@Repository
 public class MenuRolDao {
 
+	private static final Logger log = Logger.getLogger(MenuRolDao.class);
+
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	
+	private Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
+	}
+	
     /**
      * DAO to manage Menurol entities.
      */
@@ -16,33 +35,42 @@ public class MenuRolDao {
     }
 
     /**
-     * JPQL Query - findAllMenurols
-     * @return
+     * Buscar todos los roles de usuario
+     * @return lista de roles
      */
-    public List<MenuRol> buscarTodos() {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<MenuRol> buscarTodos() {
+    	String queryString = "from MenuRol";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		return  queryObject.list();
     }
 
     /**
-     * JPQL Query - findAllMenurols
-     * @param startResult 
-     * @param maxRows 
+     * Buscar todos los roles de usuario paginado
+     * @param startResult numer de pagina
+     * @param maxRows tamanio pagina
      * @return
      */
-    public List<MenuRol> buscarTodos(int startResult, int maxRows) {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<MenuRol> buscarTodos(int startResult, int maxRows) {
+    	String queryString = "from MenuRol";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		queryObject.setFirstResult(startResult);
+		queryObject.setMaxResults(maxRows);
+		return  queryObject.list();
     }
 
     /**
-     * JPQL Query - findMenurolByPrimaryKey
+     * Busca los roles asignados a un usuario
      * @param usuario 
-     * @return
+     * @return lista de roles asignados
      */
-    public List<MenuRol> buscarMenuRolPorUsuario(Usuario usuario) {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<MenuRol> buscarMenuRolPorUsuario(Usuario usuario) {
+    	String queryString = "from MenuRol m join fetch m.usuarios u  where u.idUsuario=:id_usuario ";
+		Query queryObject = getCurrentSession().createQuery(queryString)
+				.setInteger("id_usuario",usuario.getIdUsuario());
+        return queryObject.list();
     }
 
 }

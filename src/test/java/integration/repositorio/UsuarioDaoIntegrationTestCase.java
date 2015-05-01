@@ -64,6 +64,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	public void buscarUsuarioPorEmaiTestl(){
 		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1");
 		assertThat(usuario, is(notNullValue()));
+		log.info(usuario);
 		
 	}
 	
@@ -77,12 +78,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		log.info("Recuperado : " + usuario);
 		usuario.setApMaterno(apMaterno);
 		usuario.setApPaterno(apPaterno);
-		/* try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+	
 		boolean res = usuarioDao.actualizarUsuario(usuario);
 		assertThat(res, is (true));
 		Usuario usuarioActualizado = usuarioDao.buscarUsuarioPorEmail("miccreo1");

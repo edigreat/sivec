@@ -11,6 +11,10 @@ public class MenuRol implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 896500613239623605L;
 	private Integer idMenuRol;
 	private String refRole;
 	private String descripcionRol;
@@ -78,6 +82,12 @@ public class MenuRol implements java.io.Serializable {
 
 	public void setMenuItems(Set menuItems) {
 		this.menuItems = menuItems;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuRol [idMenuRol=" + idMenuRol + ", refRole=" + refRole
+				+ ", descripcionRol=" + descripcionRol + "]";
 	}
 
 }

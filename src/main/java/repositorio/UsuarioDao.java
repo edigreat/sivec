@@ -23,7 +23,6 @@ import dominio.*;
  * @author Heriberto Galdamez
  */
 @Repository
-@Transactional
 public class UsuarioDao {
 
 	private static final Logger log = Logger.getLogger(UsuarioDao.class);

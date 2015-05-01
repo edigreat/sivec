@@ -31,7 +31,7 @@ public class Usuario implements java.io.Serializable {
 	
 	private Set equipoComputosForIdUsuarioAsignado = new HashSet(0);
 	private Set equipoComputosForIdUsuarioResponsable = new HashSet(0);
-	private Set menuRols = new HashSet(0);
+	private Set<MenuRol> menuRols = new HashSet<MenuRol>(0);
 	private Set reparacionEquiposForIdUsuarioAsignado = new HashSet(0);
 	private Set reparacionEquiposForIdUsuarioResponsable = new HashSet(0);
 
@@ -179,11 +179,11 @@ public class Usuario implements java.io.Serializable {
 		this.equipoComputosForIdUsuarioResponsable = equipoComputosForIdUsuarioResponsable;
 	}
 
-	public Set getMenuRols() {
+	public Set<MenuRol> getMenuRols() {
 		return this.menuRols;
 	}
 
-	public void setMenuRols(Set menuRols) {
+	public void setMenuRols(Set<MenuRol> menuRols) {
 		this.menuRols = menuRols;
 	}
 
@@ -207,13 +207,19 @@ public class Usuario implements java.io.Serializable {
 
 	@Override
 	public String toString() {
+		String menuRolsString="";
+		if(!menuRols.isEmpty()){
+			for(MenuRol menuRol:menuRols){
+				menuRolsString +=", "+menuRol;
+			}
+		}
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre
 				+ ", apPaterno=" + apPaterno + ", apMaterno=" + apMaterno
 				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
 				+ fechaActualizacion + ", correoEletronico=" + correoEletronico
 				+ ", password=" + password + ", indVigenciaUsuario="
 				+ indVigenciaUsuario + ", dependenciaUniversitaria="
-				+ dependenciaUniversitaria + "]";
+				+ dependenciaUniversitaria +" ("+menuRolsString+") ] ";
 	}
 
 	
