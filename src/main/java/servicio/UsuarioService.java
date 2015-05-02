@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dominio.Usuario;
 import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearUsuario;
+import repositorio.DependenciaUniDao;
 import repositorio.EquipoComputoDao;
 import repositorio.MenuRolDao;
 import repositorio.ReparacionEquipoDao;
@@ -34,6 +35,12 @@ public class UsuarioService {
     public UsuarioService() {
     }
 
+    
+    /**
+     * DAO inyectado por Spring que maneja las entidades DependenciaUniversitaria 
+     */
+    @Autowired
+    private DependenciaUniDao dependenciaUniDao;
     /**
      * DAO inyectado por Spring que maneja las entidades Equipocomputo 
      */
@@ -65,8 +72,9 @@ public class UsuarioService {
      * @return
      */
     public MngAdminUsuario buscarTodos(int startResult, int maxRows) {
-        // TODO implement here
-        return null;
+        MngAdminUsuario mngAdminUsuario = new MngAdminUsuario(); 
+        mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(startResult, maxRows));
+        return mngAdminUsuario;
     }
 
     /**
@@ -74,8 +82,8 @@ public class UsuarioService {
      * @return
      */
     public MngCrearUsuario insertarUsuario(MngCrearUsuario mngCrearUsuario) {
-        // TODO implement here
-        return null;
+    	mngCrearUsuario.setUsuario(usuarioDao.insertarUsuario(mngCrearUsuario.getUsuario()));
+        return mngCrearUsuario;
     }
 
     /**
@@ -83,17 +91,16 @@ public class UsuarioService {
      * @return
      */
     public Usuario buscarUsuarioPorEmail(String email) {
-        // TODO implement here
-        return null;
+        return usuarioDao.buscarUsuarioPorEmail(email);
     }
 
     /**
      * @param usuario 
      * @return
      */
-    public Usuario actualizarUsuario(Usuario usuario) {
-        // TODO implement here
-        return null;
+    public boolean actualizarUsuario(Usuario usuario) {
+    	boolean res= usuarioDao.actualizarUsuario(usuario);
+        return res;
     }
 
     /**
@@ -101,8 +108,7 @@ public class UsuarioService {
      * @return
      */
     public boolean borrarUsuario(Usuario usuario) {
-        // TODO implement here
-        return false;
+        return  usuarioDao.borrarUsuario(usuario);
     }
 
     /**
@@ -110,8 +116,7 @@ public class UsuarioService {
      * @return
      */
     public List<Usuario> buscarEquipoPorResponable(int idUsuario) {
-        // TODO implement here
-        return null;
+        return usuarioDao.buscarEquipoResponsable(idUsuario);
     }
 
     /**
@@ -119,8 +124,9 @@ public class UsuarioService {
      * @return
      */
     public MngCrearUsuario iniciarCrearUsuario(MngCrearUsuario mngCrearUsuario) {
-        // TODO implement here
-        return null;
+    	mngCrearUsuario.setDependenciaUniList(dependenciaUniDao.buscarTodos());
+    	mngCrearUsuario.setMenuRol(menuRolDao.buscarTodos());
+        return mngCrearUsuario;
     }
 
     /**

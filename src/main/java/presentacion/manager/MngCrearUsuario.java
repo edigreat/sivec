@@ -32,4 +32,29 @@ public class MngCrearUsuario {
      */
     private Usuario usuario;
 
+	public List<DependenciaUniversitaria> getDependenciaUniList() {
+		return dependenciaUniList;
+	}
+
+	public void setDependenciaUniList(
+			List<DependenciaUniversitaria> dependenciaUniList) {
+		this.dependenciaUniList = dependenciaUniList;
+	}
+
+	public List<MenuRol> getMenuRol() {
+		return menuRol;
+	}
+
+	public void setMenuRol(List<MenuRol> menuRol) {
+		this.menuRol = menuRol;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }
