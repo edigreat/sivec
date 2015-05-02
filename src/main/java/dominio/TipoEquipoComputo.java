@@ -4,13 +4,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TipoEquipoComputo entity. @author MyEclipse Persistence Tools
+ * Clase que representa el tipo de equipo de computo
  */
 
 public class TipoEquipoComputo implements java.io.Serializable {
 
-	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4391616175607161711L;
 	private Integer idTipoEquipoComputo;
 	private String etiquetaTipoEquipo;
 	private String descTipoEquipo;

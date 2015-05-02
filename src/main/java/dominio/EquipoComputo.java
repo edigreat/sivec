@@ -10,8 +10,11 @@ import java.util.Set;
 
 public class EquipoComputo implements java.io.Serializable {
 
-	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7560296878779333876L;
 	private Integer idEquipoComputo;
 	private TipoEquipoComputo tipoEquipoComputo;
 	private Usuario usuarioByIdUsuarioResponsable;
@@ -162,6 +165,20 @@ public class EquipoComputo implements java.io.Serializable {
 
 	public void setReparacionEquipos(Set reparacionEquipos) {
 		this.reparacionEquipos = reparacionEquipos;
+	}
+
+	@Override
+	public String toString() {
+		return "EquipoComputo [idEquipoComputo=" + idEquipoComputo
+				+ ", tipoEquipoComputo=" + tipoEquipoComputo
+				+ ", usuarioByIdUsuarioResponsable="
+				+ usuarioByIdUsuarioResponsable
+				+ ", usuarioByIdUsuarioAsignado=" + usuarioByIdUsuarioAsignado
+				+ ", marcaComputo=" + marcaComputo + ", modeloComputo="
+				+ modeloComputo + ", ubicacion=" + ubicacion
+				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
+				+ fechaActualizacion + ", indVigenciaEquipo="
+				+ indVigenciaEquipo + ", estadoEquipo=" + estadoEquipo + "]";
 	}
 
 }

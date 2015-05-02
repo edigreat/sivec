@@ -77,13 +77,69 @@ CREATE MEMORY TABLE IF NOT EXISTS MenuItemRol (
   desc_caracteristica VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_caractaristica_equipo));   
  
+  CREATE MEMORY TABLE IF NOT EXISTS TipoEquipoComputo (
+  id_tipoEquipoComputo INT NOT NULL AUTO_INCREMENT,
+  etiqueta_tipoEquipo VARCHAR(45) NOT NULL,
+  desc_tipoEquipo VARCHAR(45) NULL,
+  PRIMARY KEY (id_tipoEquipoComputo));
 
-INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(1,'RAM','Memoria Ram');
-INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(2,'CPU','CPU');
-INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(3,'Monitor','Monitor');
-INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(4,'HD','Disco Duro');
-  
+  CREATE MEMORY TABLE IF NOT EXISTS TipoCaracteristicaEquipo (
+  id_caracterisrica_equipo INT NOT NULL,
+  id_tipoEquipoComputo INT NOT NULL,
+  PRIMARY KEY (id_caracterisrica_equipo, id_tipoEquipoComputo),
+  CONSTRAINT fk_TipoCaracteristicaEquipo_CaracteristicaEquipo1
+    FOREIGN KEY (id_caracterisrica_equipo)
+    REFERENCES CaracteristicaEquipo (id_caractaristica_equipo)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_TipoCaracteristicaEquipo_TipoEquipoComputo1
+    FOREIGN KEY (id_tipoEquipoComputo)
+    REFERENCES TipoEquipoComputo (id_tipoEquipoComputo)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION); 
     
+CREATE MEMORY TABLE IF NOT EXISTS EquipoComputo (
+  id_equipoComputo INT NOT NULL AUTO_INCREMENT,
+  id_usuarioResponsable INT NOT NULL,
+  id_tipoEquipo INT NOT NULL,
+  id_usuarioAsignado INT NULL,
+  marca_computo VARCHAR(45) NOT NULL,
+  modelo_computo VARCHAR(45) NOT NULL,
+  ubicacion VARCHAR(45) NULL,
+  fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  fecha_actualizacion DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  ind_vigencia_equipo INT NOT NULL DEFAULT 0,
+  estado_equipo VARCHAR(45) NOT NULL DEFAULT 'REGISTRADO',
+  PRIMARY KEY (id_equipoComputo),
+  CONSTRAINT fk_EquipoComputo_TipoEquipoComputo1
+    FOREIGN KEY (id_tipoEquipo)
+    REFERENCES TipoEquipoComputo (id_tipoEquipoComputo)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_EquipoComputo_Usuario1
+    FOREIGN KEY (id_usuarioResponsable)
+    REFERENCES Usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_EquipoComputo_Usuario2
+    FOREIGN KEY (id_usuarioAsignado)
+    REFERENCES Usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+INSERT INTO TipoEquipoComputo(id_tipoEquipoComputo,etiqueta_tipoEquipo,desc_tipoEquipo) values(1,'CPU','Computadora');
+INSERT INTO TipoEquipoComputo(id_tipoEquipoComputo,etiqueta_tipoEquipo,desc_tipoEquipo) values(2,'Monitor','Monitor');
+    
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(1,'RAM','Memoria Ram');
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(2,'SO','Sistema operativo');
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(3,'Pulg','Pulgadas');
+INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(4,'LCD','Disco Duro');
+  
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(1,1);
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(2,1);
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(3,2);
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(4,2);
+
 INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(1,null,'USUARIOS','etiqueta','memu');
 INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(2,null,'EQUIPOS','etiqueta','memu');
 INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(3,null,'REPORTES','etiqueta','memu');
@@ -130,3 +186,14 @@ INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,4);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,5);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,6);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,7);
+
+INSERT INTO EquipoComputo 
+(id_equipoComputo,id_usuarioResponsable,id_tipoEquipo,id_usuarioAsignado,marca_computo,modelo_computo,ubicacion,fecha_creacion,fecha_actualizacion,ind_vigencia_equipo,estado_equipo)
+VALUES
+(1,1,1,2,'marca','modelo','ubicacion',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'REGISTRADO');
+
+
+INSERT INTO EquipoComputo 
+(id_equipoComputo,id_usuarioResponsable,id_tipoEquipo,id_usuarioAsignado,marca_computo,modelo_computo,ubicacion,fecha_creacion,fecha_actualizacion,ind_vigencia_equipo,estado_equipo)
+VALUES
+(2,1,1,2,'marca2','modelo2','ubicacion2',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'ASIGNADO');

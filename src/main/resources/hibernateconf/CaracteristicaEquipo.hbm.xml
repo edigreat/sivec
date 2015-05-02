@@ -14,13 +14,13 @@
         <property name="descCaracteristica" type="java.lang.String">
             <column name="desc_caracteristica" length="45" not-null="true" />
         </property>
-        <!-- set name="tipoEquipoComputos" inverse="true" table="TipoCaracteristicaEquipo" catalog="siecdb">
+        <set name="tipoEquipoComputos" inverse="true" table="TipoCaracteristicaEquipo" >
             <key>
                 <column name="id_caracterisrica_equipo" not-null="true" />
             </key>
             <many-to-many entity-name="dominio.TipoEquipoComputo">
                 <column name="id_tipoEquipoComputo" not-null="true" />
             </many-to-many>
-        </set-->
+        </set>
     </class>
 </hibernate-mapping>
