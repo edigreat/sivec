@@ -1,14 +1,30 @@
 package repositorio;
 
 import java.util.*;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import dominio.*;
 
 /**
  * DAO to manage Reparacionequipo entities.
  * @author Heriberto Galdamez
  */
+@Repository
 public class ReparacionEquipoDao {
 
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	
+	private Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
+	}
+	
     /**
      * DAO to manage Reparacionequipo entities.
      */
@@ -18,9 +34,12 @@ public class ReparacionEquipoDao {
     /**
      * @return
      */
-    public List<ReparacionEquipo> buscarTodos() {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<ReparacionEquipo> buscarTodos() {
+    	String queryString = "from ReparacionEquipo";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		return  queryObject.list();
+    
     }
 
     /**
@@ -28,9 +47,13 @@ public class ReparacionEquipoDao {
      * @param maxRows 
      * @return
      */
-    public List<ReparacionEquipo> buscarTodos(int startResult, int maxRows) {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<ReparacionEquipo> buscarTodos(int startResult, int maxRows) {
+    	String queryString = "from ReparacionEquipo";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		queryObject.setFirstResult(startResult);
+		queryObject.setMaxResults(maxRows);
+		return  queryObject.list();
     }
 
     /**
@@ -38,17 +61,20 @@ public class ReparacionEquipoDao {
      * @return
      */
     public ReparacionEquipo insertarReparacionEquipo(ReparacionEquipo repacionEquipo) {
-        // TODO implement here
-        return null;
+    	getCurrentSession().save(repacionEquipo);
+        return repacionEquipo;
     }
 
     /**
      * @param idEquipo 
      * @return
      */
-    public List<ReparacionEquipo> buscarReparacionPorEquipo(int idEquipo) {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<ReparacionEquipo> buscarReparacionPorEquipo(int idEquipo) {
+    	String queryString = "from ReparacionEquipo r WHERE r.equipoComputo = :idEquipo ";
+		Query queryObject = getCurrentSession().createQuery(queryString)
+				.setInteger("idEquipo",idEquipo);
+        return queryObject.list();
     }
 
 }

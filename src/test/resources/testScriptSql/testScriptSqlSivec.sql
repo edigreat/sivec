@@ -126,6 +126,33 @@ CREATE MEMORY TABLE IF NOT EXISTS EquipoComputo (
     REFERENCES Usuario (id_usuario)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+    
+CREATE  MEMORY TABLE IF NOT EXISTS ReparacionEquipo (
+  id_reparacionEquipo INT NOT NULL AUTO_INCREMENT,
+  id_equipoComputo INT NOT NULL,
+  id_usuarioAsignado INT NOT NULL,
+  id_usuarioResponsable INT NOT NULL,
+  desc_reparacion VARCHAR(45) NOT NULL,
+  desc_motivo VARCHAR(45) NOT NULL,
+  fecha_creacion VARCHAR(45) NOT NULL,
+  fecha_actualizacion VARCHAR(45) NULL,
+  ind_vigencia_reparacion INT NULL DEFAULT 0,
+  PRIMARY KEY (id_reparacionEquipo),
+  CONSTRAINT fk_ReparacionEquipo_EquipoComputo1
+    FOREIGN KEY (id_equipoComputo)
+    REFERENCES EquipoComputo (id_equipoComputo)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_ReparacionEquipo_Usuario1
+    FOREIGN KEY (id_usuarioAsignado)
+    REFERENCES Usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_ReparacionEquipo_Usuario2
+    FOREIGN KEY (id_usuarioResponsable)
+    REFERENCES Usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 INSERT INTO TipoEquipoComputo(id_tipoEquipoComputo,etiqueta_tipoEquipo,desc_tipoEquipo) values(1,'CPU','Computadora');
 INSERT INTO TipoEquipoComputo(id_tipoEquipoComputo,etiqueta_tipoEquipo,desc_tipoEquipo) values(2,'Monitor','Monitor');
@@ -197,3 +224,18 @@ INSERT INTO EquipoComputo
 (id_equipoComputo,id_usuarioResponsable,id_tipoEquipo,id_usuarioAsignado,marca_computo,modelo_computo,ubicacion,fecha_creacion,fecha_actualizacion,ind_vigencia_equipo,estado_equipo)
 VALUES
 (2,1,1,2,'marca2','modelo2','ubicacion2',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'ASIGNADO');
+
+
+
+
+
+INSERT INTO ReparacionEquipo 
+(id_reparacionEquipo,id_equipoComputo,id_usuarioAsignado,id_usuarioResponsable,desc_reparacion,desc_motivo,fecha_creacion,fecha_actualizacion,ind_vigencia_reparacion)
+values
+(1,1,1,2,'cambio','no prende',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
+
+INSERT INTO ReparacionEquipo 
+(id_reparacionEquipo,id_equipoComputo,id_usuarioAsignado,id_usuarioResponsable,desc_reparacion,desc_motivo,fecha_creacion,fecha_actualizacion,ind_vigencia_reparacion)
+values
+(2,2,3,4,'actualizacion de memoria ram','maquina muy lenta',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
+

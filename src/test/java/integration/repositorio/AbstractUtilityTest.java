@@ -1,11 +1,10 @@
 package integration.repositorio;
 /**
- * Clase base para realizar los test de los daos
+ * Clase base para realizar los casos de prueba
  * Implementa lo necesario para la integracion de 
  * spring con junit y el transaction manager
  * de spring
  */
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,10 +20,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @TransactionConfiguration(transactionManager = "transactionManager")
 public class AbstractUtilityTest extends AbstractJUnit4SpringContextTests  {
 	/**
-	 * Metodo vacio, gradle se queja si no 
-	 * tiene runner
+	 * Caso de prueba vacio,
+	 * para probar el contexto de spring
 	 */
-	//@Ignore(value="Esta clase es base")
 	@Test
 	public void abstractTest(){
 		

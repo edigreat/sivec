@@ -47,7 +47,7 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	
 	
-	/*
+	
 	@Test
 	public void buscarTodosTest(){
 		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodos();
@@ -85,7 +85,7 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 		assertThat(equipoComputoBuscado, is(notNullValue()));
 		
 	}
-	*/
+	
 	@Test
 	public void actualizarEquipoComputoTest(){
 		EquipoComputo equipoComputo = (EquipoComputo)getCurrentSession().get(EquipoComputo.class,1);  ;
@@ -102,6 +102,16 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 		EquipoComputo equipoComputo = (EquipoComputo)getCurrentSession().get(EquipoComputo.class,1);  ;
 		boolean resultado = equipoComputoDao.borrarEquipoComputo(equipoComputo);
 		assertThat(resultado, is(true));
+		
+	}
+	@Test
+	public void buscarTodosConReparacionTest(){
+		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodosConReparacion(0,10);
+		assertThat(equipoComputoList, is(notNullValue()));
+		assertThat(equipoComputoList.isEmpty(), is(not(true)));
+		for(EquipoComputo equipoComputo: equipoComputoList){
+			log.debug(equipoComputo);
+		}
 		
 	}
 }

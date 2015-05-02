@@ -38,7 +38,8 @@ public class EquipoComputoDao {
     /**
      * 
      */
-    public List<EquipoComputo> buscarTodos() {
+    @SuppressWarnings("unchecked")
+	public List<EquipoComputo> buscarTodos() {
     	String queryString = "from EquipoComputo";
 		Query queryObject = getCurrentSession().createQuery(queryString);
 		return  queryObject.list();
@@ -49,7 +50,8 @@ public class EquipoComputoDao {
      * @param maxRows 
      * @return
      */
-    public List<EquipoComputo> buscarTodos(int startResult, int maxRows) {
+    @SuppressWarnings("unchecked")
+	public List<EquipoComputo> buscarTodos(int startResult, int maxRows) {
     	String queryString = "from EquipoComputo";
 		Query queryObject = getCurrentSession().createQuery(queryString);
 		queryObject.setFirstResult(startResult);
@@ -107,9 +109,13 @@ public class EquipoComputoDao {
      * @param maxRows 
      * @return
      */
-    public List<EquipoComputo> buscarTodosConReparacion(int startResult, int maxRows) {
-        // TODO implement here
-        return null;
+    @SuppressWarnings("unchecked")
+	public List<EquipoComputo> buscarTodosConReparacion(int startResult, int maxRows) {
+    	String queryString = "from EquipoComputo e  join fetch e.reparacionEquipos r where r.equipoComputo=e.idEquipoComputo";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		queryObject.setFirstResult(startResult);
+		queryObject.setMaxResults(maxRows);
+		return  queryObject.list();
     }
 
 }

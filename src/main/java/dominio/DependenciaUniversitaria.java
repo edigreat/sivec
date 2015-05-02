@@ -1,7 +1,13 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: DependenciaUniversitaria.java
+ * Autor: heriberto
+ */
 package dominio;
 
 /**
- * DependenciaUniversitaria entity. @author MyEclipse Persistence Tools
+ * Entidad DependenciaUniversitaria. 
  */
 
 public class DependenciaUniversitaria implements java.io.Serializable {

@@ -53,6 +53,7 @@ dependencies{
     compile 'org.hibernate:hibernate-entitymanager:'+HIBERNATE_VERSION
     compile ('org.hibernate:hibernate-validator:4.2.0.Final'){
     	exclude group: 'org.slf4j'
+    	exclude group: 'javax.validation'
     }
     compile 'javax.validation:validation-api:1.1.0.Final'
     
@@ -90,6 +91,12 @@ dependencies{
 
 }
 
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }               
+}
 
 eclipse {
   classpath {

@@ -1,9 +1,16 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: TipoEquipoComputo.java
+ * Autor: heriberto
+ */
 package dominio;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Entidad TipoEquipoComputo
  * Clase que representa el tipo de equipo de computo
  */
 

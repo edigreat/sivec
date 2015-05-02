@@ -32,6 +32,9 @@ import repositorio.UsuarioDao;
 @Service("userDetailsService") 
 public class SeguridadService implements UserDetailsService  {
 
+	/**
+	 * DAO inyectado por Spring que maneja las entidades usuario
+	 */
 	@Autowired
 	UsuarioDao usuarioDao;
 	

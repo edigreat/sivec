@@ -1,16 +1,26 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: CaracteristicaEquipo.java
+ * Autor: heriberto
+ */
 package dominio;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * CaracteristicaEquipo entity. @author MyEclipse Persistence Tools
+ * Entidad CaracteristicaEquipo 
  */
 
 public class CaracteristicaEquipo implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -256393507403219099L;
 	private Integer idCaractaristicaEquipo;
 	private String etiquetaCaracteristica;
 	private String descCaracteristica;

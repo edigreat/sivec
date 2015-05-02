@@ -1,9 +1,16 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: MenuRol.java
+ * Autor: heriberto
+ */
 package dominio;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Entidad MenuRol
  * Clase que representa los roles asignados a los 
  * usuarios
  * 

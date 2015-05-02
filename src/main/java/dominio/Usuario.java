@@ -1,22 +1,26 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: Usuario.java
+ * Autor: heriberto
+ */
 package dominio;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.PrePersist;
-
-import org.apache.log4j.Logger;
-
+/**
+ * Entidad Usuario
+ * 
+ */
 public class Usuario implements java.io.Serializable {
 
 
 	/**
-	 * 
+	 * UID a utilizar
 	 */
 	private static final long serialVersionUID = -7034203322585204901L;
 	
-	private static final Logger log = Logger.getLogger(Usuario.class);
 
 	private Integer idUsuario;
 	private String nombre;
@@ -29,19 +33,18 @@ public class Usuario implements java.io.Serializable {
 	private Integer indVigenciaUsuario;
 	private String dependenciaUniversitaria;
 	
-	private Set equipoComputosForIdUsuarioAsignado = new HashSet(0);
-	private Set equipoComputosForIdUsuarioResponsable = new HashSet(0);
+	private Set<EquipoComputo> equipoComputosForIdUsuarioAsignado = new HashSet<EquipoComputo>(0);
+	private Set<EquipoComputo> equipoComputosForIdUsuarioResponsable = new HashSet<EquipoComputo>(0);
 	private Set<MenuRol> menuRols = new HashSet<MenuRol>(0);
-	private Set reparacionEquiposForIdUsuarioAsignado = new HashSet(0);
-	private Set reparacionEquiposForIdUsuarioResponsable = new HashSet(0);
+	private Set<ReparacionEquipo> reparacionEquiposForIdUsuarioAsignado = new HashSet<ReparacionEquipo> (0);
+	private Set<ReparacionEquipo>  reparacionEquiposForIdUsuarioResponsable = new HashSet<ReparacionEquipo> (0);
 
-	// Constructors
-
-	/** default constructor */
+	
+	/**constructor por omision */
 	public Usuario() {
 	}
 
-	/** minimal constructor */
+	/** constructor minimo */
 	public Usuario(String nombre, String apPaterno,
 			String correoEletronico, String password,
 			Integer indVigenciaUsuario, String dependenciaUniversitaria) {
@@ -54,33 +57,7 @@ public class Usuario implements java.io.Serializable {
 	}
 	
 	
-	/** full constructor */
-	public Usuario(String nombre, String apPaterno, String apMaterno,
-			Timestamp fechaCreacion, Timestamp fechaActualizacion,
-			String correoEletronico, String password,
-			Integer indVigenciaUsuario, String dependenciaUniversitaria,
-			Set equipoComputosForIdUsuarioAsignado,
-			Set equipoComputosForIdUsuarioResponsable, Set menuRols,
-			Set reparacionEquiposForIdUsuarioAsignado,
-			Set reparacionEquiposForIdUsuarioResponsable) {
-		this.nombre = nombre;
-		this.apPaterno = apPaterno;
-		this.apMaterno = apMaterno;
-		this.fechaCreacion = fechaCreacion;
-		this.fechaActualizacion = fechaActualizacion;
-		this.correoEletronico = correoEletronico;
-		this.password = password;
-		this.indVigenciaUsuario = indVigenciaUsuario;
-		this.dependenciaUniversitaria = dependenciaUniversitaria;
-		this.equipoComputosForIdUsuarioAsignado = equipoComputosForIdUsuarioAsignado;
-		this.equipoComputosForIdUsuarioResponsable = equipoComputosForIdUsuarioResponsable;
-		this.menuRols = menuRols;
-		this.reparacionEquiposForIdUsuarioAsignado = reparacionEquiposForIdUsuarioAsignado;
-		this.reparacionEquiposForIdUsuarioResponsable = reparacionEquiposForIdUsuarioResponsable;
-	}
-
-	// Property accessors
-
+	
 	public Integer getIdUsuario() {
 		return this.idUsuario;
 	}
@@ -161,21 +138,21 @@ public class Usuario implements java.io.Serializable {
 		this.dependenciaUniversitaria = dependenciaUniversitaria;
 	}
 
-	public Set getEquipoComputosForIdUsuarioAsignado() {
+	public Set<EquipoComputo> getEquipoComputosForIdUsuarioAsignado() {
 		return this.equipoComputosForIdUsuarioAsignado;
 	}
 
 	public void setEquipoComputosForIdUsuarioAsignado(
-			Set equipoComputosForIdUsuarioAsignado) {
+			Set<EquipoComputo> equipoComputosForIdUsuarioAsignado) {
 		this.equipoComputosForIdUsuarioAsignado = equipoComputosForIdUsuarioAsignado;
 	}
 
-	public Set getEquipoComputosForIdUsuarioResponsable() {
+	public Set<EquipoComputo> getEquipoComputosForIdUsuarioResponsable() {
 		return this.equipoComputosForIdUsuarioResponsable;
 	}
 
 	public void setEquipoComputosForIdUsuarioResponsable(
-			Set equipoComputosForIdUsuarioResponsable) {
+			Set<EquipoComputo> equipoComputosForIdUsuarioResponsable) {
 		this.equipoComputosForIdUsuarioResponsable = equipoComputosForIdUsuarioResponsable;
 	}
 
@@ -187,21 +164,21 @@ public class Usuario implements java.io.Serializable {
 		this.menuRols = menuRols;
 	}
 
-	public Set getReparacionEquiposForIdUsuarioAsignado() {
+	public Set<ReparacionEquipo>  getReparacionEquiposForIdUsuarioAsignado() {
 		return this.reparacionEquiposForIdUsuarioAsignado;
 	}
 
 	public void setReparacionEquiposForIdUsuarioAsignado(
-			Set reparacionEquiposForIdUsuarioAsignado) {
+			Set<ReparacionEquipo>  reparacionEquiposForIdUsuarioAsignado) {
 		this.reparacionEquiposForIdUsuarioAsignado = reparacionEquiposForIdUsuarioAsignado;
 	}
 
-	public Set getReparacionEquiposForIdUsuarioResponsable() {
+	public Set<ReparacionEquipo>  getReparacionEquiposForIdUsuarioResponsable() {
 		return this.reparacionEquiposForIdUsuarioResponsable;
 	}
 
 	public void setReparacionEquiposForIdUsuarioResponsable(
-			Set reparacionEquiposForIdUsuarioResponsable) {
+			Set<ReparacionEquipo>  reparacionEquiposForIdUsuarioResponsable) {
 		this.reparacionEquiposForIdUsuarioResponsable = reparacionEquiposForIdUsuarioResponsable;
 	}
 

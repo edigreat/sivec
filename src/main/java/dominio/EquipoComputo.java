@@ -1,3 +1,9 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: EquipoComputo.java
+ * Autor: heriberto
+ */
 package dominio;
 
 import java.sql.Timestamp;
@@ -5,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * EquipoComputo entity. @author MyEclipse Persistence Tools
+ * Entidad EquipoComputo 
  */
 
 public class EquipoComputo implements java.io.Serializable {

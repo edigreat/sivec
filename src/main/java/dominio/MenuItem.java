@@ -1,10 +1,17 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: MenuItem.java
+ * Autor: heriberto
+ */
 package dominio;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Clase que contiene los items de los menus
+ * Entidad MenuItem
+ * Contiene los items de los menus
  * a presentar, contiene una lista de menuRols
  * los cuales son los roles asociados a esos items
  */
@@ -13,6 +20,10 @@ public class MenuItem implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1799541529771595030L;
 	private Integer idMenuItem;
 	private MenuItem menuItem;
 	private String etiqueta;

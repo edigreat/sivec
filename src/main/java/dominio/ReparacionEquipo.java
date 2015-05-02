@@ -1,29 +1,36 @@
+/**
+ * UNAM - MCC 
+ * Proyecto Final  TOO	
+ * Nombre: ReparacionEquipo.java
+ * Autor: heriberto
+ */
 package dominio;
 
+import java.sql.Timestamp;
+
 /**
- * ReparacionEquipo entity. @author MyEclipse Persistence Tools
+ * Entidad ReparacionEquipo
+ * Clase que representa la reparacion de un equipo
  */
 
 public class ReparacionEquipo implements java.io.Serializable {
-
-	// Fields
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5248327679633298351L;
 	private Integer idReparacionEquipo;
 	private Usuario usuarioByIdUsuarioResponsable;
 	private EquipoComputo equipoComputo;
 	private Usuario usuarioByIdUsuarioAsignado;
 	private String descReparacion;
 	private String descMotivo;
-	private String fechaCreacion;
+	private Timestamp fechaCreacion;
 	private Integer indVigenciaReparacion;
 
-	// Constructors
-
-	/** default constructor */
+	
 	public ReparacionEquipo() {
 	}
 
-	/** minimal constructor */
 	public ReparacionEquipo(Usuario usuarioByIdUsuarioResponsable,
 			EquipoComputo equipoComputo, Usuario usuarioByIdUsuarioAsignado,
 			String descReparacion, String descMotivo, String fechaCreacion) {
@@ -32,10 +39,9 @@ public class ReparacionEquipo implements java.io.Serializable {
 		this.usuarioByIdUsuarioAsignado = usuarioByIdUsuarioAsignado;
 		this.descReparacion = descReparacion;
 		this.descMotivo = descMotivo;
-		this.fechaCreacion = fechaCreacion;
+		//this.fechaCreacion = fechaCreacion;
 	}
 
-	/** full constructor */
 	public ReparacionEquipo(Usuario usuarioByIdUsuarioResponsable,
 			EquipoComputo equipoComputo, Usuario usuarioByIdUsuarioAsignado,
 			String descReparacion, String descMotivo, String fechaCreacion,
@@ -45,11 +51,9 @@ public class ReparacionEquipo implements java.io.Serializable {
 		this.usuarioByIdUsuarioAsignado = usuarioByIdUsuarioAsignado;
 		this.descReparacion = descReparacion;
 		this.descMotivo = descMotivo;
-		this.fechaCreacion = fechaCreacion;
+		//this.fechaCreacion = fechaCreacion;
 		this.indVigenciaReparacion = indVigenciaReparacion;
 	}
-
-	// Property accessors
 
 	public Integer getIdReparacionEquipo() {
 		return this.idReparacionEquipo;
@@ -100,11 +104,11 @@ public class ReparacionEquipo implements java.io.Serializable {
 		this.descMotivo = descMotivo;
 	}
 
-	public String getFechaCreacion() {
+	public Timestamp getFechaCreacion() {
 		return this.fechaCreacion;
 	}
 
-	public void setFechaCreacion(String fechaCreacion) {
+	public void setFechaCreacion(Timestamp fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 
