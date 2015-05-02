@@ -36,7 +36,7 @@
             <column name="dependencia_universitaria" length="80" not-null="true" />
         </property>
         
-        <!-- 
+        
         <set name="equipoComputosForIdUsuarioAsignado" inverse="true">
             <key>
                 <column name="id_usuarioAsignado" />
@@ -48,7 +48,7 @@
                 <column name="id_usuarioResponsable" not-null="true" />
             </key>
             <one-to-many class="dominio.EquipoComputo" />
-        </set> -->
+        </set> 
         <set name="menuRols" table="UsuarioMenuRol" lazy="false" fetch="select" >
             <key>
                 <column name="id_usuario" not-null="true" />

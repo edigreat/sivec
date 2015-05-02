@@ -22,13 +22,13 @@
                 <column name="id_usuario" not-null="true" />
             </many-to-many>
         </set>
-        <!-- set name="menuItems" table="MenuItemRol" catalog="siecdb">
+        <set name="menuItems" table="MenuItemRol" >
             <key>
                 <column name="id_menuRol" not-null="true" />
             </key>
             <many-to-many entity-name="dominio.MenuItem">
                 <column name="id_menuItem" not-null="true" />
             </many-to-many>
-        </set -->
+        </set>
     </class>
 </hibernate-mapping>
