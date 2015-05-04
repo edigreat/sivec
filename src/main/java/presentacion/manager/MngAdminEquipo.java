@@ -20,4 +20,12 @@ public class MngAdminEquipo {
      */
     private List<EquipoComputo> equipoComputoList;
 
+	public List<EquipoComputo> getEquipoComputoList() {
+		return equipoComputoList;
+	}
+
+	public void setEquipoComputoList(List<EquipoComputo> equipoComputoList) {
+		this.equipoComputoList = equipoComputoList;
+	}
+
 }

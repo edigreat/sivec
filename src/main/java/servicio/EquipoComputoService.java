@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import presentacion.manager.MngAdminEquipo;
 import presentacion.manager.MngCrearEquipo;
+import presentacion.manager.MngCrearReparacion;
 import dominio.EquipoComputo;
 import repositorio.EquipoComputoDao;
 import repositorio.ReparacionEquipoDao;
@@ -51,82 +52,91 @@ public class EquipoComputoService {
     private TipoEquipoComputoDao tipoEquipoComputoDao;
 
     /**
-     * @param startResult 
-     * @param maxRows 
-     * @return
+     * Busca todos los equipos de computo registrados
+     * @param startResult pagina de inicio  
+     * @param maxRows tamanio de la pagina
+     * @return lista de equipos
      */
     public List<EquipoComputo> buscarTodos(int startResult, int maxRows) {
-        // TODO implement here
-        return null;
+        return equipoComputoDao.buscarTodos(startResult,maxRows);
     }
 
     /**
-     * @param MngCrearEquipo 
-     * @return
+     * Registra un equipo de computo
+     * @param MngCrearEquipo manager de la pantalla de registro
+     * @return manager de la pantalla de registro con el equipo registrado
      */
     public MngCrearEquipo insertarEquipo( MngCrearEquipo mngCrearEquipo) {
-        // TODO implement here
-        return null;
+    	mngCrearEquipo.setEquipoComputo(
+    			equipoComputoDao.insertarEquipoComputo(
+    					mngCrearEquipo.getEquipoComputo()
+    					)
+    			);
+        return mngCrearEquipo;
     }
 
     /**
-     * @param equipo 
-     * @return
+     * Buscar un equipo de computo por ID
+     * @param equipo a buscar
+     * @return Equipo de computo 
      */
     public EquipoComputo buscarEquipoPorID(EquipoComputo equipoComputo) {
-        // TODO implement here
-        return null;
+        return equipoComputoDao.buscarEquipoComputoPorId(equipoComputo);
     }
 
     /**
-     * @param equipo 
-     * @return
+     * Actualiza la informacion de un equipo de computo
+     * @param equipo de computo a acutalizar
+     * @return equipo de computo actualizado
      */
     public EquipoComputo actualizarEquipo(EquipoComputo equipoComputo) {
-        // TODO implement here
-        return null;
+     return equipoComputoDao.actualizarEquipoComputo(equipoComputo);
+
     }
 
     /**
-     * @param equipo 
-     * @return
+     * Elimina un equipo de computo
+     * @param equipo de computo a borrar
+     * @return boolean si el borrado tuvo exito
      */
     public boolean borrarEquipo(EquipoComputo equipoComputo) {
-        // TODO implement here
-        return false;
+        return equipoComputoDao.borrarEquipoComputo(equipoComputo);
     }
 
     /**
-     * @param MngCrearEquipo 
-     * @return
+     * Obtiene lo necesario para presentar la pantalla de
+     * registrar equipo de computo
+     * @param MngCrearEquipo manager de la pantalla registrar equipo
+     * @return manager con la informacion necesaria para registrar un  equipo
      */
     public MngCrearEquipo iniciarCrearEquipoComputo(MngCrearEquipo mngCrearEquipo ) {
-        // TODO implement here
-        return null;
+    	mngCrearEquipo.setTipoEquipoComputo(tipoEquipoComputoDao.buscarTodos());
+    	return mngCrearEquipo;
     }
 
     /**
-     * @param mngAdminEquipo 
-     * @return
+     * Obtiene lo necesario para presentar la pantalla de
+     * administrar equipos de computo
+     * @param MngAdminEquipo manager de la pantalla administrar equipos
+     * @return manager con la informacion necesaria para administrar equipos
      */
-    public MngCrearEquipo iniciarAdministrarEquipos(MngAdminEquipo mngAdminEquipo) {
-        // TODO implement here
-        return null;
+    public MngAdminEquipo iniciarAdministrarEquipos(MngAdminEquipo mngAdminEquipo) {
+    	mngAdminEquipo.setEquipoComputoList(equipoComputoDao.buscarTodos(0,10));
+        return mngAdminEquipo;
     }
 
     /**
-     * @param mngCrearEquipo 
-     * @return
+     * Obtiene lo necesario para presentar la pantalla de
+     * edicion de un equipo de computo
+     * @param MngCrearEquipo manager de la pantalla editar equipo
+     * @return manager con la informacion necesaria para editar un  equipo
      */
     public MngCrearEquipo iniciarEditarEquipo(MngCrearEquipo mngCrearEquipo) {
-        // TODO implement here
-        return null;
+    	mngCrearEquipo.setEquipoComputo(
+    			equipoComputoDao.buscarEquipoComputoPorId(
+    					mngCrearEquipo.getEquipoComputo()));
+        return mngCrearEquipo;
     }
 
-    /**
-     * 
-     */
-    public void iniciarCrearReparacion() {
-        // TODO implement here
-    }
+  
 }

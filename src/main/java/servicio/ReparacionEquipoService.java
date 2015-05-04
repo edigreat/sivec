@@ -16,6 +16,8 @@ import repositorio.EquipoComputoDao;
 import repositorio.ReparacionEquipoDao;
 
 /**
+ * Servicio de spring que maneja las peticiones
+ * para las entidades de reparacion de equipos  de computo
  * @author heriberto
  *
  */
@@ -41,12 +43,17 @@ public class ReparacionEquipoService {
     private ReparacionEquipoDao reparacionEquipoDao;
 
     /**
-     * @param mngCrearReparacion 
-     * @return
+     * Obtiene lo necesario para presentar la pantalla de
+     * registrar reparacion  de un equipo de computo
+     * @param MngCrearReparacion manager de la pantalla crear reperacion de equipo
+     * @return manager con la informacion necesaria para registrar la reparacion de
+     *  un  equipo
      */
     public MngCrearReparacion iniciarRegistrarReparacion(MngCrearReparacion mngCrearReparacion) {
-        // TODO implement here
-        return null;
+    	mngCrearReparacion.setEquipoComputo(
+    			equipoComputoDao.buscarEquipoComputoPorId
+    			(mngCrearReparacion.getEquipoComputo()));
+    	return mngCrearReparacion;
     }
 
     /**
@@ -54,8 +61,8 @@ public class ReparacionEquipoService {
      * @return
      */
     public MngCrearReparacion insertarReparacionEquipo(MngCrearReparacion mngCrearReparacion) {
-        // TODO implement here
-        return null;
+    	reparacionEquipoDao.insertarReparacionEquipo(mngCrearReparacion.getReparacionEquipo());
+        return mngCrearReparacion;
     }
 
     /**
@@ -63,8 +70,8 @@ public class ReparacionEquipoService {
      * @return
      */
     public MngCrearReporte iniciarReporteMovimiento(MngCrearReporte mngCrearReporte) {
-        // TODO implement here
-        return null;
+    	mngCrearReporte.setReparacionEquipoList(reparacionEquipoDao.buscarTodos(0, 10));
+        return mngCrearReporte;
     }
 
 }

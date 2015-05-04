@@ -15,7 +15,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/springconf/spring-principal.xml" })
+@ContextConfiguration(locations = { "classpath:/springconf/spring-principal.xml" , "classpath:/springconf/spring-security.xml"})
 @TestExecutionListeners({TransactionalTestExecutionListener.class})
 @TransactionConfiguration(transactionManager = "transactionManager")
 public class AbstractUtilityTest extends AbstractJUnit4SpringContextTests  {
