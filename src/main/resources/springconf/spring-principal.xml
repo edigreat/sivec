@@ -56,7 +56,7 @@
                  <value>hibernateconf/CaracteristicaEquipo.hbm.xml</value>
                  <value>hibernateconf/TipoEquipoComputo.hbm.xml</value>
                  <value>hibernateconf/EquipoComputo.hbm.xml</value>
-                   <value>hibernateconf/ReparacionEquipo.hbm.xml</value>
+                 <value>hibernateconf/ReparacionEquipo.hbm.xml</value>
                  
             </list>
         </property>
