@@ -2,8 +2,10 @@ package presentacion.controlador;
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +20,8 @@ import servicio.UsuarioService;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
+	
+	private static final Logger log = Logger.getLogger(UsuarioController.class);
 
     /**
      * Spring MVC controller that handles CRUD requests for Usuario entities
@@ -106,8 +110,11 @@ public class UsuarioController {
     /**
      * 
      */
-    public void mostrarPantallaAdministrarUsuario() {
-        // TODO implement here
+    @RequestMapping("/list")
+   public String mostrarPantallaAdministrarUsuario(ModelMap modelMap) {
+    	log.debug("Entrando a mostrarPantallaAdministrarUsuario ");
+    	modelMap.addAttribute("usuarioLists",usuarioService.buscarTodos(0, 10));
+    	return "administrarusuario";
     }
 
     /**

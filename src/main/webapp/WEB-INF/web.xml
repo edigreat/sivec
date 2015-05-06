@@ -54,10 +54,10 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+    <!-- servlet-mapping>
         <servlet-name>spring</servlet-name>
-        <url-pattern>/sivec/*</url-pattern>
-    </servlet-mapping>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping-->
      
     <session-config>
         <session-timeout>
@@ -69,7 +69,7 @@
     <listener>
         <listener-class>mx.unam.posgrado.servlet.BaseDatosListener</listener-class>
     </listener>-->
-    <!--  filtros de seguridad -->
+    <!--  filtros de seguridad 
     <filter>
 	        <filter-name>springSecurityFilterChain</filter-name>
 	        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -78,6 +78,6 @@
 	<filter-mapping>
 	        <filter-name>springSecurityFilterChain</filter-name>
 	        <url-pattern>/sivec/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping>-->
     
 </web-app>

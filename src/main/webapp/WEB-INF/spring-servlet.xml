@@ -28,7 +28,7 @@
     	</bean>
      -->
                         
-     <!--  configuracion de tiles                  
+     <!--  configuracion de tiles   -->                 
      <bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass">
@@ -45,7 +45,7 @@
 			</list>
 		</property>
 	</bean>
-	-->  
+	
 	
 	<!-- Bean de mensajes  I18n , los archivos messages properties deben estar en la carpeta locale
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -67,11 +67,11 @@
 	-->
 	
 	
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!--bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/comunes/" />
 		<property name="suffix" value=".jsp" />
 		<property name="contentType" value="text/html;charset=utf-8" />
-	</bean>
+	</bean-->
 	
 	
 	

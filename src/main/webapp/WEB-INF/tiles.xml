@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition" template="/WEB-INF/comunes/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/comunes/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/comunes/footer.jsp" />
+	</definition>
+	
+	<definition name="administrarusuario"  extends="base.definition" >
+		<put-attribute name="title" value="Administrar Usuarios" />
+		<put-attribute name="body" value="/WEB-INF/pages/usuario/administrarUsuario.jsp" />
+	</definition>
+	
+	</tiles-definitions>

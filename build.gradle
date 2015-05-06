@@ -2,7 +2,6 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp' 
-apply plugin: "jetty"
 
 //version del proyecto
 version = '1.0'
@@ -14,6 +13,8 @@ targetCompatibility = 1.7
  
 
 def encoding = {it.encoding = 'UTF-8'}
+
+
 
 //Repositorios
 repositories{
@@ -30,6 +31,7 @@ configurations {
    published
 }
 
+
 def SPRING_VERSION="3.0.1.RELEASE"
 def SPRING_SECURITY_VERSION="3.0.1.RELEASE"
 def TILES_VERSION="2.2.2"
@@ -37,6 +39,7 @@ def HIBERNATE_VERSION="3.5.0-Final"
 
 
 dependencies{
+	
     //Dependencias spring 
     compile 'org.springframework:spring-jdbc:'+SPRING_VERSION
     compile 'org.springframework:spring-webmvc:'+SPRING_VERSION
@@ -69,10 +72,10 @@ dependencies{
     //Dependencias tiles
     compile 'org.apache.tiles:tiles-servlet:'+TILES_VERSION
     //transitivas
-    //compile 'org.apache.tiles:tiles-template:'+TILES_VERSION
-	// compile 'org.apache.tiles:tiles-api:'+TILES_VERSION
-    // compile ('org.apache.tiles:tiles-core:'+TILES_VERSION)
-    //compile 'org.apache.tiles:tiles-jsp:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-template:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-api:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-core:'+TILES_VERSION
+    compile 'org.apache.tiles:tiles-jsp:'+TILES_VERSION
     
     compile 'javax.servlet:servlet-api:2.5'
     compile 'javax.servlet:jstl:1.2'
@@ -103,11 +106,7 @@ test {
 
 
 
-[jettyRun, jettyRunWar,jettyStop]*.with {
-  //jettyConfig = file('src/test/resources/jetty-env.xml')
-  httpPort = 8080
-  stopPort = 19742
-}
+
 
 eclipse {
   classpath {
