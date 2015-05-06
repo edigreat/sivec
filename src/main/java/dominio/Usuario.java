@@ -185,20 +185,52 @@ public class Usuario implements java.io.Serializable {
 	@Override
 	public String toString() {
 		String menuRolsString="";
-		if(!menuRols.isEmpty()){
+		String equipoComputosAsignadoString="";
+		/*if(!menuRols.isEmpty()){
 			for(MenuRol menuRol:menuRols){
 				menuRolsString +=", "+menuRol;
 			}
 		}
+		
+		if(!this.equipoComputosForIdUsuarioAsignado.isEmpty()){
+			for(EquipoComputo equipoComputo:this.equipoComputosForIdUsuarioAsignado)
+			{
+				equipoComputosAsignadoString+=" , "+equipoComputo;
+			}
+		}*/
+		
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre
 				+ ", apPaterno=" + apPaterno + ", apMaterno=" + apMaterno
 				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
 				+ fechaActualizacion + ", correoEletronico=" + correoEletronico
 				+ ", password=" + password + ", indVigenciaUsuario="
 				+ indVigenciaUsuario + ", dependenciaUniversitaria="
-				+ dependenciaUniversitaria +" ("+menuRolsString+") ] ";
+				+ dependenciaUniversitaria +")";// +" ("+menuRolsString+") , ("+equipoComputosAsignadoString+")] ";
 	}
 
-	
+	public String toStringEquipos() {
+		//String menuRolsString="";
+		String equipoComputosAsignadoString="";
+		/*if(!menuRols.isEmpty()){
+			for(MenuRol menuRol:menuRols){
+				menuRolsString +=", "+menuRol;
+			}
+		}
+		*/
+		if(!this.equipoComputosForIdUsuarioAsignado.isEmpty()){
+			for(EquipoComputo equipoComputo:this.equipoComputosForIdUsuarioAsignado)
+			{
+				equipoComputosAsignadoString+=" , "+equipoComputo;
+			}
+		}
+		
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre
+				+ ", apPaterno=" + apPaterno + ", apMaterno=" + apMaterno
+				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
+				+ fechaActualizacion + ", correoEletronico=" + correoEletronico
+				+ ", password=" + password + ", indVigenciaUsuario="
+				+ indVigenciaUsuario + ", dependenciaUniversitaria="
+				+ dependenciaUniversitaria +" ("+equipoComputosAsignadoString+")] ";
+	}
 
 }

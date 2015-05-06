@@ -2,6 +2,8 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp' 
+apply plugin: "jetty"
+
 //version del proyecto
 version = '1.0'
  
@@ -96,6 +98,15 @@ test {
         junitXml.enabled = false
         html.enabled = true
     }               
+}
+
+
+
+
+[jettyRun, jettyRunWar,jettyStop]*.with {
+  //jettyConfig = file('src/test/resources/jetty-env.xml')
+  httpPort = 8080
+  stopPort = 19742
 }
 
 eclipse {

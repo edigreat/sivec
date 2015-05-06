@@ -5,7 +5,11 @@ package integration.repositorio;
  * spring con junit y el transaction manager
  * de spring
  */
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -27,5 +31,13 @@ public class AbstractUtilityTest extends AbstractJUnit4SpringContextTests  {
 	public void abstractTest(){
 		
 	}
+	
+	@Rule
+	public TestRule watcher = new TestWatcher() {
+	   protected void starting(Description description) {
+	      System.out.println("Starting test: " + description.getMethodName());
+	   }
+	};	
+
 
 }

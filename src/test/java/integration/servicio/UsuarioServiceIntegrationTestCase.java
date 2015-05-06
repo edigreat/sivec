@@ -38,7 +38,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 	@Test
 	public void insertarUsuarioTest(){
 		MngCrearUsuario mngCrearUsuario  = new MngCrearUsuario();
-		Usuario usuarioNew = new Usuario("nombre","apPaterno","correoprueba","pass",1,"dependencia");
+		Usuario usuarioNew = new Usuario("nombre","apPaterno","correopruebaIntegracion","pass",1,"dependencia");
 		mngCrearUsuario.setUsuario(usuarioNew);
 		mngCrearUsuario= usuarioService.insertarUsuario(mngCrearUsuario);
 		assertThat(mngCrearUsuario,is(notNullValue()));

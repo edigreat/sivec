@@ -2,20 +2,27 @@ package integration.repositorio;
 
 
 import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import static org.hamcrest.Matchers.*;
 
+import static org.hamcrest.Matchers.*;
 import dominio.Usuario;
 import repositorio.UsuarioDao;
 
+
 @Transactional
 public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
-	
 	
 	private static final Logger log = Logger.getLogger(UsuarioDaoIntegrationTestCase.class);
 
@@ -25,17 +32,17 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 
 	@Before
 	public void separador(){
-		log.info("-------------------");
+		System.out.println ("------------------------------------------------");
 	}
 	
-	@Test
+	/*@Test
 	public void insertarUsuarioTest(){
 		Usuario usuarioNew = new Usuario("nombre","apPaterno","correoprueba","pass",1,"dependencia");
 		usuarioNew=usuarioDao.insertarUsuario(usuarioNew);
 		assertThat(usuarioNew,is(notNullValue()));
 		assertThat(usuarioNew.getIdUsuario(), greaterThan(0));
 		log.info(""+usuarioNew);
-	}
+	}*/
 	
 	@Test
 	public void buscarTodosTest(){
@@ -50,7 +57,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	@Test
 	public void buscarTodosTestPaginado(){
-		int startResult=0;
+		int startResult=3;
 		int maxRows=5;
 		List<Usuario> usuarioList = usuarioDao.buscarTodos(startResult,maxRows);
 		assertThat(usuarioList, is(notNullValue()));
@@ -64,10 +71,10 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	public void buscarUsuarioPorEmaiTestl(){
 		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1");
 		assertThat(usuario, is(notNullValue()));
-		log.info(usuario);
+		log.debug("Usuario " + usuario);
 		
 	}
-	
+	/*
 	@Test
 	public void actualizarUsuarioTest(){
 		String apPaterno="actualizadoPaterno";
@@ -97,13 +104,15 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		assertThat(resultado, is(true));
 		
 	}
-	
+	*/
 	@Test
 	public void buscarEquipoResponsableTest(){
 		List<Usuario> usuarioList = usuarioDao.buscarEquipoResponsable(1);
 		assertThat(usuarioList, is(notNullValue()));
 		assertThat(usuarioList.isEmpty(), is(not(true)));
-
+		for(Usuario usuario:usuarioList){
+			log.info(usuario.toStringEquipos());
+		}
 		
 	}
 	

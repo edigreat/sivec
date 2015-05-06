@@ -7,10 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,25 +50,31 @@ public class UsuarioDao {
      */
 	@SuppressWarnings("unchecked")
     public List<Usuario> buscarTodos() {
-    		String queryString = "from Usuario";
-			Query queryObject = getCurrentSession().createQuery(queryString);
-			return  queryObject.list();
+    		//String queryString = "from Usuario";
+			//Query queryObject = getCurrentSession().createQuery(queryString);
+		return  getCurrentSession().createCriteria(Usuario.class)
+				.setFetchMode("menuRols", FetchMode.JOIN)
+				.list();
 		
     }
 
     /**
      * Realiza la busqueda de usuarios con paginacion
-     * @param startResult numero de pagina
-     * @param maxRows  tamanio de pagina
+     * @param pageNumber numero de pagina
+     * @param pageSize  tamanio de pagina
      * @return lista de usuarios
      */
     @SuppressWarnings("unchecked")
-	public List<Usuario> buscarTodos(int startResult, int maxRows) {
-		String queryString = "from Usuario";
+	public List<Usuario> buscarTodos(int pageNumber, int pageSize) {
+		/*String queryString = "from Usuario";
 		Query queryObject = getCurrentSession().createQuery(queryString);
 		queryObject.setFirstResult(startResult);
 		queryObject.setMaxResults(maxRows);
-		return  queryObject.list();
+		*/
+    	return getCurrentSession().createCriteria(Usuario.class)
+    	.setFetchMode("menuRols", FetchMode.JOIN)
+    	.setFirstResult((pageNumber - 1) * pageSize)
+    	.setMaxResults(pageSize).list();
     }
 
     /**
@@ -75,11 +83,15 @@ public class UsuarioDao {
      * @return Usuario correspondiente al correo electronico
      */
     public Usuario buscarUsuarioPorEmail(String email) {
-    	String queryString = "from Usuario u WHERE u.correoEletronico = :email ";
+    	/*String queryString = "from Usuario u WHERE u.correoEletronico = :email ";
 		Query queryObject = getCurrentSession().createQuery(queryString)
 				.setString("email",email);
 		return  (Usuario)queryObject.uniqueResult();
-        
+        */
+    	return (Usuario)getCurrentSession().createCriteria(Usuario.class)
+    			.add(Restrictions.eq("correoEletronico",email))
+    			.setFetchMode("menuRols", FetchMode.JOIN)
+    			.uniqueResult();
     }
 
     /**
@@ -137,10 +149,15 @@ public class UsuarioDao {
      */
     @SuppressWarnings("unchecked")
 	public List<Usuario> buscarEquipoResponsable(int idUsuario) {
-    	String queryString = "from Usuario u WHERE u.idUsuario = :idUsuario ";
+    	/*String queryString = "from Usuario u WHERE u.idUsuario = :idUsuario ";
 		Query queryObject = getCurrentSession().createQuery(queryString)
 				.setInteger("idUsuario",idUsuario);
-        return queryObject.list();
+        return queryObject.list();*/
+    	return getCurrentSession().createCriteria(Usuario.class)
+    			.add(Restrictions.eq("idUsuario",idUsuario))
+    			.setFetchMode("menuRols", FetchMode.JOIN)
+    			.setFetchMode("equipoComputosForIdUsuarioAsignado", FetchMode.JOIN)
+    			.list();
     }
 
 }
