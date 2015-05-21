@@ -35,8 +35,12 @@ public class AbstractUtilityTest extends AbstractJUnit4SpringContextTests  {
 	@Rule
 	public TestRule watcher = new TestWatcher() {
 	   protected void starting(Description description) {
-	      System.out.println("Starting test: " + description.getMethodName());
+	      System.out.println("---------------> Iniciando test: " + description.getMethodName());
 	   }
+	   
+	   protected void finished(Description description) {
+		      System.out.println("<---------- Finalizando test: " + description.getMethodName());
+		   }
 	};	
 
 

@@ -15,4 +15,12 @@
 		<put-attribute name="body" value="/WEB-INF/pages/usuario/administrarUsuario.jsp" />
 	</definition>
 	
+	<definition name="registrarUsuario"  extends="base.definition" >
+		<put-attribute name="title" value="Registrar Usuario" />
+		<put-attribute name="body" value="/WEB-INF/pages/usuario/registrarUsuario.jsp" />
+	</definition>
+	<definition name="editarUsuario"  extends="base.definition" >
+		<put-attribute name="title" value="Editar Usuario" />
+		<put-attribute name="body" value="/WEB-INF/pages/usuario/editarUsuario.jsp" />
+	</definition>
 	</tiles-definitions>

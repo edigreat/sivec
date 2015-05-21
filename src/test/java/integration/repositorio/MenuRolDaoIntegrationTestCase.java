@@ -57,5 +57,13 @@ public class MenuRolDaoIntegrationTestCase  extends AbstractUtilityTest {
 		}
 	}
 	
+	@Test
+	public void buscarMenuRolPorIdTest(){
+		
+		MenuRol menuRol = menuRolDao.buscarMenuRolPorId(1);
+		assertThat(menuRol,is(notNullValue()));
+	    log.debug(menuRol);
+		
+	}
 	
 }

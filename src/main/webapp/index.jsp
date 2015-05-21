@@ -6,33 +6,35 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Pagina de login</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/login.css">
+	
 </head>
 <body>
+<div class="container">
 
-	<h1>Login</h1>
-		<form action="<c:url value='j_spring_security_check' />" method="POST">
-			<fieldset class="fieldcontainer">
-				<legend>Enter username and password</legend>
-
-				<div class="block">
-					<div class="field">
-						<label>Username:</label>
-						<input type="text" name="j_username">
-					</div>
-	
-					<div class="field">
-						<label>Password:</label>
-						<input type="password" name="j_password">
-					</div>
-
-				</div>
-
-				<div class="field vertical">
-					<input type="submit" value="Login">
-				</div>
-
-			</fieldset>
-		</form>
-	
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrap">
+                <p class="form-title"> Iniciar Sesión</p>
+                <form class="login" action="<c:url value='j_spring_security_check' />" method="POST" >
+                <input type="text" placeholder="Nombre de usuario" name="j_username" />
+                <input type="password" placeholder="Contraseña" name="j_password" />
+                <input type="submit" value="Enviar" class="btn btn-success btn-sm" />
+               	<br />
+                <c:if test="${param.failed==1}">
+        			<br />
+        			<p class="bg-danger text-center ">
+        			<b>Usuario o password incorrectos</b><br/>
+        			</p>
+   				</c:if>
+   				 </form>
+   				 
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
 </body>
 </html>

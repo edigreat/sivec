@@ -8,14 +8,14 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<security:http>
- 		<security:form-login login-page="/login" authentication-failure-url="/login?failed"  />
+ 		<security:form-login login-page="/usuario/list.html" authentication-failure-url="/index.jsp?failed=1"  />
 		<security:logout />
  		<security:intercept-url pattern="/secret" access="ROLE_ADMIN" />
 	</security:http>
 	
 	<security:authentication-manager>
 	<security:authentication-provider user-service-ref="userDetailsService">
-	        		<security:password-encoder hash="md5"/>
+	        		<!--security:password-encoder hash="md5"/ -->
 	</security:authentication-provider>
 	
 	</security:authentication-manager>

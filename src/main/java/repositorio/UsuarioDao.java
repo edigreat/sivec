@@ -12,6 +12,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -66,15 +67,14 @@ public class UsuarioDao {
      */
     @SuppressWarnings("unchecked")
 	public List<Usuario> buscarTodos(int pageNumber, int pageSize) {
-		/*String queryString = "from Usuario";
-		Query queryObject = getCurrentSession().createQuery(queryString);
-		queryObject.setFirstResult(startResult);
-		queryObject.setMaxResults(maxRows);
-		*/
-    	return getCurrentSession().createCriteria(Usuario.class)
+		return getCurrentSession().createCriteria(Usuario.class)
     	.setFetchMode("menuRols", FetchMode.JOIN)
     	.setFirstResult((pageNumber - 1) * pageSize)
-    	.setMaxResults(pageSize).list();
+    	.setMaxResults(pageSize)
+    	.addOrder(
+    			Order.desc("idUsuario")
+    			)
+    	.list();
     }
 
     /**
@@ -135,12 +135,15 @@ public class UsuarioDao {
     }
 
     /**
+     * Busca un usuario por id
      * @param usuario 
-     * @return
+     * @return usuario
      */
-    public Usuario autenticarUsuario(Usuario usuario) {
-        // TODO implement here
-        return null;
+    public Usuario autenticarUsuario(Integer idUsuario) {
+    	return (Usuario)getCurrentSession().createCriteria(Usuario.class)
+    			.add(Restrictions.eq("idUsuario",idUsuario))
+    			.setFetchMode("menuRols", FetchMode.JOIN)
+    			.uniqueResult();
     }
 
     /**

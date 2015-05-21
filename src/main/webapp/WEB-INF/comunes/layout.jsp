@@ -1,7 +1,7 @@
+<!doctype html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <html>
@@ -10,45 +10,45 @@
 <title>
    <tiles:insertAttribute name="title" ignore="true" />
 </title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-theme.min.css" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap.min.css" />
-	<STYLE TYPE="text/css">
-        img{
-            width: 100px;
-            height: 50px;
-        }
-        .container{
-            padding-left:150px;
-            padding-right:150px;
-        }
-        .flotante{
-            float: right;
-        }
-    </STYLE>
-</head>
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/base.css" />
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/skeleton.css" />
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/layout.css" />
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/child.css" />
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/prettyPhoto.css" />
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.css" />
+
+	</head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="page-header">
-					<tiles:insertAttribute name="header" />
-			</div>
-			
-		</div> <!-- fin row header -->
-		<div class="row">
-			<div class="col-md-12">
-				
-						<tiles:insertAttribute name="body" />
-					
-			</div><!-- fin col-md-12 body -->
-		</div> <!-- fin row menu y body -->
-		<div class="row">
-		<br />
-		<tiles:insertAttribute name="footer" />
-		</div> <!-- fin footer -->
-	</div>
+<div class="page-wrapper">
+        <div class="slug-pattern"><div class="overlay"><div class="slug-cut"></div></div></div>
+
+		<tiles:insertAttribute name="header" />
 	
+	 <div class="body">
+            <div class="body-round"></div>
+            <div class="body-wrapper">
+            	<div class="content">
+            		<div class="container callout standard">
+            			<tiles:insertAttribute name="body" />
+ 					</div> <!--  fin container callout standard -->
+ 				</div> <!-- content -->
+ 				<div class="callout-hr"></div>                        
+                    <div class="container">
+                     <div class="clear"></div>
+                                            
+                        
+                    </div>
+                    
+			</div> <!-- fin body-wrapper -->
+			
+	        <tiles:insertAttribute name="footer" />
+			
+	</div> <!-- fin body -->
+		
+		
+</div> <!-- fin page-wrapper -->	
 <!--h3>Session Scope (key==values)</h3 -->
 <%--
   java.util.Enumeration<String> sessEnum = request.getSession()
@@ -61,7 +61,13 @@ out.println("==" + request.getSession().getAttribute(s));
 <%--
   }
 --%>
-<script src="${pageContext.request.contextPath}/static/jquery-1.11.2.min.js" type="text/javascript"> </script>
-<script src="${pageContext.request.contextPath}/static/bootstrap.min.js" type="text/javascript"> </script>
-</body>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/default.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.carousel.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.color.animation.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.prettyPhoto.js" charset="utf-8"></script>
+
+
 </html>

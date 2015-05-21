@@ -84,7 +84,8 @@ dependencies{
     compile 'commons-beanutils:commons-beanutils:1.8.0'
     compile 'commons-digester:commons-digester:2.0'
     compile 'commons-dbcp:commons-dbcp:1.4'  
-   
+    compile 'mysql:mysql-connector-java:5.1.13'
+
 	//Librerias para testing
     compile ('junit:junit:4.12') {
     	exclude group: 'org.hamcrest'

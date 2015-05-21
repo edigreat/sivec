@@ -3,9 +3,11 @@ package repositorio;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -70,6 +72,17 @@ public class MenuRolDao {
 		Query queryObject = getCurrentSession().createQuery(queryString)
 				.setInteger("id_usuario",usuario.getIdUsuario());
         return queryObject.list();
+    }
+    
+    /**
+     * Busca MenuRol por id
+     * @param idMenuRol
+     * @return MenuRol
+     */
+	public MenuRol buscarMenuRolPorId(Integer idMenuRol) {
+    	return (MenuRol)getCurrentSession().get(MenuRol.class, idMenuRol);
+    			//.add(Restrictions.eq("idMenuRol",idMenuRol))
+    			//.uniqueResult();
     }
 
 }

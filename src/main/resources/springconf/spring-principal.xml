@@ -28,10 +28,10 @@
 			<property name="password" value="${jdbc.password}" />
 	</bean>
 	
-	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script 	-->
+	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script 	
 	<jdbc:initialize-database data-source="dataSource">
 	      <jdbc:script location="classpath:${jdbc.scriptSql}" />
-	</jdbc:initialize-database>
+	</jdbc:initialize-database>-->
 	
 	<!-- Crea un servidor web para la consola del bean h2Server 
 	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
@@ -62,14 +62,18 @@
         </property>
         <property name="hibernateProperties">
             <value>
-                hibernate.dialect=org.hibernate.dialect.H2Dialect
-                hibernate.format_sql=true
-                hibernate.show_sql=true
+                hibernate.format_sql=false
+                hibernate.show_sql=false
+                hibernate.dialect=${jdbc.dialect}
+
             </value>
         </property>
     </bean>
 	
-<!--                 hibernate.hbm2ddl.auto=create
+<!--                
+                hibernate.dialect=org.hibernate.dialect.H2Dialect
+
+ hibernate.hbm2ddl.auto=create
  -->       
        <bean id="transactionManager"
           class="org.springframework.orm.hibernate3.HibernateTransactionManager"

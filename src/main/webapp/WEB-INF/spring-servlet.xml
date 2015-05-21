@@ -15,7 +15,7 @@
     
     <!-- carga las clases anotadas del paquete de los controladores  --> 
 	<context:component-scan        
-	          base-package="presentacion.controlador" />
+	          base-package="presentacion" />
     
     <!-- Registra el interceptor para i18n
     <bean id="handlerMapping"

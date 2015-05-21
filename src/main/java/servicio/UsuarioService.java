@@ -6,12 +6,20 @@
  */
 package servicio;
 
-import java.util.List;
+import integration.servicio.UsuarioServiceIntegrationTestCase;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dominio.MenuRol;
 import dominio.Usuario;
 import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearUsuario;
@@ -28,6 +36,9 @@ import repositorio.UsuarioDao;
 @Transactional
 @Service
 public class UsuarioService {
+
+	
+	private static final Logger log = Logger.getLogger(UsuarioService.class);
 
 	/**
      * Spring service that handles CRUD requests for Usuario entities
@@ -82,8 +93,16 @@ public class UsuarioService {
      * @return
      */
     public MngCrearUsuario insertarUsuario(MngCrearUsuario mngCrearUsuario) {
+    	log.debug("---> insertarUsuario "+mngCrearUsuario.getMenuRolSeleccionado());
+    	MenuRol menuRol = menuRolDao.buscarMenuRolPorId(mngCrearUsuario.getMenuRolSeleccionado());
+    	log.debug("MenuRol asignado :" + menuRol);
+    	mngCrearUsuario.getUsuario().addMenuRol(menuRol);
+    	mngCrearUsuario.getUsuario().setIndVigenciaUsuario(1);
+    	log.debug(mngCrearUsuario);
     	mngCrearUsuario.setUsuario(usuarioDao.insertarUsuario(mngCrearUsuario.getUsuario()));
-        return mngCrearUsuario;
+    	log.debug("<--- insertarUsuario");
+
+    	return mngCrearUsuario;
     }
 
     /**
@@ -98,8 +117,19 @@ public class UsuarioService {
      * @param usuario 
      * @return
      */
-    public boolean actualizarUsuario(Usuario usuario) {
-    	boolean res= usuarioDao.actualizarUsuario(usuario);
+    public boolean actualizarUsuario(MngCrearUsuario mngEditarUsuarioInstance) {
+    	log.debug("---> actualizarUsuario " + mngEditarUsuarioInstance.getMenuRolSeleccionado());
+    	Usuario usuarioUpdate = usuarioDao.autenticarUsuario(mngEditarUsuarioInstance.getUsuario().getIdUsuario());
+    	MenuRol menuRol = menuRolDao.buscarMenuRolPorId(mngEditarUsuarioInstance.getMenuRolSeleccionado());
+    	usuarioUpdate.getMenuRols().clear();
+    	usuarioUpdate.addMenuRol(menuRol);
+    	usuarioUpdate.setNombre(mngEditarUsuarioInstance.getUsuario().getNombre());
+    	usuarioUpdate.setApMaterno(mngEditarUsuarioInstance.getUsuario().getApMaterno());
+    	usuarioUpdate.setApPaterno(mngEditarUsuarioInstance.getUsuario().getApPaterno());
+    	usuarioUpdate.setCorreoEletronico(mngEditarUsuarioInstance.getUsuario().getCorreoEletronico());
+    	usuarioUpdate.setPassword(mngEditarUsuarioInstance.getUsuario().getPassword());
+    	usuarioUpdate.setDependenciaUniversitaria(mngEditarUsuarioInstance.getUsuario().getDependenciaUniversitaria());
+    	boolean res= usuarioDao.actualizarUsuario(usuarioUpdate);
         return res;
     }
 
@@ -125,7 +155,12 @@ public class UsuarioService {
      */
     public MngCrearUsuario iniciarCrearUsuario(MngCrearUsuario mngCrearUsuario) {
     	mngCrearUsuario.setDependenciaUniList(dependenciaUniDao.buscarTodos());
-    	mngCrearUsuario.setMenuRol(menuRolDao.buscarTodos());
+    	List<MenuRol>  menuRolList = menuRolDao.buscarTodos();
+    	Map<Integer,String> menuRolMap = new HashMap<>();
+    	for(MenuRol menuRol :menuRolList ){
+    		menuRolMap.put(menuRol.getIdMenuRol(),menuRol.getDescripcionRol());
+    	}
+    	mngCrearUsuario.setMenuRol(menuRolMap);
         return mngCrearUsuario;
     }
 
@@ -133,8 +168,15 @@ public class UsuarioService {
      * @param mngCrearUsuario 
      * @return
      */
-    public MngCrearUsuario iniciarEditarUsuario(MngCrearUsuario mngCrearUsuario) {
-        // TODO implement here
-        return null;
+    public MngCrearUsuario iniciarEditarUsuario(MngCrearUsuario mngCrearUsuario,Integer idUsuario) {
+    	
+    	mngCrearUsuario.setUsuario(usuarioDao.autenticarUsuario(idUsuario));
+    	List<MenuRol>  menuRolList = menuRolDao.buscarTodos();
+    	Map<Integer,String> menuRolMap = new HashMap<>();
+    	for(MenuRol menuRol :menuRolList ){
+    		menuRolMap.put(menuRol.getIdMenuRol(),menuRol.getDescripcionRol());
+    	}
+    	mngCrearUsuario.setMenuRol(menuRolMap);
+        return mngCrearUsuario;
     }
 }

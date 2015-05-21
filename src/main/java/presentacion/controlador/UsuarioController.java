@@ -6,10 +6,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import dominio.Usuario;
 import presentacion.manager.MngAdminUsuario;
+import presentacion.manager.MngCrearUsuario;
 import servicio.EquipoComputoService;
 import servicio.UsuarioService;
 
@@ -17,7 +22,7 @@ import servicio.UsuarioService;
  * Spring MVC controller that handles CRUD requests for Usuario entities
  * @author Heriberto Galdamez
  */
-@Controller
+@Controller("usuarioController")
 @RequestMapping("/usuario")
 public class UsuarioController {
 	
@@ -29,6 +34,7 @@ public class UsuarioController {
     public UsuarioController() {
     }
 
+    
     /**
      * Service injected by Spring that provides CRUD operations for Usuario entities
      */
@@ -41,21 +47,15 @@ public class UsuarioController {
     @Autowired
     private EquipoComputoService equipoComputoService;
 
-    /**
-     * Create a new Usuario entity
-     * @return
-     */
-    @RequestMapping(value="nuevo")
-    public ModelAndView newUsuario() {
-        // TODO implement here
-        return null;
-    }
-
+  
     /**
      * 
      */
-    public void guardarInformacionUsuario() {
-        // TODO implement here
+    @RequestMapping("/guardarinformacionusuario")
+    public String guardarInformacionUsuario(@ModelAttribute("mngCrearUsuarioInstance")MngCrearUsuario mngCrearUsuarioInstance) {
+    	log.info(mngCrearUsuarioInstance);
+    	mngCrearUsuarioInstance = usuarioService.insertarUsuario(mngCrearUsuarioInstance);
+    	return "redirect:/usuario/list.html";
     }
 
     /**
@@ -64,19 +64,35 @@ public class UsuarioController {
     public void borrarUsuario() {
         // TODO implement here
     }
+    
+    /**
+     * Muestra la pantalla para editar un usuario
+     */
+    @RequestMapping("/editar")
+    public ModelAndView mostrarEditarUsuario(@RequestParam("idUsuario")Integer idUsuario) 
+    	{
+    	log.info("Entrando a mostrarEditarUsuario [" +idUsuario+"]" );
+    	MngCrearUsuario mngEditarUsuarioInstance = new MngCrearUsuario();
+    	mngEditarUsuarioInstance =usuarioService.iniciarEditarUsuario(mngEditarUsuarioInstance,idUsuario);
+        return new ModelAndView("editarUsuario","mngEditarUsuarioInstance",mngEditarUsuarioInstance);
+
+    }
 
     /**
      * 
      */
-    public void actualizarUsuario() {
-        // TODO implement here
+    @RequestMapping("/actualizarinformacionusuario")
+    public String actualizarUsuario(@ModelAttribute("mngEditarUsuarioInstance")MngCrearUsuario mngEditarUsuarioInstance) {
+    	log.info(mngEditarUsuarioInstance);
+    	boolean isUpdate = usuarioService.actualizarUsuario(mngEditarUsuarioInstance);
+    	return "redirect:/usuario/list.html";
     }
 
     /**
      * 
      */
     public void buscarUsuarioPorEmail() {
-        // TODO implement here
+        
     }
 
     /**
@@ -109,35 +125,39 @@ public class UsuarioController {
 
     /**
      * 
+     * 
      */
     @RequestMapping("/list")
-   public String mostrarPantallaAdministrarUsuario(ModelMap modelMap) {
+   public ModelAndView mostrarPantallaAdministrarUsuario() {
     	log.debug("Entrando a mostrarPantallaAdministrarUsuario ");
-    	modelMap.addAttribute("usuarioLists",usuarioService.buscarTodos(0, 10));
-    	return "administrarusuario";
+    	return new ModelAndView("administrarusuario","usuarioList",usuarioService.buscarTodos(0, 10).getUsuarioList());
     }
 
     /**
      * @return
      */
-    public MngAdminUsuario createMngAdminUsuario() {
-        // TODO implement here
-        return null;
+    public ModelAndView createMngAdminUsuario() {
+    	log.debug("Entrando a createMngAdminUsuario ");
+    	return new ModelAndView("registrarUsuario","usuarioInstance",new Usuario());
+  
     }
 
+    
     /**
+     * Muestra la pantalla de registrar usuario
      * 
+     * @return modelo y vista para registar un usuario
      */
-    public void mostrarPantallaRegistrarUsuario() {
-        // TODO implement here
+    @RequestMapping("/registrar")
+    public ModelAndView mostrarPantallaRegistrarUsuario() {
+    	MngCrearUsuario mngCrearUsuarioInstance = new MngCrearUsuario();
+    	mngCrearUsuarioInstance =usuarioService.iniciarCrearUsuario(mngCrearUsuarioInstance);
+    	mngCrearUsuarioInstance.setUsuario(new Usuario());
+    	return new ModelAndView("registrarUsuario","mngCrearUsuarioInstance",mngCrearUsuarioInstance);
+    	
     }
 
-    /**
-     * 
-     */
-    public void mostrarEditarUsuario() {
-        // TODO implement here
-    }
+    
 
     /**
      * 

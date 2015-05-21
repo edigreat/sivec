@@ -26,7 +26,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 	@Autowired
 	UsuarioService usuarioService;
 	
-	@Test
+	/*@Test
 	public void buscarTodosTest(){
 		MngAdminUsuario mngAdminUsuario = usuarioService.buscarTodos(0,10);
 		assertThat(mngAdminUsuario, is(notNullValue()));
@@ -34,18 +34,19 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 		for(Usuario usuario:mngAdminUsuario.getUsuarioList()){
 			log.info(usuario);
 		}
-	}
+	}*/
 	@Test
 	public void insertarUsuarioTest(){
 		MngCrearUsuario mngCrearUsuario  = new MngCrearUsuario();
-		Usuario usuarioNew = new Usuario("nombre","apPaterno","correopruebaIntegracion","pass",1,"dependencia");
-		mngCrearUsuario.setUsuario(usuarioNew);
-		mngCrearUsuario= usuarioService.insertarUsuario(mngCrearUsuario);
+		Usuario usuario = new Usuario("nombreServicio","apPaterno","correopruebaIntegracion@Servicio.com","pass",1,"dependencia");
+		mngCrearUsuario.setUsuario(usuario);
+		mngCrearUsuario.setMenuRolSeleccionado(3);
+		mngCrearUsuario = usuarioService.insertarUsuario(mngCrearUsuario);
 		assertThat(mngCrearUsuario,is(notNullValue()));
 		assertThat(mngCrearUsuario.getUsuario().getIdUsuario(), greaterThan(0));
-		log.info(""+mngCrearUsuario);
+		log.debug(""+mngCrearUsuario);
 	}
-	@Test
+	/*@Test
 	public void iniciarCrearUsuarioTest(){
      MngCrearUsuario mngCrearUsuario =usuarioService.iniciarCrearUsuario( new MngCrearUsuario());
      assertThat(mngCrearUsuario, is(notNullValue()));
@@ -55,5 +56,5 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 		for(DependenciaUniversitaria dependenciaUniversitaria:mngCrearUsuario.getDependenciaUniList()){
 			log.info(dependenciaUniversitaria);
 		}
-    }
+    }*/
 }

@@ -40,6 +40,31 @@ public class Usuario implements java.io.Serializable {
 	private Set<ReparacionEquipo>  reparacionEquiposForIdUsuarioResponsable = new HashSet<ReparacionEquipo> (0);
 
 	
+	public void addMenuRol(MenuRol menuRol){
+		this.menuRols.add(menuRol);
+		
+	}
+	
+	public String getDescripcionPerfil(){
+		String menuRolsString="";
+		if(!menuRols.isEmpty()){
+			for(MenuRol menuRol:menuRols){
+				menuRolsString +=" "+menuRol.getDescripcionRol();
+			}
+		}
+		return menuRolsString;
+	}
+	
+	/**
+	 * Concatena los atributos para formar
+	 * el nombre completo del usuario
+	 * @return nombre completo del usuario
+	 */
+	public String getNombreCompleto(){
+		return this.nombre+" "+this.apPaterno+" "+this.apMaterno;
+	}
+	
+	
 	/**constructor por omision */
 	public Usuario() {
 	}
@@ -186,12 +211,12 @@ public class Usuario implements java.io.Serializable {
 	public String toString() {
 		String menuRolsString="";
 		String equipoComputosAsignadoString="";
-		/*if(!menuRols.isEmpty()){
+		if(!menuRols.isEmpty()){
 			for(MenuRol menuRol:menuRols){
 				menuRolsString +=", "+menuRol;
 			}
 		}
-		
+		/*
 		if(!this.equipoComputosForIdUsuarioAsignado.isEmpty()){
 			for(EquipoComputo equipoComputo:this.equipoComputosForIdUsuarioAsignado)
 			{
@@ -205,7 +230,7 @@ public class Usuario implements java.io.Serializable {
 				+ fechaActualizacion + ", correoEletronico=" + correoEletronico
 				+ ", password=" + password + ", indVigenciaUsuario="
 				+ indVigenciaUsuario + ", dependenciaUniversitaria="
-				+ dependenciaUniversitaria +")";// +" ("+menuRolsString+") , ("+equipoComputosAsignadoString+")] ";
+				+ dependenciaUniversitaria+" menuRolsString:"+menuRolsString +")";// +" ("+menuRolsString+") , ("+equipoComputosAsignadoString+")] ";
 	}
 
 	public String toStringEquipos() {
