@@ -28,9 +28,7 @@ public class UsuarioController {
 	
 	private static final Logger log = Logger.getLogger(UsuarioController.class);
 
-    /**
-     * Spring MVC controller that handles CRUD requests for Usuario entities
-     */
+
     public UsuarioController() {
     }
 
@@ -88,6 +86,10 @@ public class UsuarioController {
     	return "redirect:/usuario/list.html";
     }
 
+    @RequestMapping("/cancelaractualizacion")
+    public String cancelaractualizacion() {
+    	return "redirect:/usuario/list.html";
+    }
     /**
      * 
      */

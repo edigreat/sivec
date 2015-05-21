@@ -7,14 +7,18 @@
 <%@page import="java.util.ArrayList,java.util.List,dominio.*"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<br />
+
 <div id="form-edita-usuario-container" class="col-md-10 ">
 
 <form:form method="post" action="${pageContext.request.contextPath}/usuario/actualizarinformacionusuario.html" 
   modelAttribute="mngEditarUsuarioInstance" cssClass="form-horizontal" role="form">
-  	<form:hidden path="usuario.idUsuario" />
+		<h2 class="bg-primary">Editar Usuario:  ${mngEditarUsuarioInstance.usuario.idUsuario}</h2>
+	
+	<form:hidden path="usuario.idUsuario" />
+	
   <div class="form-group ">
-		<form:label path="usuario.nombre" class="control-label col-sm-2">Nombre :
-		</form:label>
+		<form:label path="usuario.nombre" class="control-label col-sm-2">Nombre:</form:label>
 		<div class="col-sm-6">
 			<form:input path="usuario.nombre" class="form-control" />
 			<div class="text-danger pull-left">
@@ -56,7 +60,7 @@
 		<form:label path="usuario.password" class="control-label col-sm-2">Password :
 		</form:label>
 		<div class="col-sm-6">
-			<form:password path="usuario.password" class="form-control" />
+			<form:password path="usuario.password" class="form-control" showPassword="true" />
 			<div class="text-danger pull-left">
 				<form:errors path="usuario.password" />
 			</div>
@@ -83,12 +87,20 @@
 	</div>
 	
 	<div class="form-group ">
-	<div class="col-sm-4" ></div>	
-			<div class="col-sm-6">
-	
-		<input type="submit"  class="btn btn-primary" value="Guardar" />
+	<div class="col-sm-2" ></div>	
+		<div class="col-sm-2">
+			<input type="submit"  class="btn btn-primary" value="Guardar" />
 		</div>
+		<div class="col-sm-2">
+			<a class="btn btn-warning" href="${pageContext.request.contextPath}/usuario/cancelaractualizacion.html" role="button">Cancelar</a>
+		</div>
+		<div class="col-sm-2">
+		<a href="${pageContext.request.contextPath}/usuario/eliminarusuaro.html?id=${mngEditarUsuarioInstance.usuario.idUsuario}" role="button" class="btn btn-danger">Eliminar</a>
+		</div>
+		
+		
    </div>		
 
+  	
   </form:form>
 </div>

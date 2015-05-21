@@ -11,6 +11,8 @@
 
   <form:form method="post" action="${pageContext.request.contextPath}/usuario/guardarinformacionusuario.html" modelAttribute="mngCrearUsuarioInstance" cssClass="form-horizontal" role="form">
 	<div class="form-group ">
+			<h2 class="bg-primary">Registrar Usuario</h2>
+	
 		<form:label path="usuario.nombre" class="control-label col-sm-2">Nombre :
 		</form:label>
 		<div class="col-sm-6">
@@ -80,10 +82,14 @@
 	</div>
 	<div class="form-group ">
 	<div class="col-sm-4" ></div>	
-			<div class="col-sm-6">
-	
-		<input type="submit"  class="btn btn-primary" value="Guardar" />
+		<div class="col-sm-2">
+			<input type="submit"  class="btn btn-primary" value="Guardar" />
 		</div>
+		<div class="col-sm-2">
+			<a class="btn btn-warning" href="${pageContext.request.contextPath}/usuario/cancelaractualizacion.html" role="button">Cancelar</a>
+
+		</div>
+		
    </div>	
 									
 
