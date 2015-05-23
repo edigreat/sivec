@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearUsuario;
@@ -18,7 +19,7 @@ import dominio.DependenciaUniversitaria;
 import dominio.Usuario;
 import servicio.UsuarioService;
 import integration.repositorio.AbstractUtilityTest;
-
+@Transactional
 public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 
 	private static final Logger log = Logger.getLogger(UsuarioServiceIntegrationTestCase.class);
@@ -34,7 +35,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 		for(Usuario usuario:mngAdminUsuario.getUsuarioList()){
 			log.info(usuario);
 		}
-	}*/
+	}
 	@Test
 	public void insertarUsuarioTest(){
 		MngCrearUsuario mngCrearUsuario  = new MngCrearUsuario();
@@ -46,7 +47,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 		assertThat(mngCrearUsuario.getUsuario().getIdUsuario(), greaterThan(0));
 		log.debug(""+mngCrearUsuario);
 	}
-	/*@Test
+	@Test
 	public void iniciarCrearUsuarioTest(){
      MngCrearUsuario mngCrearUsuario =usuarioService.iniciarCrearUsuario( new MngCrearUsuario());
      assertThat(mngCrearUsuario, is(notNullValue()));
@@ -56,5 +57,21 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 		for(DependenciaUniversitaria dependenciaUniversitaria:mngCrearUsuario.getDependenciaUniList()){
 			log.info(dependenciaUniversitaria);
 		}
-    }*/
+    }
+    @Test
+	public void borrarUsuarioTestFail(){
+		boolean isSuccess =  usuarioService.borrarUsuario("error");
+		assertThat(isSuccess,is(false));
+		
+	}
+    */
+	
+	@Test
+	public void borrarUsuarioTest(){
+		boolean isSuccess =  usuarioService.borrarUsuario("17");
+		assertThat(isSuccess,is(true));
+		
+	}
+	
+	
 }

@@ -1,19 +1,19 @@
 package presentacion.controlador;
 
+
 import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import dominio.Usuario;
-import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearUsuario;
 import servicio.EquipoComputoService;
 import servicio.UsuarioService;
@@ -24,6 +24,7 @@ import servicio.UsuarioService;
  */
 @Controller("usuarioController")
 @RequestMapping("/usuario")
+@SessionAttributes({"mngEditarUsuarioInstance"})
 public class UsuarioController {
 	
 	private static final Logger log = Logger.getLogger(UsuarioController.class);
@@ -32,6 +33,11 @@ public class UsuarioController {
     public UsuarioController() {
     }
 
+    @ModelAttribute("mngEditarUsuarioInstance")
+    public MngCrearUsuario getMngEditarUsuarioInstance() {
+		log.debug("Creando una instancia mngEditarUsuarioInstance ");
+        return new MngCrearUsuario();
+    }
     
     /**
      * Service injected by Spring that provides CRUD operations for Usuario entities
@@ -67,30 +73,46 @@ public class UsuarioController {
      * Muestra la pantalla para editar un usuario
      */
     @RequestMapping("/editar")
-    public ModelAndView mostrarEditarUsuario(@RequestParam("idUsuario")Integer idUsuario) 
+    public ModelAndView mostrarEditarUsuario(@RequestParam("idUsuario")Integer idUsuario,
+    		@ModelAttribute("mngEditarUsuarioInstance")MngCrearUsuario mngEditarUsuarioInstance) 
     	{
     	log.info("Entrando a mostrarEditarUsuario [" +idUsuario+"]" );
-    	MngCrearUsuario mngEditarUsuarioInstance = new MngCrearUsuario();
     	mngEditarUsuarioInstance =usuarioService.iniciarEditarUsuario(mngEditarUsuarioInstance,idUsuario);
         return new ModelAndView("editarUsuario","mngEditarUsuarioInstance",mngEditarUsuarioInstance);
 
     }
 
     /**
-     * 
+     * Realiza la actualizacion de la informacion del usuario.
      */
     @RequestMapping("/actualizarinformacionusuario")
     public String actualizarUsuario(@ModelAttribute("mngEditarUsuarioInstance")MngCrearUsuario mngEditarUsuarioInstance) {
-    	log.info(mngEditarUsuarioInstance);
+    	log.debug("Actualizando usuario : " +mngEditarUsuarioInstance);
     	boolean isUpdate = usuarioService.actualizarUsuario(mngEditarUsuarioInstance);
     	return "redirect:/usuario/list.html";
     }
 
+    /**
+     * Cancela la actualizacion del usuario
+     * @param status de la session
+     * @return nombre de la vista a presentar
+     */
     @RequestMapping("/cancelaractualizacion")
-    public String cancelaractualizacion() {
+    public String cancelarActualizacion(SessionStatus status) {
+		status.setComplete();
     	return "redirect:/usuario/list.html";
     }
+    
+    @RequestMapping("/eliminarusuario")
+    public String eliminarUsuario(SessionStatus status,@RequestParam("idUsuario")String idUsuario){
+    
+    	usuarioService.borrarUsuario(idUsuario);
+    	status.setComplete();
+    	return "redirect:/usuario/list.html";
+    }
+    
     /**
+     * 
      * 
      */
     public void buscarUsuarioPorEmail() {

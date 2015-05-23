@@ -33,16 +33,18 @@ import repositorio.UsuarioDao;
  * @author heriberto
  *
  */
-@Transactional
 @Service
+@Transactional
 public class UsuarioService {
 
-	
+	/**
+	 * Logger a utilizar
+	 */
 	private static final Logger log = Logger.getLogger(UsuarioService.class);
 
 	/**
-     * Spring service that handles CRUD requests for Usuario entities
-     */
+	 * Constructor por defecto
+	 */
     public UsuarioService() {
     }
 
@@ -77,10 +79,11 @@ public class UsuarioService {
     private UsuarioDao usuarioDao;
 
     /**
-     * JPQL Query - findAllUsuarios
-     * @param startResult 
-     * @param maxRows 
-     * @return
+     * Buscar todos los usuarios, paginado
+     * 
+     * @param startResult pagina inicial 
+     * @param maxRows tamanio de pagina 
+     * @return lista de usuarios de acuerdo a la pagina
      */
     public MngAdminUsuario buscarTodos(int startResult, int maxRows) {
         MngAdminUsuario mngAdminUsuario = new MngAdminUsuario(); 
@@ -89,8 +92,9 @@ public class UsuarioService {
     }
 
     /**
-     * @param mngCrearUsuario 
-     * @return
+     * Inserta un nuevo usuario
+     * @param mngCrearUsuario contiene la informacion para insertar un nuevo usuario
+     * @return MngCrearUsuario instancia con la informacion de la bd ya insertada
      */
     public MngCrearUsuario insertarUsuario(MngCrearUsuario mngCrearUsuario) {
     	log.debug("---> insertarUsuario "+mngCrearUsuario.getMenuRolSeleccionado());
@@ -114,8 +118,10 @@ public class UsuarioService {
     }
 
     /**
-     * @param usuario 
-     * @return
+     * Actualiza la informacion de un usuairo
+     * @param MngCrearUsuario instancia que contiene la informacion del usuario 
+     * 	a actualizar 
+     * @return boolean indicador de si tuvo exito o un error de la actualizacion
      */
     public boolean actualizarUsuario(MngCrearUsuario mngEditarUsuarioInstance) {
     	log.debug("---> actualizarUsuario " + mngEditarUsuarioInstance.getMenuRolSeleccionado());
@@ -134,11 +140,36 @@ public class UsuarioService {
     }
 
     /**
-     * @param usuario 
-     * @return
+     * Borrar un usuario por el id
+     * @param idUsuario id del usuario 
+     * @return indicador de exito del borrado
      */
-    public boolean borrarUsuario(Usuario usuario) {
-        return  usuarioDao.borrarUsuario(usuario);
+    public boolean borrarUsuario(String  idUsuario) {
+    	boolean isSuccessDelete=false;
+    	if(isInteger(idUsuario)){
+    		 int intIdUsuario=Integer.parseInt(idUsuario);
+    		 Usuario usuario = usuarioDao.autenticarUsuario(intIdUsuario);
+    		 log.debug("Usuario a borrar " + usuario);
+    		 isSuccessDelete = usuarioDao.borrarUsuario(usuario);
+    	}
+    	
+        return  isSuccessDelete;
+    }
+    /**
+     * Utileria para conocer si una cadena es un 
+     * numero
+     * @param s cadena a validar
+     * @return indicador si la cadena es numero regresa true
+     */
+    public static boolean isInteger(String s) {
+        try { 
+            Integer.parseInt(s); 
+        } catch(NumberFormatException e) { 
+            return false; 
+        } catch(NullPointerException e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -150,8 +181,9 @@ public class UsuarioService {
     }
 
     /**
-     * @param mngCrearUsuario 
-     * @return
+     * Inicia los recursos para crear un usuario
+     * @param mngCrearUsuario a inicializr con recursos
+     * @return la misma instancia del parametro con recursos listos
      */
     public MngCrearUsuario iniciarCrearUsuario(MngCrearUsuario mngCrearUsuario) {
     	mngCrearUsuario.setDependenciaUniList(dependenciaUniDao.buscarTodos());
@@ -165,8 +197,9 @@ public class UsuarioService {
     }
 
     /**
-     * @param mngCrearUsuario 
-     * @return
+     * Inicia los recursos para editar un usuario
+     * @param mngCrearUsuario instancia a inicializar con recursos
+     * @return misma instancia del parametro con recursos listos
      */
     public MngCrearUsuario iniciarEditarUsuario(MngCrearUsuario mngCrearUsuario,Integer idUsuario) {
     	

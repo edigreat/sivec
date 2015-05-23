@@ -95,7 +95,7 @@
 			<a class="btn btn-warning" href="${pageContext.request.contextPath}/usuario/cancelaractualizacion.html" role="button">Cancelar</a>
 		</div>
 		<div class="col-sm-2">
-		<a href="${pageContext.request.contextPath}/usuario/eliminarusuaro.html?id=${mngEditarUsuarioInstance.usuario.idUsuario}" role="button" class="btn btn-danger">Eliminar</a>
+		<a href="${pageContext.request.contextPath}/usuario/eliminarusuario.html?idUsuario=${mngEditarUsuarioInstance.usuario.idUsuario}" role="button" class="btn btn-danger">Eliminar</a>
 		</div>
 		
 		

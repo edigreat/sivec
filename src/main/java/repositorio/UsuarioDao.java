@@ -140,7 +140,7 @@ public class UsuarioDao {
      * @return usuario
      */
     public Usuario autenticarUsuario(Integer idUsuario) {
-    	return (Usuario)getCurrentSession().createCriteria(Usuario.class)
+    	return     			(Usuario)getCurrentSession().createCriteria(Usuario.class)
     			.add(Restrictions.eq("idUsuario",idUsuario))
     			.setFetchMode("menuRols", FetchMode.JOIN)
     			.uniqueResult();
