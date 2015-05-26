@@ -9,6 +9,15 @@ package dominio;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Entidad Usuario
  * 
@@ -23,18 +32,35 @@ public class Usuario implements java.io.Serializable {
 	
 
 	private Integer idUsuario;
+	
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String nombre;
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String apPaterno;
 	private String apMaterno;
 	private Timestamp fechaCreacion;
 	private Timestamp fechaActualizacion;
+	@NotNull
+	@NotBlank
+	@Email
 	private String correoEletronico;
+	@NotNull
+	@NotBlank
+	@Pattern(regexp = "[0-9]{4,8}",message="Solo digitos, min 4 max 8")
 	private String password;
-	private Integer indVigenciaUsuario;
+
+    private Integer indVigenciaUsuario;
+	@NotNull
+	@NotBlank
 	private String dependenciaUniversitaria;
 	
 	private Set<EquipoComputo> equipoComputosForIdUsuarioAsignado = new HashSet<EquipoComputo>(0);
 	private Set<EquipoComputo> equipoComputosForIdUsuarioResponsable = new HashSet<EquipoComputo>(0);
+	
 	private Set<MenuRol> menuRols = new HashSet<MenuRol>(0);
 	private Set<ReparacionEquipo> reparacionEquiposForIdUsuarioAsignado = new HashSet<ReparacionEquipo> (0);
 	private Set<ReparacionEquipo>  reparacionEquiposForIdUsuarioResponsable = new HashSet<ReparacionEquipo> (0);

@@ -7,17 +7,30 @@
 <%@page import="java.util.ArrayList,java.util.List,dominio.*"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<div class="twelve columns">
-     <h4>
+<div class="col-md-10">
+     			<h3 class="text-center">Administrar Usuarios </h3>
+<div class="col-md-3">
      <a href=" <c:url value="/usuario/registrar.html" />"
-		 class="btn btn-primary btn-lg active" >
-		 Nuevo Usuario
+		 class="btn btn-primary  active" >
+		 Nuevo Usuario </a>
      <span class="glyphicon glyphicon-plus" aria-hidden="true">
      </span>
-     </a>
-     </h4>
+ </div>
+     
+     <div class="col-md-6">
+     <form name="formbuscarporid" id="formbuscarporid" action="${pageContext.request.contextPath}/usuario/buscarUsuarioPorEmail.html" >
+     <label for="correoElectronico">Nombre de usuario</label>
+     <input type="text" id="correoElectronico" name="correoElectronico" />
+     <input type="submit" class="btn btn-primary  active"  value="buscar" />
+      <span class="glyphicon glyphicon-search" aria-hidden="true">
+     </span>
+     </form>
+     
+</div>
+
 </div>
 <div id="panel-container" class="col-md-10">
+<br />
 <div class="panel panel-primary ">
 
 	<div class="panel-heading">
@@ -40,14 +53,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${usuarioList}" var="usuario" varStatus="status">
+					<c:forEach items="${mngAdminUsuario.usuarioList}" var="usuario" varStatus="status">
 						<tr>
 							<td><c:out value="${usuario.idUsuario}" /> </td>
 							<td><c:out value="${usuario.correoEletronico}" /> </td>
 							<td><c:out value="${usuario.nombreCompleto}" /> </td>
 							<td><c:out value="${usuario.descripcionPerfil}" /></td>
 							<td>
-							<a href=" <c:url value="/usuario/editar.html">
+							<a class="linkTabla" href=" <c:url value="/usuario/editar.html">
    										  <c:param name="idUsuario" value="${usuario.idUsuario}"/>
 										  </c:url>"
 										> Editar </a>		
@@ -58,6 +71,25 @@
 
 				</tbody>
 			</table>
+			<c:if test="${mngAdminUsuario.lastPageNumber > 0}">
+	  			<nav class="text-center">
+				  <ul class="pagination">
+				    <li>
+				      <a href="<c:url value="/usuario/list.html" />" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <c:forEach var="i" items="${mngAdminUsuario.pageNumberList}">
+				   	<li><a href="<c:url value="/usuario/list/${i}.html" />"> <c:out value="${i}"/></a></li>
+					</c:forEach>
+				    <li>
+				      <a href="<c:url value="/usuario/list/${mngAdminUsuario.lastPageNumber}.html" />" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</c:if>
 		</div>
 </div>
 </div>

@@ -46,7 +46,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	@Test
 	public void buscarTodosTest(){
-		List<Usuario> usuarioList = usuarioDao.buscarTodos();
+		List<Usuario> usuarioList = usuarioDao.buscarTodos("mi");
 		assertThat(usuarioList, is(notNullValue()));
 		assertThat(usuarioList.isEmpty(), is(not(true)));
 
@@ -54,7 +54,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 			log.info(usuario);
 		}
 	}
-	
+	/*
 	@Test
 	public void buscarTodosTestPaginado(){
 		int startResult=3;
@@ -74,7 +74,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		log.debug("Usuario " + usuario);
 		
 	}
-	/*
+	
 	@Test
 	public void actualizarUsuarioTest(){
 		String apPaterno="actualizadoPaterno";
@@ -104,7 +104,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		assertThat(resultado, is(true));
 		
 	}
-	*/
+	
 	@Test
 	public void buscarEquipoResponsableTest(){
 		List<Usuario> usuarioList = usuarioDao.buscarEquipoResponsable(1);
@@ -115,6 +115,11 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		}
 		
 	}
+	@Test
+	public void obtenerTotalRegistrosUsuarioTest(){
+		Long numUsuarios = usuarioDao.obtenerTotalRegistrosUsuario();
+		assertThat(numUsuarios.intValue(),greaterThan(0));
+	}*/
 	
 
 }

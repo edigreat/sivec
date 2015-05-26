@@ -85,11 +85,44 @@ public class UsuarioService {
      * @param maxRows tamanio de pagina 
      * @return lista de usuarios de acuerdo a la pagina
      */
-    public MngAdminUsuario buscarTodos(int startResult, int maxRows) {
+    public MngAdminUsuario buscarTodos(String startResultString, int maxRows) {
+    	log.debug("Buscando usuarios de la pagina : ["+startResultString.trim()+"] "+isInteger(startResultString.trim()));
+
         MngAdminUsuario mngAdminUsuario = new MngAdminUsuario(); 
-        mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(startResult, maxRows));
+        Long numTotalUsuarios = usuarioDao.obtenerTotalRegistrosUsuario();
+        mngAdminUsuario.setNumTotalUsuarios(numTotalUsuarios.intValue());
+        int startResult=0;
+        if(isInteger(startResultString)){
+        	startResult = Integer.parseInt(startResultString);
+        
+        }
+
+        if(numTotalUsuarios > 0){
+        	mngAdminUsuario.setLastPageNumber( (int)
+        			(mngAdminUsuario.getNumTotalUsuarios()/maxRows)+1)
+        			;
+        	mngAdminUsuario.setFirstPageNumber(0);
+        	mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(startResult, maxRows));
+        }
         return mngAdminUsuario;
     }
+    
+    /**
+     * Buscar todos los usuarios por correo electronico
+     * 
+     * @param startResult pagina inicial 
+     * @param maxRows tamanio de pagina 
+     * @return lista de usuarios de acuerdo a la pagina
+     */
+    public MngAdminUsuario buscarTodos(String correoElectronico) {
+    		log.debug("Buscando usuarios con correo electronico : ["+correoElectronico.trim());
+        	MngAdminUsuario mngAdminUsuario = new MngAdminUsuario(); 
+        	mngAdminUsuario.setFirstPageNumber(0);
+        	mngAdminUsuario.setLastPageNumber(0);
+        	mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(correoElectronico));
+        return mngAdminUsuario;
+    }
+    
 
     /**
      * Inserta un nuevo usuario
@@ -110,8 +143,9 @@ public class UsuarioService {
     }
 
     /**
+     * Buscar a un usuario por su id
      * @param email 
-     * @return
+     * @return resultado del usuario buscado
      */
     public Usuario buscarUsuarioPorEmail(String email) {
         return usuarioDao.buscarUsuarioPorEmail(email);

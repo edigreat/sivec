@@ -2,6 +2,9 @@ package presentacion.manager;
 
 import java.util.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import dominio.DependenciaUniversitaria;
 import dominio.MenuRol;
 import dominio.Usuario;
@@ -32,6 +35,8 @@ public class MngCrearUsuario {
     /**
      * 
      */
+    @NotNull
+    @Valid
     private Usuario usuario;
 
 	public List<DependenciaUniversitaria> getDependenciaUniList() {

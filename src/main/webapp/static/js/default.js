@@ -4,7 +4,14 @@
 * NOTE: jQuery must be included before this file
 *
 **/
+
+
+
+
+
+
 $('document').ready(function() {
+	
 							 
 	/////////////////////////////////////////////
 	// Navagation Menus
@@ -482,3 +489,7 @@ $(window).load(function() {
 		return this;
 	};
 })( jQuery );
+
+
+
+

@@ -27,15 +27,17 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 	@Autowired
 	UsuarioService usuarioService;
 	
-	/*@Test
+	@Test
 	public void buscarTodosTest(){
-		MngAdminUsuario mngAdminUsuario = usuarioService.buscarTodos(0,10);
+		MngAdminUsuario mngAdminUsuario = usuarioService.buscarTodos("2",10);
 		assertThat(mngAdminUsuario, is(notNullValue()));
 		assertThat(mngAdminUsuario.getUsuarioList().isEmpty(), is(not(true)));
+		log.info(mngAdminUsuario);
 		for(Usuario usuario:mngAdminUsuario.getUsuarioList()){
 			log.info(usuario);
 		}
 	}
+	/*
 	@Test
 	public void insertarUsuarioTest(){
 		MngCrearUsuario mngCrearUsuario  = new MngCrearUsuario();
@@ -64,14 +66,14 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 		assertThat(isSuccess,is(false));
 		
 	}
-    */
+    
 	
 	@Test
 	public void borrarUsuarioTest(){
 		boolean isSuccess =  usuarioService.borrarUsuario("17");
 		assertThat(isSuccess,is(true));
 		
-	}
+	}*/
 	
 	
 }

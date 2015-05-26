@@ -17,7 +17,8 @@
 <link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/layout.css" />
 <link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/child.css" />
 <link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/prettyPhoto.css" />
-<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.css" />
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
+<link media="screen"  rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css" />
 
 	</head>
 <body>
@@ -63,11 +64,12 @@ out.println("==" + request.getSession().getAttribute(s));
 --%>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/default.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.carousel.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.color.animation.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.prettyPhoto.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/default.js"></script>
 
 
 </html>

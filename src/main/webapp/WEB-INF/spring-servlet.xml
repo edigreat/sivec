@@ -46,6 +46,9 @@
 		</property>
 	</bean>
 	
+	  <mvc:annotation-driven />
+	
+	
 	
 	<!-- Bean de mensajes  I18n , los archivos messages properties deben estar en la carpeta locale
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

@@ -81,7 +81,12 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
    
-   	<bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+<!-- Fabrica para construir el validador -->
+	<bean id="validatorFactory" class="javax.validation.Validation"
+		factory-method="buildDefaultValidatorFactory" />
+
+	<bean id="validator" factory-bean="validatorFactory"
+		factory-method="getValidator" />
        
        
 </beans>

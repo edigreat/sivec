@@ -12,6 +12,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +51,23 @@ public class UsuarioDao {
      * @return lista de usuarios
      */
 	@SuppressWarnings("unchecked")
-    public List<Usuario> buscarTodos() {
-    		//String queryString = "from Usuario";
-			//Query queryObject = getCurrentSession().createQuery(queryString);
-		return  getCurrentSession().createCriteria(Usuario.class)
+    public List<Usuario> buscarTodos(String correoElectronico) {
+    	
+		return getCurrentSession().createCriteria(Usuario.class)
 				.setFetchMode("menuRols", FetchMode.JOIN)
-				.list();
+				.add(Restrictions.ilike("correoEletronico",correoElectronico,MatchMode.ANYWHERE)).list();
+    			
 		
     }
+	/**
+	 * Obtiene el total de registros de la tabla de usuarios
+	 * @return numero de registros de usuario.
+	 */
+	public Long obtenerTotalRegistrosUsuario(){
+		String query = "Select count(u.idUsuario) from Usuario u";
+		Query queryTotal = getCurrentSession().createQuery(query);
+		return (Long)queryTotal.uniqueResult();
+	}
 
     /**
      * Realiza la busqueda de usuarios con paginacion
