@@ -66,6 +66,8 @@ public class EquipoComputoDao {
 	public List<EquipoComputo> buscarTodos(int pageNumber, int maxRows) {
     	return getCurrentSession().createCriteria(EquipoComputo.class)
     	    	.setFirstResult((pageNumber - 1) * maxRows)
+    	    	 .setFetchMode("tipoEquipoComputo", FetchMode.JOIN)
+    	    	 .setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
     	    	.setMaxResults(maxRows)
     	    	.addOrder(
     	    			Order.desc("idEquipoComputo")

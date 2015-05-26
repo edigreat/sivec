@@ -8,12 +8,18 @@
             <column name="id_tipoEquipoComputo" />
             <generator class="identity" />
         </id>
+        <property name="valorCaracteristica" type="java.lang.Integer">
+            <column name="valor_caracteristica"  not-null="true" />
+        </property>
+        
         <property name="etiquetaTipoEquipo" type="java.lang.String">
             <column name="etiqueta_tipoEquipo" length="45" not-null="true" />
         </property>
         <property name="descTipoEquipo" type="java.lang.String">
             <column name="desc_tipoEquipo" length="45" />
         </property>
+        
+        
         <set name="equipoComputos" inverse="true">
             <key>
                 <column name="id_tipoEquipo" not-null="true" />

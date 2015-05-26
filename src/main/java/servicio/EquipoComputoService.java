@@ -6,7 +6,9 @@
  */
 package servicio;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearEquipo;
 import presentacion.manager.MngCrearReparacion;
 import dominio.EquipoComputo;
+import dominio.TipoEquipoComputo;
 import repositorio.EquipoComputoDao;
 import repositorio.ReparacionEquipoDao;
 import repositorio.TipoEquipoComputoDao;
@@ -28,8 +31,8 @@ import static servicio.UsuarioService.isInteger;
  * @author heriberto
  *
  */
-@Transactional
 @Service
+@Transactional
 public class EquipoComputoService {
 	 
 	private static final Logger log = Logger.getLogger(EquipoComputoService.class);
@@ -132,7 +135,12 @@ public class EquipoComputoService {
      * @return manager con la informacion necesaria para registrar un  equipo
      */
     public MngCrearEquipo iniciarCrearEquipoComputo(MngCrearEquipo mngCrearEquipo ) {
-    	mngCrearEquipo.setTipoEquipoComputo(tipoEquipoComputoDao.buscarTodos());
+    	List<TipoEquipoComputo> tipoEquipoComputoList = tipoEquipoComputoDao.buscarTodos();
+    	Map<Integer,String> tipoEquipoComputoMap = new HashMap<>();
+    	for(TipoEquipoComputo tipoEquipoComputo:tipoEquipoComputoList){
+    		tipoEquipoComputoMap.put(tipoEquipoComputo.getIdTipoEquipoComputo(), tipoEquipoComputo.getEtiquetaTipoEquipo());
+    	}
+    	mngCrearEquipo.setTipoCaracteristicaMap(tipoEquipoComputoMap);
     	return mngCrearEquipo;
     }
 

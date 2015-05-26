@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Entidad EquipoComputo 
+ * Clase que representa una Entidad EquipoComputo 
  */
 
 public class EquipoComputo implements java.io.Serializable {

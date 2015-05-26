@@ -94,6 +94,7 @@ CREATE  TABLE IF NOT EXISTS MenuItemRol (
   id_tipoEquipoComputo INT NOT NULL AUTO_INCREMENT,
   etiqueta_tipoEquipo VARCHAR(45) NOT NULL,
   desc_tipoEquipo VARCHAR(45) NULL,
+  valor_caracteristica INT NOT NULL
   PRIMARY KEY (id_tipoEquipoComputo));
 
   CREATE  TABLE IF NOT EXISTS TipoCaracteristicaEquipo (

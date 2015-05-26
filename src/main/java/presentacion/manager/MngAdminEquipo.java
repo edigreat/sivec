@@ -39,6 +39,14 @@ public class MngAdminEquipo {
      */
     private List<EquipoComputo> equipoComputoList;
 
+    public List<Integer>  getPageNumberList(){
+    	List<Integer> pageNumberList=new ArrayList<>();
+    	for(int i=this.firstPageNumber;i<this.lastPageNumber;i++){
+    		pageNumberList.add(i+1);
+    	}
+    	return pageNumberList;
+    }
+    
 	public List<EquipoComputo> getEquipoComputoList() {
 		return equipoComputoList;
 	}

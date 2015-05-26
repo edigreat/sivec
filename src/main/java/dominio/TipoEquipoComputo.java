@@ -24,6 +24,7 @@ public class TipoEquipoComputo implements java.io.Serializable {
 	private Integer idTipoEquipoComputo;
 	private String etiquetaTipoEquipo;
 	private String descTipoEquipo;
+	private Integer valorCaracteristica;
 	private Set equipoComputos = new HashSet(0);
 	private Set caracteristicaEquipos = new HashSet(0);
 
@@ -88,5 +89,15 @@ public class TipoEquipoComputo implements java.io.Serializable {
 	public void setCaracteristicaEquipos(Set caracteristicaEquipos) {
 		this.caracteristicaEquipos = caracteristicaEquipos;
 	}
+
+	public Integer getValorCaracteristica() {
+		return valorCaracteristica;
+	}
+
+	public void setValorCaracteristica(Integer valorCaracteristica) {
+		this.valorCaracteristica = valorCaracteristica;
+	}
+
+	
 
 }

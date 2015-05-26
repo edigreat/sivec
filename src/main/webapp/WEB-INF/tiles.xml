@@ -2,6 +2,8 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<!-- Templates para usuarios -->       
 <tiles-definitions>
 	<definition name="base.definition" template="/WEB-INF/comunes/layout.jsp">
 		<put-attribute name="title" value="" />
@@ -26,8 +28,18 @@
 	</definition>
 	
 		<!-- Paginas de equipos -->
+		
 	<definition name="administrarequipo"  extends="base.definition" >
 		<put-attribute name="title" value="Administrar Equipos" />
 		<put-attribute name="body" value="/WEB-INF/pages/equipo/administrarEquipo.jsp" />
 	</definition>
+	
+	
+	<definition name="registrarEquipo"  extends="base.definition" >
+		<put-attribute name="title" value="Registrar Equipos" />
+		<put-attribute name="body" value="/WEB-INF/pages/equipo/registrarEquipo.jsp" />
+		<put-attribute name="current" value="index" />
+		
+	</definition>
+	
 	</tiles-definitions>

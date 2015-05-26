@@ -58,13 +58,20 @@
 						<tr>
 							<td><c:out value="${equipoComputo.idEquipoComputo}" /> </td>
 							<td><c:out value="${equipoComputo.tipoEquipoComputo.descTipoEquipo}" /> </td>
-							<!-- td><c:out value="${equipoComputo.nombreCompleto}" /> </td>
-							<td><c:out value="${equipoComputo.descripcionPerfil}" /></td-->
+							<td><c:out value="${equipoComputo.usuarioByIdUsuarioResponsable.nombreCompleto}" /> </td>
+							<td><c:out value="${equipoComputo.estadoEquipo}" /> </td>
+							
 							<td>
 							<a class="linkTabla" href=" <c:url value="/equipo/editar.html">
    										  <c:param name="idEquipoComputo" value="${equipoComputo.idEquipoComputo}"/>
 										  </c:url>"
-										> Editar </a>		
+										> Editar/Asignar </a>		
+							</td>
+							<td>
+							<a class="linkTabla" href=" <c:url value="/equipo/registrarReparacion.html">
+   										  <c:param name="idEquipoComputo" value="${equipoComputo.idEquipoComputo}"/>
+										  </c:url>"
+										> Registrar Reparacion </a>		
 							</td>
 						</tr>
 

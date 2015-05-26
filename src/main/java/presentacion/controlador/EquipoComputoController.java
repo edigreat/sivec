@@ -5,17 +5,22 @@ import static presentacion.manager.ConstantesPresentacion.MAX_ROWS;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import presentacion.manager.MngCrearEquipo;
+import presentacion.manager.MngCrearUsuario;
+import dominio.EquipoComputo;
+import dominio.Usuario;
 import servicio.EquipoComputoService;
 
 /**
  * Spring MVC controller that handles CRUD requests for Equipocomputo entities
  * @author Heriberto Galdamez
  */
-@Controller
+@Controller("equipoComputoController")
 @RequestMapping("/equipo")
 public class EquipoComputoController {
 
@@ -34,6 +39,7 @@ public class EquipoComputoController {
     /**
      * Service injected by Spring that provides CRUD operations for Equipocomputo entities
      */
+    @Autowired
     private EquipoComputoService equipoComputoService;
 
     
@@ -94,11 +100,20 @@ public class EquipoComputoController {
         // TODO implement here
     }
 
+   
     /**
+     * Muestra la pantalla de registrar usuario
      * 
+     * @return modelo y vista para registar un usuario
      */
-    public void mostrarPantallaRegistrarEquipo() {
-        // TODO implement here
+    @RequestMapping("/registrar")
+    public ModelAndView mostrarPantallaRegistrarUsuario() {
+    	MngCrearEquipo mngCrearEquipo =equipoComputoService.iniciarCrearEquipoComputo(new MngCrearEquipo());
+    	mngCrearEquipo.setPaginaCaracteristica("cpu.jsp");
+    	mngCrearEquipo.setEquipoComputo(new EquipoComputo());
+    	log.debug("tamanio del mapa " +mngCrearEquipo.getTipoCaracteristicaMap().size());
+    	return new ModelAndView("registrarEquipo","mngCrearEquipo",mngCrearEquipo);
+    	
     }
 
     /**

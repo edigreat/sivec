@@ -4,6 +4,7 @@ import java.util.*;
 
 import dominio.CaracteristicaEquipo;
 import dominio.EquipoComputo;
+import dominio.MenuRol;
 import dominio.TipoEquipoComputo;
 import dominio.Usuario;
 
@@ -29,16 +30,23 @@ public class MngCrearEquipo {
      * 
      */
     private Usuario usuario;
+    
+    private Map<Integer,String> tipoCaracteristicaMap;
 
-    /**
-     * 
-     */
-    private List<TipoEquipoComputo> tipoEquipoComputo;
 
-    /**
-     * 
-     */
-    private List<CaracteristicaEquipo> propiedadesEquipo;
+ 
+    private String tipoEquipoSeleccionado;
+    
+    private String paginaCaracteristica;
+    
+	public Integer getEquipoAsignado(){
+		
+		return 0;
+	}
+
+	public void setEquipoAsignado(Integer asignado){
+		
+	}
 
 	public EquipoComputo getEquipoComputo() {
 		return equipoComputo;
@@ -56,21 +64,9 @@ public class MngCrearEquipo {
 		this.usuario = usuario;
 	}
 
-	public List<TipoEquipoComputo> getTipoEquipoComputo() {
-		return tipoEquipoComputo;
-	}
+	
 
-	public void setTipoEquipoComputo(List<TipoEquipoComputo> tipoEquipoComputo) {
-		this.tipoEquipoComputo = tipoEquipoComputo;
-	}
-
-	public List<CaracteristicaEquipo> getPropiedadesEquipo() {
-		return propiedadesEquipo;
-	}
-
-	public void setPropiedadesEquipo(List<CaracteristicaEquipo> propiedadesEquipo) {
-		this.propiedadesEquipo = propiedadesEquipo;
-	}
+	
 
 	public List<EquipoComputo> getEquipoComputoList() {
 		return equipoComputoList;
@@ -79,5 +75,31 @@ public class MngCrearEquipo {
 	public void setEquipoComputoList(List<EquipoComputo> equipoComputoList) {
 		this.equipoComputoList = equipoComputoList;
 	}
+
+	public String getPaginaCaracteristica() {
+		return paginaCaracteristica;
+	}
+
+	public void setPaginaCaracteristica(String paginaCaracteristica) {
+		this.paginaCaracteristica = paginaCaracteristica;
+	}
+
+	public String getTipoEquipoSeleccionado() {
+		return tipoEquipoSeleccionado;
+	}
+
+	public void setTipoEquipoSeleccionado(String tipoEquipoSeleccionado) {
+		this.tipoEquipoSeleccionado = tipoEquipoSeleccionado;
+	}
+
+	public Map<Integer, String> getTipoCaracteristicaMap() {
+		return tipoCaracteristicaMap;
+	}
+
+	public void setTipoCaracteristicaMap(Map<Integer, String> tipoCaracteristicaMap) {
+		this.tipoCaracteristicaMap = tipoCaracteristicaMap;
+	}
+
+	
 
 }
