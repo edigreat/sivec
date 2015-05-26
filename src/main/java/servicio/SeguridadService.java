@@ -51,13 +51,11 @@ public class SeguridadService implements UserDetailsService  {
 		if (usuario == null) {
 			throw new UsernameNotFoundException("Usuario no encontrado");
 		}
-		Set<MenuRol> menuRolList = usuario.getMenuRols();
 		List<GrantedAuthority> grantedAuthorities=null;
-		if(!menuRolList.isEmpty()){
-			for(MenuRol menuRol: usuario.getMenuRols()){
-				GrantedAuthority grantedAuthority =new GrantedAuthorityImpl(menuRol.getRefRole());
-				grantedAuthorities = Arrays.asList(grantedAuthority);
-			}
+		if(usuario.getMenuRol()!=null){
+			GrantedAuthority grantedAuthority =new GrantedAuthorityImpl(usuario.getMenuRol().getRefRole());
+			grantedAuthorities = Arrays.asList(grantedAuthority);
+			
 		}
 		else{
 			log.debug("EL usuario no es valido " +email);

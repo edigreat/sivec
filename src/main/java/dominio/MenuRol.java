@@ -20,79 +20,78 @@ public class MenuRol implements java.io.Serializable {
 
 	// Fields
 
-	/**
+		/**
 	 * 
 	 */
-	private static final long serialVersionUID = 896500613239623605L;
-	private Integer idMenuRol;
-	private String refRole;
-	private String descripcionRol;
-	private Set usuarios = new HashSet(0);
-	private Set menuItems = new HashSet(0);
+	private static final long serialVersionUID = 3556956187829812240L;
+		private Integer idMenuRol;
+		private String refRole;
+		private String descripcionRol;
+		private Set menuItems = new HashSet(0);
+		private Set usuarios = new HashSet(0);
 
-	// Constructors
+		// Constructors
 
-	/** default constructor */
-	public MenuRol() {
-	}
+		/** default constructor */
+		public MenuRol() {
+		}
 
-	/** minimal constructor */
-	public MenuRol(String refRole, String descripcionRol) {
-		this.refRole = refRole;
-		this.descripcionRol = descripcionRol;
-	}
+		/** minimal constructor */
+		public MenuRol(String refRole, String descripcionRol) {
+			this.refRole = refRole;
+			this.descripcionRol = descripcionRol;
+		}
 
-	/** full constructor */
-	public MenuRol(String refRole, String descripcionRol, Set usuarios,
-			Set menuItems) {
-		this.refRole = refRole;
-		this.descripcionRol = descripcionRol;
-		this.usuarios = usuarios;
-		this.menuItems = menuItems;
-	}
+		/** full constructor */
+		public MenuRol(String refRole, String descripcionRol, Set menuItems,
+				Set usuarios) {
+			this.refRole = refRole;
+			this.descripcionRol = descripcionRol;
+			this.menuItems = menuItems;
+			this.usuarios = usuarios;
+		}
 
-	// Property accessors
+		// Property accessors
 
-	public Integer getIdMenuRol() {
-		return this.idMenuRol;
-	}
+		public Integer getIdMenuRol() {
+			return this.idMenuRol;
+		}
 
-	public void setIdMenuRol(Integer idMenuRol) {
-		this.idMenuRol = idMenuRol;
-	}
+		public void setIdMenuRol(Integer idMenuRol) {
+			this.idMenuRol = idMenuRol;
+		}
 
-	public String getRefRole() {
-		return this.refRole;
-	}
+		public String getRefRole() {
+			return this.refRole;
+		}
 
-	public void setRefRole(String refRole) {
-		this.refRole = refRole;
-	}
+		public void setRefRole(String refRole) {
+			this.refRole = refRole;
+		}
 
-	public String getDescripcionRol() {
-		return this.descripcionRol;
-	}
+		public String getDescripcionRol() {
+			return this.descripcionRol;
+		}
 
-	public void setDescripcionRol(String descripcionRol) {
-		this.descripcionRol = descripcionRol;
-	}
+		public void setDescripcionRol(String descripcionRol) {
+			this.descripcionRol = descripcionRol;
+		}
 
-	public Set getUsuarios() {
-		return this.usuarios;
-	}
+		public Set getMenuItems() {
+			return this.menuItems;
+		}
 
-	public void setUsuarios(Set usuarios) {
-		this.usuarios = usuarios;
-	}
+		public void setMenuItems(Set menuItems) {
+			this.menuItems = menuItems;
+		}
 
-	public Set getMenuItems() {
-		return this.menuItems;
-	}
+		public Set getUsuarios() {
+			return this.usuarios;
+		}
 
-	public void setMenuItems(Set menuItems) {
-		this.menuItems = menuItems;
-	}
-
+		public void setUsuarios(Set usuarios) {
+			this.usuarios = usuarios;
+		}
 	@Override
 	public String toString() {
 		return "MenuRol [idMenuRol=" + idMenuRol + ", refRole=" + refRole

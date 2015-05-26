@@ -73,13 +73,11 @@ public class MngCrearUsuario {
 
 	}
 	public Integer getMenuAsignado(){
-		Integer idMenuRol=0;
-		if( this.usuario.getMenuRols().iterator().hasNext()){
-			MenuRol menuRol = this.usuario.getMenuRols().iterator().next();
-			menuRol.getIdMenuRol();
-			idMenuRol=menuRol.getIdMenuRol();
+		int idMenuAsignado=0;
+		if(this.usuario.getMenuRol()!=null){
+			idMenuAsignado=this.usuario.getMenuRol().getIdMenuRol();
 		}
-		return idMenuRol;
+		return idMenuAsignado;
 	}
 	public void setMenuRolSeleccionado(Integer menuRolSeleccionado) {
 		this.menuRolSeleccionado = menuRolSeleccionado;

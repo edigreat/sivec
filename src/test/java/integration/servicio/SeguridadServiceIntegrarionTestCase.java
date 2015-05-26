@@ -31,7 +31,7 @@ public class SeguridadServiceIntegrarionTestCase extends AbstractUtilityTest {
 	@Test
 	public void loadUserByUsernameTest(){
 		
-		UserDetails userDetails = userDetailsService.loadUserByUsername("miccreo1");
+		UserDetails userDetails = userDetailsService.loadUserByUsername("miccreo1@gmail.com");
 		log.debug(userDetails);
 	}
 	

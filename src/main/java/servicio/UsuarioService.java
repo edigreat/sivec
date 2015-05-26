@@ -19,12 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dominio.MenuItem;
 import dominio.MenuRol;
 import dominio.Usuario;
 import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearUsuario;
 import repositorio.DependenciaUniDao;
 import repositorio.EquipoComputoDao;
+import repositorio.MenuItemDao;
 import repositorio.MenuRolDao;
 import repositorio.ReparacionEquipoDao;
 import repositorio.UsuarioDao;
@@ -77,6 +79,10 @@ public class UsuarioService {
      */
     @Autowired
     private UsuarioDao usuarioDao;
+    
+    
+    @Autowired
+    private MenuItemDao menuItemDao;
 
     /**
      * Buscar todos los usuarios, paginado
@@ -133,7 +139,7 @@ public class UsuarioService {
     	log.debug("---> insertarUsuario "+mngCrearUsuario.getMenuRolSeleccionado());
     	MenuRol menuRol = menuRolDao.buscarMenuRolPorId(mngCrearUsuario.getMenuRolSeleccionado());
     	log.debug("MenuRol asignado :" + menuRol);
-    	mngCrearUsuario.getUsuario().addMenuRol(menuRol);
+    	mngCrearUsuario.getUsuario().setMenuRol(menuRol);
     	mngCrearUsuario.getUsuario().setIndVigenciaUsuario(1);
     	log.debug(mngCrearUsuario);
     	mngCrearUsuario.setUsuario(usuarioDao.insertarUsuario(mngCrearUsuario.getUsuario()));
@@ -161,8 +167,7 @@ public class UsuarioService {
     	log.debug("---> actualizarUsuario " + mngEditarUsuarioInstance.getMenuRolSeleccionado());
     	Usuario usuarioUpdate = usuarioDao.autenticarUsuario(mngEditarUsuarioInstance.getUsuario().getIdUsuario());
     	MenuRol menuRol = menuRolDao.buscarMenuRolPorId(mngEditarUsuarioInstance.getMenuRolSeleccionado());
-    	usuarioUpdate.getMenuRols().clear();
-    	usuarioUpdate.addMenuRol(menuRol);
+    	usuarioUpdate.setMenuRol(menuRol);
     	usuarioUpdate.setNombre(mngEditarUsuarioInstance.getUsuario().getNombre());
     	usuarioUpdate.setApMaterno(mngEditarUsuarioInstance.getUsuario().getApMaterno());
     	usuarioUpdate.setApPaterno(mngEditarUsuarioInstance.getUsuario().getApPaterno());

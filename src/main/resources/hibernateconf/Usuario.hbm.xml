@@ -49,14 +49,10 @@
             </key>
             <one-to-many class="dominio.EquipoComputo" />
         </set> 
-        <set name="menuRols" table="UsuarioMenuRol" lazy="false" fetch="select" >
-            <key>
-                <column name="id_usuario" not-null="true" />
-            </key>
-            <many-to-many entity-name="dominio.MenuRol">
-                <column name="id_menuRol" not-null="true" />
-            </many-to-many>
-        </set>
+        
+        <many-to-one name="menuRol" class="dominio.MenuRol" fetch="select">
+            <column name="id_menuRol" not-null="true" />
+        </many-to-one>
         <!-- 
         <set name="reparacionEquiposForIdUsuarioAsignado" inverse="true">
             <key>

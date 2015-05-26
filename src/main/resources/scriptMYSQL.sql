@@ -1,14 +1,13 @@
-DROP TABLE ReparacionEquipo;
-DROP TABLE EquipoComputo;
-DROP TABLE TipoCaracteristicaEquipo;
-DROP TABLE TipoEquipoComputo;
-DROP TABLE CaracteristicaEquipo;
-DROP TABLE MenuItemRol;
-DROP TABLE MenuItem;
-DROP TABLE UsuarioMenuRol;
-DROP TABLE MenuRol;
-DROP TABLE Usuario;
-DROP TABLE DependenciaUniversitaria;
+DROP TABLE IF EXISTS ReparacionEquipo;
+DROP TABLE IF EXISTS EquipoComputo;
+DROP TABLE IF EXISTS TipoCaracteristicaEquipo;
+DROP TABLE IF EXISTS TipoEquipoComputo;
+DROP TABLE IF EXISTS CaracteristicaEquipo;
+DROP TABLE IF EXISTS Usuario;
+DROP TABLE IF EXISTS MenuItemRol;
+DROP TABLE IF EXISTS MenuItem;
+DROP TABLE IF EXISTS MenuRol;
+DROP TABLE IF EXISTS DependenciaUniversitaria;
 
 
 
@@ -17,41 +16,15 @@ CREATE  TABLE IF NOT EXISTS DependenciaUniversitaria (
   id_dependencia INT NOT NULL AUTO_INCREMENT,
   descripcion VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_dependencia));
-  
-CREATE  TABLE IF NOT EXISTS   Usuario (
-  id_usuario INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(45) NOT NULL,
-  ap_paterno VARCHAR(45) NOT NULL,
-  ap_materno VARCHAR(45) NULL,
-  fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  fecha_actualizacion DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  correo_eletronico VARCHAR(80) NOT NULL,
-  password VARCHAR(45) NOT NULL,
-  ind_vigencia_usuario INT NOT NULL DEFAULT 1,
-  dependencia_universitaria VARCHAR(80) NOT NULL,
-  PRIMARY KEY (id_usuario),
-  UNIQUE INDEX correo_eletronico_UNIQUE (correo_eletronico ASC));
- 
+
 CREATE  TABLE IF NOT EXISTS MenuRol (
   id_menuRol INT NOT NULL AUTO_INCREMENT,
   ref_role VARCHAR(45) NOT NULL,
   descripcion_rol VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_menuRol));  
   
-  CREATE  TABLE IF NOT EXISTS UsuarioMenuRol (
-  id_menuRol INT NOT NULL,
-  id_usuario INT NOT NULL,
-  PRIMARY KEY (id_menuRol, id_usuario),
-  CONSTRAINT fk_UsuarioMenuRol_MenuRol1
-    FOREIGN KEY (id_menuRol)
-    REFERENCES MenuRol (id_menuRol)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_UsuarioMenuRol_Usuario1
-    FOREIGN KEY (id_usuario)
-    REFERENCES Usuario (id_usuario)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  
+  
 
   CREATE  TABLE IF NOT EXISTS MenuItem (
   id_menuItem INT NOT NULL AUTO_INCREMENT,
@@ -65,15 +38,14 @@ CREATE  TABLE IF NOT EXISTS MenuRol (
     REFERENCES MenuItem (id_menuItem)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
+  
     
-
-
-CREATE  TABLE IF NOT EXISTS MenuItemRol (
+CREATE TABLE IF NOT EXISTS MenuItemRol (
   id_menuRol INT NOT NULL,
   id_menuItem INT NOT NULL,
-  PRIMARY KEY (id_menuRol, id_menuItem),
- CONSTRAINT fk_MenuItemsRoles_MenuRoles1
+  INDEX fk_MenuItemsRoles_MenuRoles1_idx (id_menuRol ASC),
+  INDEX fk_MenuItemsRoles_MenuItems1_idx (id_menuItem ASC),
+  CONSTRAINT fk_MenuItemsRoles_MenuRoles1
     FOREIGN KEY (id_menuRol)
     REFERENCES MenuRol (id_menuRol)
     ON DELETE NO ACTION
@@ -83,6 +55,35 @@ CREATE  TABLE IF NOT EXISTS MenuItemRol (
     REFERENCES MenuItem (id_menuItem)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+  
+CREATE  TABLE IF NOT EXISTS   Usuario (
+  id_usuario INT NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(45) NOT NULL,
+  ap_paterno VARCHAR(45) NOT NULL,
+  ap_materno VARCHAR(45) NULL,
+  fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  fecha_actualizacion DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  correo_eletronico VARCHAR(80) NOT NULL,
+  password VARCHAR(45) NOT NULL,
+  ind_vigencia_usuario INT NOT NULL DEFAULT 1,
+  dependencia_universitaria VARCHAR(80) NOT NULL,
+  id_menuRol INT NOT NULL,
+
+  PRIMARY KEY (id_usuario),
+  UNIQUE INDEX correo_eletronico_UNIQUE (correo_eletronico ASC),
+   CONSTRAINT fk_Usuario_MenuRol1
+    FOREIGN KEY (id_menuRol)
+    REFERENCES MenuRol (id_menuRol)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+ 
+
+  
+ 
+    
+
+
+
 
  CREATE  TABLE IF NOT EXISTS CaracteristicaEquipo (
   id_caractaristica_equipo INT NOT NULL AUTO_INCREMENT,
@@ -94,12 +95,13 @@ CREATE  TABLE IF NOT EXISTS MenuItemRol (
   id_tipoEquipoComputo INT NOT NULL AUTO_INCREMENT,
   etiqueta_tipoEquipo VARCHAR(45) NOT NULL,
   desc_tipoEquipo VARCHAR(45) NULL,
-  valor_caracteristica INT NOT NULL
   PRIMARY KEY (id_tipoEquipoComputo));
 
   CREATE  TABLE IF NOT EXISTS TipoCaracteristicaEquipo (
   id_caracterisrica_equipo INT NOT NULL,
   id_tipoEquipoComputo INT NOT NULL,
+  val_caracteristica VARCHAR(45) NOT NULL,
+
   PRIMARY KEY (id_caracterisrica_equipo, id_tipoEquipoComputo),
   CONSTRAINT fk_TipoCaracteristicaEquipo_CaracteristicaEquipo1
     FOREIGN KEY (id_caracterisrica_equipo)
@@ -168,6 +170,7 @@ CREATE   TABLE IF NOT EXISTS ReparacionEquipo (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+
 INSERT INTO TipoEquipoComputo(id_tipoEquipoComputo,etiqueta_tipoEquipo,desc_tipoEquipo) values(1,'CPU','Computadora');
 INSERT INTO TipoEquipoComputo(id_tipoEquipoComputo,etiqueta_tipoEquipo,desc_tipoEquipo) values(2,'Monitor','Monitor');
     
@@ -176,10 +179,10 @@ INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristic
 INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(3,'Pulg','Pulgadas');
 INSERT INTO CaracteristicaEquipo(id_caractaristica_equipo,etiqueta_caracteristica,desc_caracteristica) values(4,'LCD','Disco Duro');
   
-INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(1,1);
-INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(2,1);
-INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(3,2);
-INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo) values(4,2);
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo,val_caracteristica) values(1,1,'500');
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo,val_caracteristica) values(2,1,'600');
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo,val_caracteristica) values(3,2,'800');
+INSERT INTO TipoCaracteristicaEquipo(id_caracterisrica_equipo,id_tipoEquipoComputo,val_caracteristica) values(4,2,'900');
 
 INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(1,null,'USUARIOS','etiqueta','memu');
 INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(2,null,'EQUIPOS','etiqueta','memu');
@@ -199,26 +202,6 @@ INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(5,'CENTR
 INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(1,'REF_ADMIN',' Usuario Administrador');
 INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(2,'REF_CAPTURISTA',' Usuario capturista');
 INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(3,'REF_RESPONSABLE','Usuario Responsable');  
-  
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (1,'nombre1','ap_paterno1','ap_materno1',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo1','wedaa1',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (2,'nombre2','ap_paterno2','ap_materno2',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo2','wedaa2',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (3,'nombre3','ap_paterno3','ap_materno3',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo@3','wedaa3',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (4,'nombre4','ap_paterno4','ap_materno4',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo@4','wedaa4',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (5,'nombre5','ap_paterno5','ap_materno5',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo@5','wedaa5',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (6,'nombre6','ap_paterno6','ap_materno6',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo@6','wedaa6',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (7,'nombre7','ap_paterno7','ap_materno7',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo@7','wedaa7',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (8,'nombre8','ap_paterno8','ap_materno8',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo@8','wedaa8',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (9,'nombre9','ap_paterno9','ap_materno9',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo@9','wedaa9',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (10,'nombre10','ap_paterno10','ap_materno10',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo10','wedaa10',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (11,'nombre11','ap_paterno11','ap_materno11',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo11','wedaa11',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (12,'nombre12','ap_paterno12','ap_materno12',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo12','wedaa12',1,'dependencia_universitaria');
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria) values (13,'nombre13','ap_paterno13','ap_materno13',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo13','wedaa13',1,'dependencia_universitaria');
-
-INSERT INTO UsuarioMenuRol (id_menuRol,id_usuario) values(1,1);
-INSERT INTO UsuarioMenuRol (id_menuRol,id_usuario) values(2,2);
-INSERT INTO UsuarioMenuRol (id_menuRol,id_usuario) values(3,3);
-INSERT INTO UsuarioMenuRol (id_menuRol,id_usuario) values(2,4);
-INSERT INTO UsuarioMenuRol (id_menuRol,id_usuario) values(3,5);
 
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,1);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,2);
@@ -227,6 +210,38 @@ INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,4);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,5);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,6);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,7);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,1);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,2);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,3);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,4);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,5);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,6);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,7);
+
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,1);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,2);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,3);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,4);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,5);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,6);
+INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,7);
+
+
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (1,'nombre1','ap_paterno1','ap_materno1',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo1@gmail.com','wedaa1',1,'dependencia_universitaria',1);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (2,'nombre2','ap_paterno2','ap_materno2',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo2@gmail.com','wedaa2',1,'dependencia_universitaria',1);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (3,'nombre3','ap_paterno3','ap_materno3',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo3@hotmail.com','wedaa3',1,'dependencia_universitaria',1);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (4,'nombre4','ap_paterno4','ap_materno4',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo4@hotmail.com','wedaa4',1,'dependencia_universitaria',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (5,'nombre5','ap_paterno5','ap_materno5',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo5@hotmail.com','wedaa5',1,'dependencia_universitaria',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (6,'nombre6','ap_paterno6','ap_materno6',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo6@hotmail.com','wedaa6',1,'dependencia_universitaria',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (7,'nombre7','ap_paterno7','ap_materno7',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo7@hotmail.com','wedaa7',1,'dependencia_universitaria',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (8,'nombre8','ap_paterno8','ap_materno8',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo8@hotmail.com','wedaa8',1,'dependencia_universitaria',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (9,'nombre9','ap_paterno9','ap_materno9',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo9@hotmail.com','wedaa9',1,'dependencia_universitaria',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (10,'nombre10','ap_paterno10','ap_materno10',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo10@yahoo.com','wedaa10',1,'dependencia_universitaria',3);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (11,'nombre11','ap_paterno11','ap_materno11',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo11@yahoo.com','wedaa11',1,'dependencia_universitaria',3);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (12,'nombre12','ap_paterno12','ap_materno12',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo12@yahoo.com','wedaa12',1,'dependencia_universitaria',3);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (13,'nombre13','ap_paterno13','ap_materno13',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'miccreo13@yahoo.com','wedaa13',1,'dependencia_universitaria',3);
+
+
 
 INSERT INTO EquipoComputo 
 (id_equipoComputo,id_usuarioResponsable,id_tipoEquipo,id_usuarioAsignado,marca_computo,modelo_computo,ubicacion,fecha_creacion,fecha_actualizacion,ind_vigencia_equipo,estado_equipo)

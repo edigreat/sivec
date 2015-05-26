@@ -31,13 +31,13 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	/*@Test
 	public void insertarUsuarioTest(){
-		Usuario usuarioNew = new Usuario("nombre","apPaterno","correoprueba","pass",1,"dependencia");
+		Usuario usuarioNew = new Usuario("nombre","apPaterno","correoprueba1@gmail.com","pass",1,"dependencia");
 		usuarioNew=usuarioDao.insertarUsuario(usuarioNew);
 		assertThat(usuarioNew,is(notNullValue()));
 		assertThat(usuarioNew.getIdUsuario(), greaterThan(0));
 		log.info(""+usuarioNew);
-	}*/
-	
+	}
+	*/
 	@Test
 	public void buscarTodosTest(){
 		List<Usuario> usuarioList = usuarioDao.buscarTodos("mi");
@@ -48,7 +48,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 			log.info(usuario);
 		}
 	}
-	/*
+	
 	@Test
 	public void buscarTodosTestPaginado(){
 		int startResult=3;
@@ -63,18 +63,18 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	@Test
 	public void buscarUsuarioPorEmaiTestl(){
-		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1");
+		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
 		assertThat(usuario, is(notNullValue()));
 		log.debug("Usuario " + usuario);
 		
 	}
-	
+	/*
 	@Test
 	public void actualizarUsuarioTest(){
 		String apPaterno="actualizadoPaterno";
 		String apMaterno="actualizadoMaterno";
 		
-		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1");
+		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
 		assertThat(usuario,is(notNullValue()));
 		log.info("Recuperado : " + usuario);
 		usuario.setApMaterno(apMaterno);

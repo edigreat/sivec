@@ -58,28 +58,16 @@ public class Usuario implements java.io.Serializable {
 	@NotBlank
 	private String dependenciaUniversitaria;
 	
+	
+	private MenuRol menuRol;
+
 	private Set<EquipoComputo> equipoComputosForIdUsuarioAsignado = new HashSet<EquipoComputo>(0);
 	private Set<EquipoComputo> equipoComputosForIdUsuarioResponsable = new HashSet<EquipoComputo>(0);
-	
-	private Set<MenuRol> menuRols = new HashSet<MenuRol>(0);
 	private Set<ReparacionEquipo> reparacionEquiposForIdUsuarioAsignado = new HashSet<ReparacionEquipo> (0);
 	private Set<ReparacionEquipo>  reparacionEquiposForIdUsuarioResponsable = new HashSet<ReparacionEquipo> (0);
 
 	
-	public void addMenuRol(MenuRol menuRol){
-		this.menuRols.add(menuRol);
-		
-	}
 	
-	public String getDescripcionPerfil(){
-		String menuRolsString="";
-		if(!menuRols.isEmpty()){
-			for(MenuRol menuRol:menuRols){
-				menuRolsString +=" "+menuRol.getDescripcionRol();
-			}
-		}
-		return menuRolsString;
-	}
 	
 	/**
 	 * Concatena los atributos para formar
@@ -207,14 +195,7 @@ public class Usuario implements java.io.Serializable {
 		this.equipoComputosForIdUsuarioResponsable = equipoComputosForIdUsuarioResponsable;
 	}
 
-	public Set<MenuRol> getMenuRols() {
-		return this.menuRols;
-	}
-
-	public void setMenuRols(Set<MenuRol> menuRols) {
-		this.menuRols = menuRols;
-	}
-
+	
 	public Set<ReparacionEquipo>  getReparacionEquiposForIdUsuarioAsignado() {
 		return this.reparacionEquiposForIdUsuarioAsignado;
 	}
@@ -235,13 +216,8 @@ public class Usuario implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		String menuRolsString="";
 		String equipoComputosAsignadoString="";
-		if(!menuRols.isEmpty()){
-			for(MenuRol menuRol:menuRols){
-				menuRolsString +=", "+menuRol;
-			}
-		}
+		
 		/*
 		if(!this.equipoComputosForIdUsuarioAsignado.isEmpty()){
 			for(EquipoComputo equipoComputo:this.equipoComputosForIdUsuarioAsignado)
@@ -256,7 +232,7 @@ public class Usuario implements java.io.Serializable {
 				+ fechaActualizacion + ", correoEletronico=" + correoEletronico
 				+ ", password=" + password + ", indVigenciaUsuario="
 				+ indVigenciaUsuario + ", dependenciaUniversitaria="
-				+ dependenciaUniversitaria+" menuRolsString:"+menuRolsString +")";// +" ("+menuRolsString+") , ("+equipoComputosAsignadoString+")] ";
+				+ dependenciaUniversitaria+")";// +" ("+menuRolsString+") , ("+equipoComputosAsignadoString+")] ";
 	}
 
 	public String toStringEquipos() {
@@ -283,5 +259,21 @@ public class Usuario implements java.io.Serializable {
 				+ indVigenciaUsuario + ", dependenciaUniversitaria="
 				+ dependenciaUniversitaria +" ("+equipoComputosAsignadoString+")] ";
 	}
+
+	public String getDescripcionPerfil(){
+		return this.menuRol.getDescripcionRol();
+	}
+
+
+	public MenuRol getMenuRol() {
+		return menuRol;
+	}
+
+
+	public void setMenuRol(MenuRol menuRol) {
+		this.menuRol = menuRol;
+	}
+
+	
 
 }

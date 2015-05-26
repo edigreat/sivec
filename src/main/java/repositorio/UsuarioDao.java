@@ -54,7 +54,7 @@ public class UsuarioDao {
     public List<Usuario> buscarTodos(String correoElectronico) {
     	
 		return getCurrentSession().createCriteria(Usuario.class)
-				.setFetchMode("menuRols", FetchMode.JOIN)
+				.setFetchMode("menuRol", FetchMode.JOIN)
 				.add(Restrictions.ilike("correoEletronico",correoElectronico,MatchMode.ANYWHERE)).list();
     			
 		
@@ -78,7 +78,7 @@ public class UsuarioDao {
     @SuppressWarnings("unchecked")
 	public List<Usuario> buscarTodos(int pageNumber, int pageSize) {
 		return getCurrentSession().createCriteria(Usuario.class)
-    	.setFetchMode("menuRols", FetchMode.JOIN)
+		.setFetchMode("menuRol", FetchMode.JOIN)
     	.setFirstResult((pageNumber - 1) * pageSize)
     	.setMaxResults(pageSize)
     	.addOrder(
@@ -100,7 +100,7 @@ public class UsuarioDao {
         */
     	return (Usuario)getCurrentSession().createCriteria(Usuario.class)
     			.add(Restrictions.eq("correoEletronico",email))
-    			.setFetchMode("menuRols", FetchMode.JOIN)
+				.setFetchMode("menuRol", FetchMode.JOIN)
     			.uniqueResult();
     }
 
@@ -152,7 +152,7 @@ public class UsuarioDao {
     public Usuario autenticarUsuario(Integer idUsuario) {
     	return     			(Usuario)getCurrentSession().createCriteria(Usuario.class)
     			.add(Restrictions.eq("idUsuario",idUsuario))
-    			.setFetchMode("menuRols", FetchMode.JOIN)
+				.setFetchMode("menuRol", FetchMode.JOIN)
     			.uniqueResult();
     }
 
@@ -168,7 +168,7 @@ public class UsuarioDao {
         return queryObject.list();*/
     	return getCurrentSession().createCriteria(Usuario.class)
     			.add(Restrictions.eq("idUsuario",idUsuario))
-    			.setFetchMode("menuRols", FetchMode.JOIN)
+				.setFetchMode("menuRol", FetchMode.JOIN)
     			.setFetchMode("equipoComputosForIdUsuarioAsignado", FetchMode.JOIN)
     			.list();
     }

@@ -28,10 +28,10 @@
 			<property name="password" value="${jdbc.password}" />
 	</bean>
 	
-	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script 	
+	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script 
 	<jdbc:initialize-database data-source="dataSource">
 	      <jdbc:script location="classpath:${jdbc.scriptSql}" />
-	</jdbc:initialize-database>-->
+	</jdbc:initialize-database>	-->
 	
 	<!-- Crea un servidor web para la consola del bean h2Server 
 	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
