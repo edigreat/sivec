@@ -3,10 +3,12 @@ package repositorio;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -46,17 +48,29 @@ public class EquipoComputoDao {
     }
 
     /**
+	 * Obtiene el total de registros de la tabla de usuarios
+	 * @return numero de registros de usuario.
+	 */
+	public Long obtenerTotalRegistrosEquipoComputo(){
+		String query = "Select count(e.idEquipoComputo) from EquipoComputo e";
+		Query queryTotal = getCurrentSession().createQuery(query);
+		return (Long)queryTotal.uniqueResult();
+	}
+	
+    /**
      * @param startResult 
      * @param maxRows 
      * @return
      */
     @SuppressWarnings("unchecked")
-	public List<EquipoComputo> buscarTodos(int startResult, int maxRows) {
-    	String queryString = "from EquipoComputo";
-		Query queryObject = getCurrentSession().createQuery(queryString);
-		queryObject.setFirstResult(startResult);
-		queryObject.setMaxResults(maxRows);
-		return  queryObject.list();
+	public List<EquipoComputo> buscarTodos(int pageNumber, int maxRows) {
+    	return getCurrentSession().createCriteria(EquipoComputo.class)
+    	    	.setFirstResult((pageNumber - 1) * maxRows)
+    	    	.setMaxResults(maxRows)
+    	    	.addOrder(
+    	    			Order.desc("idEquipoComputo")
+    	    			)
+    	    	.list();
     }
 
     /**

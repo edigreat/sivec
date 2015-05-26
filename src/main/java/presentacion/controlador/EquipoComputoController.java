@@ -1,9 +1,13 @@
 package presentacion.controlador;
 
+import static presentacion.manager.ConstantesPresentacion.MAX_ROWS;
+
 import java.util.*;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import servicio.EquipoComputoService;
 
@@ -13,12 +17,18 @@ import servicio.EquipoComputoService;
  */
 @Controller
 @RequestMapping("/equipo")
-public class EquipocomputoController {
+public class EquipoComputoController {
+
+	
+	/**
+	 * log a utilizar
+	 */
+	private static final Logger log = Logger.getLogger(EquipoComputoController.class);
 
     /**
      * Spring MVC controller that handles CRUD requests for Equipocomputo entities
      */
-    public EquipocomputoController() {
+    public EquipoComputoController() {
     }
 
     /**
@@ -26,13 +36,7 @@ public class EquipocomputoController {
      */
     private EquipoComputoService equipoComputoService;
 
-    /**
-     * 
-     */
-    public void newEquipo() {
-        // TODO implement here
-    }
-
+    
     /**
      * 
      */
@@ -107,9 +111,10 @@ public class EquipocomputoController {
     /**
      * 
      */
-    public void mostrarAdministrarEquipos() {
-        // TODO implement here
-    }
+    @RequestMapping("/list")
+    public ModelAndView mostrarAdministrarEquipos() {
+    	log.debug("Entrando a mostrarPantallaAdministrarEquipo ");
+    	return new ModelAndView("administrarequipo","mngAdminEquipo",equipoComputoService.buscarTodos("0",MAX_ROWS));    }
 
     /**
      * 

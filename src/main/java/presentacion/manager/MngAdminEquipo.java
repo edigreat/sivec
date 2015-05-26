@@ -9,6 +9,25 @@ import dominio.EquipoComputo;
  */
 public class MngAdminEquipo {
 
+	 /**
+     * Atributo que se utiliza
+     * para generar la paginacion
+     */
+    int numTotalEquipos=0;
+    
+    /**
+     * Atributo que se utiliza
+     * para navegar hacia la ultima 
+     * pagina
+     */
+    int lastPageNumber=0;
+    
+    /**
+     * Atributo que se utiliza
+     * para navegar hacia la primera
+     * pagina
+     */
+    int firstPageNumber=0;
     /**
      * 
      */
@@ -26,6 +45,30 @@ public class MngAdminEquipo {
 
 	public void setEquipoComputoList(List<EquipoComputo> equipoComputoList) {
 		this.equipoComputoList = equipoComputoList;
+	}
+
+	public int getNumTotalEquipos() {
+		return numTotalEquipos;
+	}
+
+	public void setNumTotalEquipos(int numTotalEquipos) {
+		this.numTotalEquipos = numTotalEquipos;
+	}
+
+	public int getLastPageNumber() {
+		return lastPageNumber;
+	}
+
+	public void setLastPageNumber(int lastPageNumber) {
+		this.lastPageNumber = lastPageNumber;
+	}
+
+	public int getFirstPageNumber() {
+		return firstPageNumber;
+	}
+
+	public void setFirstPageNumber(int firstPageNumber) {
+		this.firstPageNumber = firstPageNumber;
 	}
 
 }

@@ -8,18 +8,20 @@ package servicio;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import presentacion.manager.MngAdminEquipo;
+import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearEquipo;
 import presentacion.manager.MngCrearReparacion;
 import dominio.EquipoComputo;
 import repositorio.EquipoComputoDao;
 import repositorio.ReparacionEquipoDao;
 import repositorio.TipoEquipoComputoDao;
-
+import static servicio.UsuarioService.isInteger;
 /**
  * Servicio de spring que maneja las peticiones
  * para las entidades de equipo de computo
@@ -30,6 +32,8 @@ import repositorio.TipoEquipoComputoDao;
 @Service
 public class EquipoComputoService {
 	 
+	private static final Logger log = Logger.getLogger(EquipoComputoService.class);
+
 	public EquipoComputoService() {
     }
 
@@ -57,8 +61,26 @@ public class EquipoComputoService {
      * @param maxRows tamanio de la pagina
      * @return lista de equipos
      */
-    public List<EquipoComputo> buscarTodos(int startResult, int maxRows) {
-        return equipoComputoDao.buscarTodos(startResult,maxRows);
+    public MngAdminEquipo buscarTodos(String startResultString, int maxRows) {
+    	log.debug("Buscando equipos de la pagina : ["+startResultString.trim()+"] "+isInteger(startResultString.trim()));
+
+    	MngAdminEquipo mngAdminEquipo = new MngAdminEquipo(); 
+        Long numTotalEquipos = equipoComputoDao.obtenerTotalRegistrosEquipoComputo();
+        mngAdminEquipo.setNumTotalEquipos(numTotalEquipos.intValue());
+        int startResult=0;
+        if(isInteger(startResultString)){
+        	startResult = Integer.parseInt(startResultString);
+        
+        }
+
+        if(numTotalEquipos > 0){
+        	mngAdminEquipo.setLastPageNumber( (int)
+        			(mngAdminEquipo.getNumTotalEquipos()/maxRows)+1)
+        			;
+        	mngAdminEquipo.setFirstPageNumber(0);
+        	mngAdminEquipo.setEquipoComputoList(equipoComputoDao.buscarTodos(startResult, maxRows));
+        }
+        return mngAdminEquipo;
     }
 
     /**

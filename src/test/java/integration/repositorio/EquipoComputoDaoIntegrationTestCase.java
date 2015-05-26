@@ -1,12 +1,8 @@
 package integration.repositorio;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-
+import static org.hamcrest.Matchers.*;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -113,5 +109,21 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 			log.debug(equipoComputo);
 		}
 		
+	}
+	
+	@Test
+	public void obtenerTotalRegistrosEquipoComputoTest(){
+		Long numTotalRegistro=equipoComputoDao.obtenerTotalRegistrosEquipoComputo();
+		assertThat(numTotalRegistro.intValue(),greaterThan(0));
+	}
+	@Test
+	public void buscarTodosPaginadoTest(){
+		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodos(0,5);
+		assertThat(equipoComputoList, is(notNullValue()));
+		assertThat(equipoComputoList.isEmpty(), is(not(true)));
+
+		//for(EquipoComputo equipoComputo:equipoComputoList){
+			//log.info(equipoComputo);
+		//}
 	}
 }

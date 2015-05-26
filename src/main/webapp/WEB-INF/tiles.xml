@@ -10,6 +10,7 @@
 		<put-attribute name="footer" value="/WEB-INF/comunes/footer.jsp" />
 	</definition>
 	
+	<!-- Paginas de usuario -->
 	<definition name="administrarusuario"  extends="base.definition" >
 		<put-attribute name="title" value="Administrar Usuarios" />
 		<put-attribute name="body" value="/WEB-INF/pages/usuario/administrarUsuario.jsp" />
@@ -22,5 +23,11 @@
 	<definition name="editarUsuario"  extends="base.definition" >
 		<put-attribute name="title" value="Editar Usuario" />
 		<put-attribute name="body" value="/WEB-INF/pages/usuario/editarUsuario.jsp" />
+	</definition>
+	
+		<!-- Paginas de equipos -->
+	<definition name="administrarequipo"  extends="base.definition" >
+		<put-attribute name="title" value="Administrar Equipos" />
+		<put-attribute name="body" value="/WEB-INF/pages/equipo/administrarEquipo.jsp" />
 	</definition>
 	</tiles-definitions>

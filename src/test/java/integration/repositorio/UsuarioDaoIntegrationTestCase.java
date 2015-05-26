@@ -7,15 +7,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestName;
-import org.junit.rules.TestRule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
 import static org.hamcrest.Matchers.*;
 import dominio.Usuario;
 import repositorio.UsuarioDao;
@@ -114,12 +108,13 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 			log.info(usuario.toStringEquipos());
 		}
 		
-	}
+	}*/
+	
 	@Test
 	public void obtenerTotalRegistrosUsuarioTest(){
 		Long numUsuarios = usuarioDao.obtenerTotalRegistrosUsuario();
 		assertThat(numUsuarios.intValue(),greaterThan(0));
-	}*/
+	}
 	
 
 }
