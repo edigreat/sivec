@@ -11,9 +11,9 @@
          <!-- por que tiene que ir aqui? -->
         <timestamp column="fecha_actualizacion" name="fechaActualizacion" />
        
-        <many-to-one name="tipoEquipoComputo" class="dominio.TipoEquipoComputo" fetch="select">
-            <column name="id_tipoEquipo" not-null="true" />
-        </many-to-one>
+        <property name="descTipoEquipo" type="java.lang.String">
+            <column name="desc_tipoEquipo" length="45" not-null="true" />
+        </property>
         <many-to-one name="usuarioByIdUsuarioResponsable" class="dominio.Usuario" fetch="select">
             <column name="id_usuarioResponsable" not-null="true" />
         </many-to-one>
@@ -38,6 +38,12 @@
         <property name="estadoEquipo" type="java.lang.String">
             <column name="estado_equipo" length="45" not-null="true" />
         </property>
+       <set name="equipoValorCaracs" inverse="true">
+            <key>
+                <column name="id_equipoComputo" not-null="true" />
+            </key>
+            <one-to-many class="dominio.EquipoValorCarac" />
+        </set>
         <set name="reparacionEquipos" inverse="true">
             <key>
                 <column name="id_equipoComputo" not-null="true" />

@@ -13,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import dominio.EquipoComputo;
-import dominio.TipoEquipoComputo;
 import dominio.Usuario;
 import repositorio.EquipoComputoDao;
-import repositorio.TipoEquipoComputoDao;
 
 @Transactional
 public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
@@ -58,11 +56,10 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 
 	@Test
 	public void insertarEquipoComputoTest(){
-		TipoEquipoComputo tipoEquipoComputo=  (TipoEquipoComputo) getCurrentSession().get(TipoEquipoComputo.class,1); 
 		 Usuario usuarioByIdUsuarioResponsable =(Usuario)getCurrentSession().get(Usuario.class,1);  
 		 Usuario usuarioByIdUsuarioAsignado =(Usuario)getCurrentSession().get(Usuario.class,2); 
 		EquipoComputo equipoComputo = new EquipoComputo();
-		equipoComputo.setTipoEquipoComputo(tipoEquipoComputo);
+		equipoComputo.setDescTipoEquipo("CPU");
 		equipoComputo.setUsuarioByIdUsuarioAsignado(usuarioByIdUsuarioAsignado);
 		equipoComputo.setUsuarioByIdUsuarioResponsable(usuarioByIdUsuarioResponsable);
 		equipoComputo.setMarcaComputo("marcha");

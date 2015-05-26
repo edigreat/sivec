@@ -10,7 +10,7 @@
 <div id="form-crea-equipo-container" class="col-md-10">
 
   <form:form method="post" action="${pageContext.request.contextPath}/equipo/guardarinformacionequipo.html"   modelAttribute="mngCrearEquipoForm" cssClass="form-horizontal" role="form">
-	<h2 class="bg-primary text-center">Registrar Equipo</h2>
+	<h2 class="bg-primary text-center">Editar Equipo</h2>
 	<div class="row">
     <div id="form-crea-equipo-container" class="col-md-7">
     <div class="form-group ">

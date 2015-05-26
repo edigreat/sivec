@@ -57,7 +57,7 @@
 					<c:forEach items="${mngAdminEquipo.equipoComputoList}" var="equipoComputo" varStatus="status">
 						<tr>
 							<td><c:out value="${equipoComputo.idEquipoComputo}" /> </td>
-							<td><c:out value="${equipoComputo.tipoEquipoComputo.descTipoEquipo}" /> </td>
+							<td><c:out value="${equipoComputo.descTipoEquipo}" /> </td>
 							<td><c:out value="${equipoComputo.usuarioByIdUsuarioResponsable.nombreCompleto}" /> </td>
 							<td><c:out value="${equipoComputo.estadoEquipo}" /> </td>
 							

@@ -17,14 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import presentacion.manager.MngAdminEquipo;
 import presentacion.manager.MngAdminUsuario;
-import presentacion.manager.MngCrearEquipo;
+import presentacion.manager.MngCaracteristicaEquipo;
+import presentacion.manager.MngCrearEquipoForm;
 import presentacion.manager.MngCrearReparacion;
 import dominio.EquipoComputo;
-import dominio.TipoEquipoComputo;
+import dominio.EquipoValorCarac;
 import repositorio.EquipoComputoDao;
+import repositorio.EquipoValorCaracDao;
 import repositorio.ReparacionEquipoDao;
-import repositorio.TipoEquipoComputoDao;
+import repositorio.UsuarioDao;
 import static servicio.UsuarioService.isInteger;
+import static presentacion.manager.ConstantesPresentacion.*;
 /**
  * Servicio de spring que maneja las peticiones
  * para las entidades de equipo de computo
@@ -52,11 +55,11 @@ public class EquipoComputoService {
     @Autowired
     private ReparacionEquipoDao reparacionEquipoDao;
 
-    /**
-     *DAO inyectado por Spring que maneja las entidades Tipoequipocomputo 
-     */
     @Autowired
-    private TipoEquipoComputoDao tipoEquipoComputoDao;
+    private UsuarioDao usuarioDao;
+    
+    @Autowired
+    private EquipoValorCaracDao equipoValorCaracDao;
 
     /**
      * Busca todos los equipos de computo registrados
@@ -88,16 +91,34 @@ public class EquipoComputoService {
 
     /**
      * Registra un equipo de computo
-     * @param MngCrearEquipo manager de la pantalla de registro
+     * @param MngCrearEquipoForm manager de la pantalla de registro
      * @return manager de la pantalla de registro con el equipo registrado
      */
-    public MngCrearEquipo insertarEquipo( MngCrearEquipo mngCrearEquipo) {
-    	mngCrearEquipo.setEquipoComputo(
-    			equipoComputoDao.insertarEquipoComputo(
-    					mngCrearEquipo.getEquipoComputo()
-    					)
-    			);
-        return mngCrearEquipo;
+    @SuppressWarnings("unchecked")
+	public MngCrearEquipoForm insertarEquipo( MngCrearEquipoForm mngCrearEquipoForm) {
+    	mngCrearEquipoForm.getEquipoComputo().setUsuarioByIdUsuarioResponsable(usuarioDao.autenticarUsuario(1));
+    	mngCrearEquipoForm.getEquipoComputo().setIndVigenciaEquipo(0);
+    	mngCrearEquipoForm.getEquipoComputo().setEstadoEquipo(EQUIPO_REGISTRADO);
+    	equipoComputoDao.insertarEquipoComputo(mngCrearEquipoForm.getEquipoComputo());
+
+    	for(MngCaracteristicaEquipo mngCaracteristicaEquipo:mngCrearEquipoForm.getMngCaracteristicaEquipoList()){
+    		if(mngCaracteristicaEquipo.getDescripcionCaract()!=null&&
+    				!mngCaracteristicaEquipo.getDescripcionCaract().isEmpty() &&
+    				mngCaracteristicaEquipo.getValorCaract()!=null &&
+    				!mngCaracteristicaEquipo.getValorCaract().isEmpty())
+    		{
+    			EquipoValorCarac equipoValorCarac = new EquipoValorCarac(
+						mngCrearEquipoForm.getEquipoComputo(),
+						mngCaracteristicaEquipo.getDescripcionCaract(),
+						mngCaracteristicaEquipo.getValorCaract());
+    		mngCrearEquipoForm.getEquipoComputo().getEquipoValorCaracs().add(equipoValorCarac);
+    		log.debug(mngCaracteristicaEquipo);
+        	equipoValorCaracDao.insertarUsuario(equipoValorCarac);
+
+    		}
+        }
+    	
+        return mngCrearEquipoForm;
     }
 
     /**
@@ -131,16 +152,12 @@ public class EquipoComputoService {
     /**
      * Obtiene lo necesario para presentar la pantalla de
      * registrar equipo de computo
-     * @param MngCrearEquipo manager de la pantalla registrar equipo
+     * @param MngCrearEquipoForm manager de la pantalla registrar equipo
      * @return manager con la informacion necesaria para registrar un  equipo
      */
-    public MngCrearEquipo iniciarCrearEquipoComputo(MngCrearEquipo mngCrearEquipo ) {
-    	List<TipoEquipoComputo> tipoEquipoComputoList = tipoEquipoComputoDao.buscarTodos();
-    	Map<Integer,String> tipoEquipoComputoMap = new HashMap<>();
-    	for(TipoEquipoComputo tipoEquipoComputo:tipoEquipoComputoList){
-    		tipoEquipoComputoMap.put(tipoEquipoComputo.getIdTipoEquipoComputo(), tipoEquipoComputo.getEtiquetaTipoEquipo());
-    	}
-    	mngCrearEquipo.setTipoCaracteristicaMap(tipoEquipoComputoMap);
+	public MngCrearEquipoForm iniciarCrearEquipoComputo(MngCrearEquipoForm mngCrearEquipo ) {
+    	//mngCrearEquipo.setEquipoComputo(new EquipoComputo());
+    	
     	return mngCrearEquipo;
     }
 
@@ -158,13 +175,13 @@ public class EquipoComputoService {
     /**
      * Obtiene lo necesario para presentar la pantalla de
      * edicion de un equipo de computo
-     * @param MngCrearEquipo manager de la pantalla editar equipo
+     * @param MngCrearEquipoForm manager de la pantalla editar equipo
      * @return manager con la informacion necesaria para editar un  equipo
      */
-    public MngCrearEquipo iniciarEditarEquipo(MngCrearEquipo mngCrearEquipo) {
-    	mngCrearEquipo.setEquipoComputo(
-    			equipoComputoDao.buscarEquipoComputoPorId(
-    					mngCrearEquipo.getEquipoComputo()));
+    public MngCrearEquipoForm iniciarEditarEquipo(MngCrearEquipoForm mngCrearEquipo) {
+    	/*	mngCrearEquipo.setEquipoComputo(
+    		equipoComputoDao.buscarEquipoComputoPorId(
+    					mngCrearEquipo.getEquipoComputo()));*/
         return mngCrearEquipo;
     }
 

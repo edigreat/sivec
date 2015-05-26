@@ -10,28 +10,47 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Clase que representa una Entidad EquipoComputo 
  */
 
 public class EquipoComputo implements java.io.Serializable {
 
+	// Fields
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7560296878779333876L;
+	private static final long serialVersionUID = 4150412060216682521L;
 	private Integer idEquipoComputo;
-	private TipoEquipoComputo tipoEquipoComputo;
 	private Usuario usuarioByIdUsuarioResponsable;
 	private Usuario usuarioByIdUsuarioAsignado;
+	@NotNull
+	@NotBlank
+	@NotEmpty
+	private String descTipoEquipo;
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String marcaComputo;
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String modeloComputo;
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String ubicacion;
 	private Timestamp fechaCreacion;
 	private Timestamp fechaActualizacion;
 	private Integer indVigenciaEquipo;
 	private String estadoEquipo;
+	private Set equipoValorCaracs = new HashSet(0);
 	private Set reparacionEquipos = new HashSet(0);
 
 	// Constructors
@@ -41,12 +60,12 @@ public class EquipoComputo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public EquipoComputo(TipoEquipoComputo tipoEquipoComputo,
-			Usuario usuarioByIdUsuarioResponsable, String marcaComputo,
-			String modeloComputo, Timestamp fechaCreacion,
-			Integer indVigenciaEquipo, String estadoEquipo) {
-		this.tipoEquipoComputo = tipoEquipoComputo;
+	public EquipoComputo(Usuario usuarioByIdUsuarioResponsable,
+			String descTipoEquipo, String marcaComputo, String modeloComputo,
+			Timestamp fechaCreacion, Integer indVigenciaEquipo,
+			String estadoEquipo) {
 		this.usuarioByIdUsuarioResponsable = usuarioByIdUsuarioResponsable;
+		this.descTipoEquipo = descTipoEquipo;
 		this.marcaComputo = marcaComputo;
 		this.modeloComputo = modeloComputo;
 		this.fechaCreacion = fechaCreacion;
@@ -55,15 +74,15 @@ public class EquipoComputo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public EquipoComputo(TipoEquipoComputo tipoEquipoComputo,
-			Usuario usuarioByIdUsuarioResponsable,
-			Usuario usuarioByIdUsuarioAsignado, String marcaComputo,
-			String modeloComputo, String ubicacion, Timestamp fechaCreacion,
-			Timestamp fechaActualizacion, Integer indVigenciaEquipo,
-			String estadoEquipo, Set reparacionEquipos) {
-		this.tipoEquipoComputo = tipoEquipoComputo;
+	public EquipoComputo(Usuario usuarioByIdUsuarioResponsable,
+			Usuario usuarioByIdUsuarioAsignado, String descTipoEquipo,
+			String marcaComputo, String modeloComputo, String ubicacion,
+			Timestamp fechaCreacion, Timestamp fechaActualizacion,
+			Integer indVigenciaEquipo, String estadoEquipo,
+			Set equipoValorCaracs, Set reparacionEquipos) {
 		this.usuarioByIdUsuarioResponsable = usuarioByIdUsuarioResponsable;
 		this.usuarioByIdUsuarioAsignado = usuarioByIdUsuarioAsignado;
+		this.descTipoEquipo = descTipoEquipo;
 		this.marcaComputo = marcaComputo;
 		this.modeloComputo = modeloComputo;
 		this.ubicacion = ubicacion;
@@ -71,6 +90,7 @@ public class EquipoComputo implements java.io.Serializable {
 		this.fechaActualizacion = fechaActualizacion;
 		this.indVigenciaEquipo = indVigenciaEquipo;
 		this.estadoEquipo = estadoEquipo;
+		this.equipoValorCaracs = equipoValorCaracs;
 		this.reparacionEquipos = reparacionEquipos;
 	}
 
@@ -82,14 +102,6 @@ public class EquipoComputo implements java.io.Serializable {
 
 	public void setIdEquipoComputo(Integer idEquipoComputo) {
 		this.idEquipoComputo = idEquipoComputo;
-	}
-
-	public TipoEquipoComputo getTipoEquipoComputo() {
-		return this.tipoEquipoComputo;
-	}
-
-	public void setTipoEquipoComputo(TipoEquipoComputo tipoEquipoComputo) {
-		this.tipoEquipoComputo = tipoEquipoComputo;
 	}
 
 	public Usuario getUsuarioByIdUsuarioResponsable() {
@@ -107,6 +119,14 @@ public class EquipoComputo implements java.io.Serializable {
 
 	public void setUsuarioByIdUsuarioAsignado(Usuario usuarioByIdUsuarioAsignado) {
 		this.usuarioByIdUsuarioAsignado = usuarioByIdUsuarioAsignado;
+	}
+
+	public String getDescTipoEquipo() {
+		return this.descTipoEquipo;
+	}
+
+	public void setDescTipoEquipo(String descTipoEquipo) {
+		this.descTipoEquipo = descTipoEquipo;
 	}
 
 	public String getMarcaComputo() {
@@ -165,6 +185,14 @@ public class EquipoComputo implements java.io.Serializable {
 		this.estadoEquipo = estadoEquipo;
 	}
 
+	public Set getEquipoValorCaracs() {
+		return this.equipoValorCaracs;
+	}
+
+	public void setEquipoValorCaracs(Set equipoValorCaracs) {
+		this.equipoValorCaracs = equipoValorCaracs;
+	}
+
 	public Set getReparacionEquipos() {
 		return this.reparacionEquipos;
 	}
@@ -176,15 +204,16 @@ public class EquipoComputo implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "EquipoComputo [idEquipoComputo=" + idEquipoComputo
-				+ ", tipoEquipoComputo=" + tipoEquipoComputo
 				+ ", usuarioByIdUsuarioResponsable="
 				+ usuarioByIdUsuarioResponsable
 				+ ", usuarioByIdUsuarioAsignado=" + usuarioByIdUsuarioAsignado
-				+ ", marcaComputo=" + marcaComputo + ", modeloComputo="
-				+ modeloComputo + ", ubicacion=" + ubicacion
-				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
-				+ fechaActualizacion + ", indVigenciaEquipo="
-				+ indVigenciaEquipo + ", estadoEquipo=" + estadoEquipo + "]";
+				+ ", descTipoEquipo=" + descTipoEquipo + ", marcaComputo="
+				+ marcaComputo + ", modeloComputo=" + modeloComputo
+				+ ", ubicacion=" + ubicacion + ", fechaCreacion="
+				+ fechaCreacion + ", fechaActualizacion=" + fechaActualizacion
+				+ ", indVigenciaEquipo=" + indVigenciaEquipo
+				+ ", estadoEquipo=" + estadoEquipo + ", equipoValorCaracs="
+				+ equipoValorCaracs.size() + ", reparacionEquipos="
+				+ reparacionEquipos + "]";
 	}
-
 }

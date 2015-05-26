@@ -50,18 +50,30 @@
 		
 		
 </div> <!-- fin page-wrapper -->	
-<!--h3>Session Scope (key==values)</h3 -->
-<%--
+<h3>Session Scope (key==values)</h3>
+<%
   java.util.Enumeration<String> sessEnum = request.getSession()
 .getAttributeNames();
   while (sessEnum.hasMoreElements()) {
 String s = sessEnum.nextElement();
 out.print(s);
 out.println("==" + request.getSession().getAttribute(s));
---%><br />
-<%--
+%><br />
+<%
   }
---%>
+%>
+
+<h3>Request Scope (key==values)</h3>
+<%
+  java.util.Enumeration<String> requestEnum = request.getAttributeNames();
+  while (requestEnum.hasMoreElements()) {
+String s = requestEnum.nextElement();
+out.print(s);
+out.println("==" + request.getAttribute(s));
+%><br />
+<%
+  }
+%>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.easing.1.3.js"></script>

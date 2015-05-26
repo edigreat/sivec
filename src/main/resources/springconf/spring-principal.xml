@@ -53,11 +53,9 @@
                 <value>hibernateconf/MenuRol.hbm.xml</value>
                  <value>hibernateconf/DependenciaUniversitaria.hbm.xml</value>
                  <value>hibernateconf/MenuItem.hbm.xml</value>
-                 <value>hibernateconf/CaracteristicaEquipo.hbm.xml</value>
-                 <value>hibernateconf/TipoEquipoComputo.hbm.xml</value>
                  <value>hibernateconf/EquipoComputo.hbm.xml</value>
                  <value>hibernateconf/ReparacionEquipo.hbm.xml</value>
-                 
+                 <value>hibernateconf/EquipoValorCarac.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
