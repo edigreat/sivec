@@ -256,6 +256,15 @@ public class EquipoComputoService {
     	for(int i=0;i<(MAX_ROWS-equipoComputo.getEquipoValorCaracs().size());i++){
     		mngCrearEquipoForm.getMngCaracteristicaEquipoList().add(new MngCaracteristicaEquipo());
     	}
+    	if(equipoComputo.getUsuarioByIdUsuarioAsignado()!=null)
+    	{
+    		mngCrearEquipoForm.getUsuarioAsignado().setId(equipoComputo.getUsuarioByIdUsuarioAsignado().getIdUsuario()+"");
+    	
+    		mngCrearEquipoForm.getUsuarioAsignado().setTagName(equipoComputo.getUsuarioByIdUsuarioAsignado().getNombreCompleto()+"");
+    	}
+    	mngCrearEquipoForm.getUsuarioResponsable().setId(equipoComputo.getUsuarioByIdUsuarioResponsable().getIdUsuario()+"");
+    	mngCrearEquipoForm.getUsuarioResponsable().setTagName(equipoComputo.getUsuarioByIdUsuarioResponsable().getNombreCompleto()+"");
+
         return mngCrearEquipoForm;
     }
 

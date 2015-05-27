@@ -45,20 +45,25 @@ public class UsuarioDao {
     public UsuarioDao() {
     	
     }
-
+    /**
+     * Obtiene toda la lista de usuarios
+     * @return lista de usuarios
+     */
+	@SuppressWarnings("unchecked")
+    public List<Usuario> buscarTodosPorApPaterno(String apPaterno) {
+    	return getCurrentSession().createCriteria(Usuario.class)
+				.add(Restrictions.ilike("apPaterno",apPaterno,MatchMode.ANYWHERE)).list();
+  }
     /**
      * Obtiene toda la lista de usuarios
      * @return lista de usuarios
      */
 	@SuppressWarnings("unchecked")
     public List<Usuario> buscarTodos(String correoElectronico) {
-    	
-		return getCurrentSession().createCriteria(Usuario.class)
+    	return getCurrentSession().createCriteria(Usuario.class)
 				.setFetchMode("menuRol", FetchMode.JOIN)
 				.add(Restrictions.ilike("correoEletronico",correoElectronico,MatchMode.ANYWHERE)).list();
-    			
-		
-    }
+  }
 	/**
 	 * Obtiene el total de registros de la tabla de usuarios
 	 * @return numero de registros de usuario.

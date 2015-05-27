@@ -55,6 +55,17 @@
                 <form:errors path="equipoComputo.ubicacion"  cssClass="text-danger pull-left" element="div" />
         </div> 
     </div>
+    
+     <div class="form-group ">
+      
+        <div class="col-sm-6">
+       <input type="text"  id="w-input-search"  value="${mngCrearEquipoForm.usuarioResponsable.tagName}"  maxlength="40" />
+       	<input id="usuarioResponsableTag" name="usuarioResponsableTag" type="hidden" value="${mngCrearEquipoForm.usuarioResponsable.id}">        
+         <input id="usuarioAsignadoTag" name="usuarioAsignadoTag" type="hidden" value="${mngCrearEquipoForm.usuarioAsignado.id}">        
+       
+        </div> 
+       
+    </div>
     </div>
 	
 	<div id="form-crea-caracteristica-container" class="col-md-5">
@@ -122,5 +133,6 @@
 </div>
   </form:form>
 </div>
+
 
 	

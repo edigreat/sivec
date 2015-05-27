@@ -85,6 +85,8 @@ public class EquipoComputoDao {
     	return (EquipoComputo)getCurrentSession().createCriteria(EquipoComputo.class)
 			.add(Restrictions.eq("idEquipoComputo",equipoComputo.getIdEquipoComputo()))
 			.setFetchMode("equipoValorCaracs", FetchMode.JOIN)
+			.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
+			.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
 			.uniqueResult();
     }
 

@@ -8,6 +8,7 @@ package servicio;
 
 import integration.servicio.UsuarioServiceIntegrationTestCase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ import dominio.MenuRol;
 import dominio.Usuario;
 import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearUsuario;
+import presentacion.manager.TagAutoCompleteUsuario;
 import repositorio.DependenciaUniDao;
 import repositorio.EquipoComputoDao;
 import repositorio.MenuItemDao;
@@ -129,7 +131,24 @@ public class UsuarioService {
         return mngAdminUsuario;
     }
     
-
+    /**
+     * Buscar todos los usuarios por correo electronico
+     * 
+     * @param startResult pagina inicial 
+     * @param maxRows tamanio de pagina 
+     * @return lista de usuarios de acuerdo a la pagina
+     */
+    public List<TagAutoCompleteUsuario> buscarTodosPorApPaterno(String apPaterno) {
+    		log.debug("Buscando usuarios con correo apPaterno : ["+apPaterno.trim());
+    		List<TagAutoCompleteUsuario> tagAutoCompleteUsuarioList = new ArrayList<TagAutoCompleteUsuario>();
+    		List<Usuario> usuarioList = usuarioDao.buscarTodosPorApPaterno(apPaterno);
+        	for(Usuario usuario:usuarioList){
+        		tagAutoCompleteUsuarioList.add(new TagAutoCompleteUsuario(usuario.getIdUsuario()+"",
+        				usuario.getNombreCompleto()) );
+        	}
+        return tagAutoCompleteUsuarioList;
+    }
+    
     /**
      * Inserta un nuevo usuario
      * @param mngCrearUsuario contiene la informacion para insertar un nuevo usuario

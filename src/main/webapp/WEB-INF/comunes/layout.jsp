@@ -84,5 +84,32 @@ out.println("==" + request.getAttribute(s));
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.autocomplete.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/default.js"></script>
 
+	<script>
+	$(document).ready(function() {
+		$('#w-input-search').autocomplete({
+			serviceUrl: '${pageContext.request.contextPath}/equipo/getUsuarioResponsable.html',
+			paramName: "tagName",
+			delimiter: ",",
+			onSelect: function (suggestion) {
+				$('input#usuarioResponsableTag').val(suggestion['data']);
+				console.log("seleccionado " + $('input#usuarioResponsableTag').val());
+			} 
+			,
+		    transformResult: function(response) {
+		        return {
+		            suggestions: $.map($.parseJSON(response), function(item) {
+		        		
+		                return { value: item.tagName, data: item.id };
+		            })
+		            
+		        };
+		        
+		    }
+		    
+		});
+		
+		
+	});
+	</script>
 
 </html>

@@ -5,30 +5,31 @@ import static presentacion.manager.ConstantesPresentacion.*;
 import java.io.Serializable;
 import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import dominio.Usuario;
 import presentacion.manager.MngCaracteristicaEquipo;
 import presentacion.manager.MngCrearEquipoForm;
-import presentacion.manager.MngCrearUsuario;
-import dominio.EquipoComputo;
-import dominio.EquipoValorCarac;
-import dominio.MenuRol;
-import dominio.Usuario;
+import presentacion.manager.TagAutoCompleteUsuario;
 import servicio.EquipoComputoService;
+import servicio.UsuarioService;
 
 /**
  * Spring MVC controller that handles CRUD requests for Equipocomputo entities
@@ -41,7 +42,7 @@ public class EquipoComputoController implements Serializable {
 
 	
 	/**
-	 * 
+	 * UID a utilizar
 	 */
 	private static final long serialVersionUID = 793233722775492106L;
 	/**
@@ -50,11 +51,15 @@ public class EquipoComputoController implements Serializable {
 	private static final Logger log = Logger.getLogger(EquipoComputoController.class);
 
     /**
-     * Spring MVC controller that handles CRUD requests for Equipocomputo entities
+     * Constructor publico
      */
     public EquipoComputoController() {
     }
 
+    /**
+     * Atributo de session
+     * @return
+     */
     @ModelAttribute(SESSION_TIPOS_EQUIPOS_COMPUTO)
     public Map<String,String> getTipoEquipoComputoMap(){
     	Map<String,String> tipoEquipoComputoMap = new HashMap<>();
@@ -65,6 +70,10 @@ public class EquipoComputoController implements Serializable {
     	return tipoEquipoComputoMap;
     }
     
+    /**
+     * Atributo de sesion
+     * @return
+     */
     @ModelAttribute(SESSION_ESTADO_EQUIPO)
     public Map<String,String> getEstadoEquipoMap(){
     	Map<String,String> estadoEquipoMap = new HashMap<>();
@@ -80,9 +89,13 @@ public class EquipoComputoController implements Serializable {
      */
     @Autowired
     private EquipoComputoService equipoComputoService;
-
+    
+    
+    @Autowired
+    private UsuarioService usuarioService;
+    
     /**
-     * 
+     * Confirma la eliminacion de un registro de usuario
      */
     @RequestMapping(value="/eliminarequipocomputo")
     public String confirmarBajaEquipo(SessionStatus status,@RequestParam("idEquipoComputo")String idEquipoComputo){
@@ -91,8 +104,20 @@ public class EquipoComputoController implements Serializable {
     	return "redirect:/equipo/list.html";
     }
 
+    /**
+     * Obtiene los nombres de usuarios por apellido paterno
+     * @param tagName
+     * @return lista con los nombres de los usuarios
+     */
     
+    @RequestMapping(value = "/getUsuarioResponsable", method = RequestMethod.GET)
+	@ResponseBody
+	public List<TagAutoCompleteUsuario> getTags(@RequestParam String tagName) {
+    	log.debug("Buscando usuario por " + tagName);
+    	
+		return usuarioService.buscarTodosPorApPaterno(tagName);
 
+	}
    
     /**
      * Muestra la pantalla de registrar usuario
@@ -193,11 +218,32 @@ public class EquipoComputoController implements Serializable {
      * @return resultado de la actualizacion
      */
       @RequestMapping("/actualizarinformacionusuario")
-      public String actualizarUsuario(@Valid MngCrearEquipoForm mngCrearEquipoForm,BindingResult result) {
-      	log.debug("Actualizando Equipo : " +mngCrearEquipoForm);
-      	log.info(mngCrearEquipoForm);
+      public String actualizarUsuario(
+    		  @RequestParam Map<String,String> allRequestParams,
+    		  @Valid MngCrearEquipoForm mngCrearEquipoForm,BindingResult result) {
+      	//log.debug(allRequestParams.get("usuarioResponsable"));
+      	mngCrearEquipoForm.getUsuarioResponsable().setId(allRequestParams.get("usuarioResponsableTag"));
+      	mngCrearEquipoForm.getUsuarioAsignado().setId(allRequestParams.get("usuarioAsignadoTag"));
+
+      	log.info(mngCrearEquipoForm.getUsuarioAsignado());
+      	log.info(mngCrearEquipoForm.getUsuarioResponsable());
+
   		log.debug("Tiene errores " + result.hasErrors());
+  		
   		if(result.hasErrors()){
+  			for (Object object : result.getAllErrors()) {
+  			    if(object instanceof FieldError) {
+  			        FieldError fieldError = (FieldError) object;
+
+  			        System.out.println(fieldError.getField());
+  			    }
+
+  			    if(object instanceof ObjectError) {
+  			        ObjectError objectError = (ObjectError) object;
+ 
+  			        System.out.println(objectError.getObjectName());
+  			    }
+  			}
   	    	  mngCrearEquipoForm = equipoComputoService.iniciarEditarEquipo(
   	    			  mngCrearEquipoForm.getEquipoComputo().getIdEquipoComputo()+"",
   	    			  new MngCrearEquipoForm());
@@ -205,7 +251,7 @@ public class EquipoComputoController implements Serializable {
   		}
   		else
   		{	
-  			mngCrearEquipoForm = equipoComputoService.actualizarEquipo(mngCrearEquipoForm);
+  			//mngCrearEquipoForm = equipoComputoService.actualizarEquipo(mngCrearEquipoForm);
   			return "redirect:/equipo/list.html";
   		}
       }
