@@ -11,8 +11,44 @@
 
 
 $('document').ready(function() {
+	////Asignacion del plugin de autocomplete
+	/// Jquery
+	//TODO:Externalizar la direccion url
+	$('#txt-busqueda-responsable').autocomplete({
+		serviceUrl: '/sivec/equipo/getUsuarioResponsable.html',
+		paramName: "tagName",
+		delimiter: ",",
+		onSelect: function (suggestion) {
+			$('input#usuarioResponsableTag').val(suggestion['data']);
+			//console.log("seleccionado " + $('input#usuarioResponsableTag').val());
+		} 
+		,
+	    transformResult: function(response) {
+	        return {
+	            suggestions: $.map($.parseJSON(response), function(item) {
+	                return { value: item.tagName, data: item.id };
+	            })
+	        };
+	    }
+	});
 	
-							 
+	$('#txt-busqueda-asignado').autocomplete({
+		serviceUrl: '/sivec/equipo/getUsuarioResponsable.html',
+		paramName: "tagName",
+		delimiter: ",",
+		onSelect: function (suggestion) {
+			$('input#usuarioAsignadoTag').val(suggestion['data']);
+			//console.log("seleccionado " + $('input#usuarioAsignadoTag').val());
+		} 
+		,
+	    transformResult: function(response) {
+	        return {
+	            suggestions: $.map($.parseJSON(response), function(item) {
+	                return { value: item.tagName, data: item.id };
+	            })
+	        };
+	    }
+	});
 	/////////////////////////////////////////////
 	// Navagation Menus
 	/////////////////////////////////////////////

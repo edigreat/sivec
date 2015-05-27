@@ -78,7 +78,15 @@ public class Usuario implements java.io.Serializable {
 		return this.nombre+" "+this.apPaterno+" "+this.apMaterno;
 	}
 	
-	
+	/**
+	 * Concatena los atributos para formar
+	 * el nombre completo del usuario iniciando
+	 * por el apellido paterno
+	 * @return nombre completo del usuario
+	 */
+	public String getNombreCompletoApPaterno(){
+		return this.apPaterno+" "+this.apMaterno+" "+this.nombre;
+	}
 	/**constructor por omision */
 	public Usuario() {
 	}

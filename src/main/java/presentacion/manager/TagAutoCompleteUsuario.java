@@ -12,6 +12,8 @@ package presentacion.manager;
  */
 public class TagAutoCompleteUsuario {
 	public String id;
+	
+	
 	public String tagName;
 
 	public String getId() {

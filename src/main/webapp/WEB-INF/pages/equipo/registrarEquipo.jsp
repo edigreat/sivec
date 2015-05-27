@@ -46,7 +46,17 @@
                 <form:errors path="equipoComputo.ubicacion"  cssClass="text-danger pull-left" element="div" />
         </div> 
     </div>
+    <div class="form-group ">
+        <form:label path="nombreUsuarioResponsable" class="control-label col-sm-3">Responsable * :
+        </form:label>
+        <div class="col-sm-6">
+             <form:input path="nombreUsuarioResponsable"  id="txt-busqueda-responsable" class="form-control" maxlength="40" />
+       		 <form:errors path="nombreUsuarioResponsable"  cssClass="text-danger pull-left" element="div" />
+       		 <form:hidden path="usuarioResponsableTag" id="usuarioResponsableTag" />
+        </div> 
     </div>
+    
+    </div> <!-- fin form-crea-equipo-container -->
 	
 	<div id="form-crea-caracteristica-container" class="col-md-5">
 	<table class="table table-striped table-condensed">
@@ -72,8 +82,8 @@
 		</c:forEach>
 		</tbody>
 			</table>
-	</div>
-	</div>
+	</div> <!--  -->
+	</div> <!-- find row -->
 	<div class="row">
 	<div class="form-group ">
 	<div class="col-sm-4" ></div>	

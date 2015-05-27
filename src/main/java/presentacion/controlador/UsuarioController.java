@@ -197,7 +197,8 @@ public class UsuarioController {
      * envia mensajes de error
      */
     @RequestMapping("/guardarinformacionusuario")
-    public String guardarInformacionUsuario(@Valid MngCrearUsuario mngCrearUsuario,BindingResult result) {
+    public String guardarInformacionUsuario(
+    		@Valid MngCrearUsuario mngCrearUsuario,BindingResult result) {
     	log.info(mngCrearUsuario);
 		log.debug("Tiene errores " + result.hasErrors());
 		if(result.hasErrors()){

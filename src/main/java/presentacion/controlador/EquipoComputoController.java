@@ -67,6 +67,8 @@ public class EquipoComputoController implements Serializable {
     	tipoEquipoComputoMap.put("MONITOR","MONITOR");
     	tipoEquipoComputoMap.put("TABLET","TABLET");
     	tipoEquipoComputoMap.put("MOUSE","MOUSE");
+    	tipoEquipoComputoMap.put("LAPTOP","LAPTOP");
+
     	return tipoEquipoComputoMap;
     }
     
@@ -137,7 +139,7 @@ public class EquipoComputoController implements Serializable {
     }
 
     /**
-     * Guarda la información de un equipo
+     * Confirma y guarda la información de un equipo
      */
     @RequestMapping(value="/guardarinformacionequipo",method=RequestMethod.POST)
     public String registarEquipoComputo(@Valid MngCrearEquipoForm mngCrearEquipoForm,
@@ -177,7 +179,7 @@ public class EquipoComputoController implements Serializable {
      }
     
     /**
-     * Muestra la pantalla de editar equipo de computo
+     * Muestra la pantalla de editar un equipo de computo
      */
     @RequestMapping("/editar")
     public ModelAndView mostrarEditarEquipo(@RequestParam("idEquipoComputo")String idEquipoComputo) {
@@ -190,9 +192,9 @@ public class EquipoComputoController implements Serializable {
     
     /**
      * Buscar a todos los usuarios que correspondan
-     * a un patron de correo
-     * @param correoElectronico
-     * @return lista con los usuarios que corresponden al patron de correo
+     * a un patron de tipo de equipo
+     * @param tipo de equipo
+     * @return lista con los equipos que corresponden al patron
      */
     @RequestMapping("/buscarEquipoPorTipo")
     public ModelAndView buscarEquipoPorTipo(@RequestParam("tipoEquipoComputo")String tipoEquipoComputo) {
@@ -219,15 +221,8 @@ public class EquipoComputoController implements Serializable {
      */
       @RequestMapping("/actualizarinformacionusuario")
       public String actualizarUsuario(
-    		  @RequestParam Map<String,String> allRequestParams,
     		  @Valid MngCrearEquipoForm mngCrearEquipoForm,BindingResult result) {
-      	//log.debug(allRequestParams.get("usuarioResponsable"));
-      	mngCrearEquipoForm.getUsuarioResponsable().setId(allRequestParams.get("usuarioResponsableTag"));
-      	mngCrearEquipoForm.getUsuarioAsignado().setId(allRequestParams.get("usuarioAsignadoTag"));
-
-      	log.info(mngCrearEquipoForm.getUsuarioAsignado());
-      	log.info(mngCrearEquipoForm.getUsuarioResponsable());
-
+      	log.info(mngCrearEquipoForm);
   		log.debug("Tiene errores " + result.hasErrors());
   		
   		if(result.hasErrors()){
@@ -235,7 +230,7 @@ public class EquipoComputoController implements Serializable {
   			    if(object instanceof FieldError) {
   			        FieldError fieldError = (FieldError) object;
 
-  			        System.out.println(fieldError.getField());
+  			        System.out.println(fieldError.getField() + " "+fieldError.getDefaultMessage());
   			    }
 
   			    if(object instanceof ObjectError) {
@@ -251,7 +246,7 @@ public class EquipoComputoController implements Serializable {
   		}
   		else
   		{	
-  			//mngCrearEquipoForm = equipoComputoService.actualizarEquipo(mngCrearEquipoForm);
+  			mngCrearEquipoForm = equipoComputoService.actualizarEquipo(mngCrearEquipoForm);
   			return "redirect:/equipo/list.html";
   		}
       }

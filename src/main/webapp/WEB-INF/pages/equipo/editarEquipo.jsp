@@ -56,15 +56,23 @@
         </div> 
     </div>
     
-     <div class="form-group ">
-      
+    <div class="form-group ">
+        <form:label path="nombreUsuarioResponsable" class="control-label col-sm-3">Responsable * :
+        </form:label>
         <div class="col-sm-6">
-       <input type="text"  id="w-input-search"  value="${mngCrearEquipoForm.usuarioResponsable.tagName}"  maxlength="40" />
-       	<input id="usuarioResponsableTag" name="usuarioResponsableTag" type="hidden" value="${mngCrearEquipoForm.usuarioResponsable.id}">        
-         <input id="usuarioAsignadoTag" name="usuarioAsignadoTag" type="hidden" value="${mngCrearEquipoForm.usuarioAsignado.id}">        
-       
+             <form:input path="nombreUsuarioResponsable"  id="txt-busqueda-responsable" class="form-control" maxlength="40" />
+       		 <form:errors path="nombreUsuarioResponsable"  cssClass="text-danger pull-left" element="div" />
+       		 <form:hidden path="usuarioResponsableTag" id="usuarioResponsableTag" />
         </div> 
-       
+    </div>
+     <div class="form-group ">
+        <form:label path="nombreUsuarioAsignado" class="control-label col-sm-3">Asignado a :
+        </form:label>
+        <div class="col-sm-6">
+             <form:input path="nombreUsuarioAsignado"  id="txt-busqueda-asignado" class="form-control" maxlength="40" />
+       		 <form:errors path="nombreUsuarioAsignado"  cssClass="text-danger pull-left" element="div" />
+       		 <form:hidden path="usuarioAsignadoTag" id="usuarioAsignadoTag" />
+        </div> 
     </div>
     </div>
 	

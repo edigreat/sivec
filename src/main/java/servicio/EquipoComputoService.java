@@ -112,7 +112,8 @@ public class EquipoComputoService {
      */
     @SuppressWarnings("unchecked")
 	public MngCrearEquipoForm insertarEquipo( MngCrearEquipoForm mngCrearEquipoForm) {
-    	mngCrearEquipoForm.getEquipoComputo().setUsuarioByIdUsuarioResponsable(usuarioDao.autenticarUsuario(1));
+    	int idUsuarioResponsable = Integer.parseInt(mngCrearEquipoForm.getUsuarioResponsableTag().trim());
+    	mngCrearEquipoForm.getEquipoComputo().setUsuarioByIdUsuarioResponsable(usuarioDao.autenticarUsuario(idUsuarioResponsable));
     	mngCrearEquipoForm.getEquipoComputo().setIndVigenciaEquipo(0);
     	mngCrearEquipoForm.getEquipoComputo().setEstadoEquipo(EQUIPO_REGISTRADO);
     	equipoComputoDao.insertarEquipoComputo(mngCrearEquipoForm.getEquipoComputo());
@@ -152,10 +153,23 @@ public class EquipoComputoService {
      * @return equipo de computo actualizado
      */
     public MngCrearEquipoForm actualizarEquipo(MngCrearEquipoForm mngCrearEquipoForm) {
-    	mngCrearEquipoForm.getEquipoComputo().setUsuarioByIdUsuarioResponsable(usuarioDao.autenticarUsuario(1));
     	EquipoComputo currentEquipoComputo  = new EquipoComputo();
     	currentEquipoComputo.setIdEquipoComputo(mngCrearEquipoForm.getEquipoComputo().getIdEquipoComputo());
     	EquipoComputo equipoComputo = equipoComputoDao.buscarEquipoComputoPorId(currentEquipoComputo);
+    	
+    	int idUsuarioResponsable = Integer.parseInt(mngCrearEquipoForm.getUsuarioResponsableTag().trim());
+    	equipoComputo.setUsuarioByIdUsuarioResponsable(usuarioDao.autenticarUsuario(idUsuarioResponsable));
+    	if(mngCrearEquipoForm.getUsuarioAsignadoTag()!=null && 
+    			!mngCrearEquipoForm.getUsuarioAsignadoTag().isEmpty())
+    	{
+        	int idUsuarioAsignado = Integer.parseInt(mngCrearEquipoForm.getUsuarioAsignadoTag().trim());
+        	equipoComputo.setUsuarioByIdUsuarioAsignado(usuarioDao.autenticarUsuario(idUsuarioAsignado));
+
+    	}
+    	else{
+    		equipoComputo.setUsuarioByIdUsuarioAsignado(null);
+    	}
+    	
     	
     	equipoComputo.setDescTipoEquipo(mngCrearEquipoForm.getEquipoComputo().getDescTipoEquipo());
     	equipoComputo.setMarcaComputo(mngCrearEquipoForm.getEquipoComputo().getMarcaComputo());
@@ -259,12 +273,11 @@ public class EquipoComputoService {
     	if(equipoComputo.getUsuarioByIdUsuarioAsignado()!=null)
     	{
     		mngCrearEquipoForm.getUsuarioAsignado().setId(equipoComputo.getUsuarioByIdUsuarioAsignado().getIdUsuario()+"");
-    	
     		mngCrearEquipoForm.getUsuarioAsignado().setTagName(equipoComputo.getUsuarioByIdUsuarioAsignado().getNombreCompleto()+"");
     	}
     	mngCrearEquipoForm.getUsuarioResponsable().setId(equipoComputo.getUsuarioByIdUsuarioResponsable().getIdUsuario()+"");
     	mngCrearEquipoForm.getUsuarioResponsable().setTagName(equipoComputo.getUsuarioByIdUsuarioResponsable().getNombreCompleto()+"");
-
+    	mngCrearEquipoForm.setUsuarioResponsableTag(equipoComputo.getUsuarioByIdUsuarioResponsable().getIdUsuario()+"");;
         return mngCrearEquipoForm;
     }
 
