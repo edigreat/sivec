@@ -45,4 +45,16 @@
 		<put-attribute name="title" value="Editar Equipos" />
 		<put-attribute name="body" value="/WEB-INF/pages/equipo/editarEquipo.jsp" />
 	</definition>
-	</tiles-definitions>
+
+	<definition name="registrarReparacion"  extends="base.definition" >
+		<put-attribute name="title" value="Registrar Reparacion " />
+		<put-attribute name="body" value="/WEB-INF/pages/equipo/registrarReparacion.jsp" />
+	</definition>
+	
+	<definition name="adminmovimiento"  extends="base.definition" >
+		<put-attribute name="title" value="Generar Reporte" />
+		<put-attribute name="body" value="/WEB-INF/pages/reporte/generarReporte.jsp" />
+	</definition>
+	
+
+</tiles-definitions>

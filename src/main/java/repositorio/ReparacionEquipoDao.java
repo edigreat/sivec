@@ -2,9 +2,12 @@ package repositorio;
 
 import java.util.*;
 
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,26 +39,48 @@ public class ReparacionEquipoDao {
      */
     @SuppressWarnings("unchecked")
 	public List<ReparacionEquipo> buscarTodos() {
-    	String queryString = "from ReparacionEquipo";
-		Query queryObject = getCurrentSession().createQuery(queryString);
-		return  queryObject.list();
+    	return getCurrentSession().createCriteria(ReparacionEquipo.class)
+    	    	.setFetchMode("equipoComputo", FetchMode.JOIN)
+    			.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
+    			.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
+    	    	.addOrder(
+    	    			Order.desc("idReparacionEquipo")
+    	    			)
+    	    	.list();
     
     }
-
+    
+    
     /**
-     * @param startResult 
-     * @param maxRows 
-     * @return
+     * Realiza la busqueda de usuarios con paginacion
+     * @param pageNumber numero de pagina
+     * @param pageSize  tamanio de pagina
+     * @return lista de usuarios
      */
     @SuppressWarnings("unchecked")
-	public List<ReparacionEquipo> buscarTodos(int startResult, int maxRows) {
-    	String queryString = "from ReparacionEquipo";
-		Query queryObject = getCurrentSession().createQuery(queryString);
-		queryObject.setFirstResult(startResult);
-		queryObject.setMaxResults(maxRows);
-		return  queryObject.list();
+	public List<ReparacionEquipo> buscarTodos(int pageNumber, int pageSize) {
+		return getCurrentSession().createCriteria(ReparacionEquipo.class)
+    	.setFirstResult((pageNumber - 1) * pageSize)
+    	.setFetchMode("equipoComputo", FetchMode.JOIN)
+		.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
+		.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
+    	.setMaxResults(pageSize)
+    	.addOrder(
+    			Order.desc("idReparacionEquipo")
+    			)
+    	.list();
     }
+    /**
+	 * Obtiene el total de registros de la tabla de reparaciones
+	 * @return numero de registros.
+	 */
+	public Long obtenerTotalRegistrosUsuario(){
+		String query = "Select count(r.idReparacionEquipo) from ReparacionEquipo r";
+		Query queryTotal = getCurrentSession().createQuery(query);
+		return (Long)queryTotal.uniqueResult();
+	}
 
+   
     /**
      * @param repacionEquipo 
      * @return
@@ -70,11 +95,16 @@ public class ReparacionEquipoDao {
      * @return
      */
     @SuppressWarnings("unchecked")
-	public List<ReparacionEquipo> buscarReparacionPorEquipo(int idEquipo) {
-    	String queryString = "from ReparacionEquipo r WHERE r.equipoComputo = :idEquipo ";
-		Query queryObject = getCurrentSession().createQuery(queryString)
-				.setInteger("idEquipo",idEquipo);
-        return queryObject.list();
+	public List<ReparacionEquipo> buscarReparacionPorEquipo(int idEquipoComputo) {
+    	return getCurrentSession().createCriteria(ReparacionEquipo.class)
+    	    	.setFetchMode("equipoComputo", FetchMode.JOIN)
+    			.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
+    			.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
+    			.add(Restrictions.eq("equipoComputo.idEquipoComputo",idEquipoComputo))
+    	    	.addOrder(
+    	    			Order.desc("idReparacionEquipo")
+    	    			)
+    	    	.list();
     }
 
 }

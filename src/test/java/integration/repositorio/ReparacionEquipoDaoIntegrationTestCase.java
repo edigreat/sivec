@@ -48,7 +48,7 @@ public class ReparacionEquipoDaoIntegrationTestCase extends AbstractUtilityTest 
 	
 	@Test
 	public void buscarReparacionPorEquipoTest(){
-		List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarReparacionPorEquipo(1);
+		List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarReparacionPorEquipo(14);
 		assertThat(reparacionEquipoList,is(notNullValue()));
 		assertThat(reparacionEquipoList.isEmpty(), is(not(true)));
 

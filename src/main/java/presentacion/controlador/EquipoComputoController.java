@@ -57,8 +57,9 @@ public class EquipoComputoController implements Serializable {
     }
 
     /**
-     * Atributo de session
-     * @return
+     * Atributo de session para los tipos
+     * de equipos de computo
+     * @return mapa con los tipos de computo
      */
     @ModelAttribute(SESSION_TIPOS_EQUIPOS_COMPUTO)
     public Map<String,String> getTipoEquipoComputoMap(){
@@ -73,8 +74,9 @@ public class EquipoComputoController implements Serializable {
     }
     
     /**
-     * Atributo de sesion
-     * @return
+     * Atributo de sesion para los estados 
+     * de los equipos
+     * @return mapa con los estados de los equipos
      */
     @ModelAttribute(SESSION_ESTADO_EQUIPO)
     public Map<String,String> getEstadoEquipoMap(){
@@ -87,12 +89,16 @@ public class EquipoComputoController implements Serializable {
    
     
     /**
-     * Service injected by Spring that provides CRUD operations for Equipocomputo entities
+     * Servicio inyectado por Spring para las operaciones sobre
+     * la entdad Equipocomputo 
      */
     @Autowired
     private EquipoComputoService equipoComputoService;
     
-    
+    /**
+     * Servicio inyectado por Spring para las operaciones
+     * sobre a entidad Usuario
+     */
     @Autowired
     private UsuarioService usuarioService;
     

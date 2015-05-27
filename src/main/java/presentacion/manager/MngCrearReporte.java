@@ -11,12 +11,39 @@ import dominio.Usuario;
  */
 public class MngCrearReporte {
 
+	/**
+     * Atributo que se utiliza
+     * para generar la paginacion
+     */
+    int numTotalRegistros=0;
+    
+    /**
+     * Atributo que se utiliza
+     * para navegar hacia la ultima 
+     * pagina
+     */
+    int lastPageNumber=0;
+    
+    /**
+     * Atributo que se utiliza
+     * para navegar hacia la primera
+     * pagina
+     */
+    int firstPageNumber=0;
     /**
      * 
      */
     public MngCrearReporte() {
     }
 
+    public List<Integer>  getPageNumberList(){
+    	List<Integer> pageNumberList=new ArrayList<>();
+    	for(int i=this.firstPageNumber;i<this.lastPageNumber;i++){
+    		pageNumberList.add(i+1);
+    	}
+    	return pageNumberList;
+    }
+    
     /**
      * 
      */
@@ -54,6 +81,30 @@ public class MngCrearReporte {
 
 	public void setEquipoComputoList(List<EquipoComputo> equipoComputoList) {
 		this.equipoComputoList = equipoComputoList;
+	}
+
+	public int getNumTotalRegistros() {
+		return numTotalRegistros;
+	}
+
+	public void setNumTotalRegistros(int numTotalRegistros) {
+		this.numTotalRegistros = numTotalRegistros;
+	}
+
+	public int getLastPageNumber() {
+		return lastPageNumber;
+	}
+
+	public void setLastPageNumber(int lastPageNumber) {
+		this.lastPageNumber = lastPageNumber;
+	}
+
+	public int getFirstPageNumber() {
+		return firstPageNumber;
+	}
+
+	public void setFirstPageNumber(int firstPageNumber) {
+		this.firstPageNumber = firstPageNumber;
 	}
 
 }

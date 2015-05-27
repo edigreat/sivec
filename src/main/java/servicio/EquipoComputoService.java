@@ -19,7 +19,7 @@ import presentacion.manager.MngAdminEquipo;
 import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCaracteristicaEquipo;
 import presentacion.manager.MngCrearEquipoForm;
-import presentacion.manager.MngCrearReparacion;
+import presentacion.manager.MngCrearReparacionForm;
 import dominio.EquipoComputo;
 import dominio.EquipoValorCarac;
 import repositorio.EquipoComputoDao;
@@ -274,6 +274,8 @@ public class EquipoComputoService {
     	{
     		mngCrearEquipoForm.getUsuarioAsignado().setId(equipoComputo.getUsuarioByIdUsuarioAsignado().getIdUsuario()+"");
     		mngCrearEquipoForm.getUsuarioAsignado().setTagName(equipoComputo.getUsuarioByIdUsuarioAsignado().getNombreCompleto()+"");
+        	mngCrearEquipoForm.setUsuarioAsignadoTag(equipoComputo.getUsuarioByIdUsuarioAsignado().getIdUsuario()+"");;
+
     	}
     	mngCrearEquipoForm.getUsuarioResponsable().setId(equipoComputo.getUsuarioByIdUsuarioResponsable().getIdUsuario()+"");
     	mngCrearEquipoForm.getUsuarioResponsable().setTagName(equipoComputo.getUsuarioByIdUsuarioResponsable().getNombreCompleto()+"");

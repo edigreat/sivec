@@ -108,7 +108,7 @@ CREATE   TABLE IF NOT EXISTS ReparacionEquipo (
   id_equipoComputo INT NOT NULL,
   id_usuarioAsignado INT NOT NULL,
   id_usuarioResponsable INT NOT NULL,
-  desc_reparacion VARCHAR(45) NOT NULL,
+  desc_reparacion VARCHAR(105) NOT NULL,
   desc_motivo VARCHAR(45) NOT NULL,
   fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   fecha_actualizacion DATETIME NULL,

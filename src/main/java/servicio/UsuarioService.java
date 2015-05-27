@@ -144,7 +144,7 @@ public class UsuarioService {
     		List<Usuario> usuarioList = usuarioDao.buscarTodosPorApPaterno(apPaterno);
         	for(Usuario usuario:usuarioList){
         		tagAutoCompleteUsuarioList.add(new TagAutoCompleteUsuario(usuario.getIdUsuario()+"",
-        				usuario.getNombreCompletoApPaterno()) );
+        				usuario.getNombreCompleto()) );
         	}
         return tagAutoCompleteUsuarioList;
     }

@@ -8,6 +8,10 @@ package dominio;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Entidad ReparacionEquipo
  * Clase que representa la reparacion de un equipo
@@ -22,7 +26,11 @@ public class ReparacionEquipo implements java.io.Serializable {
 	private Usuario usuarioByIdUsuarioResponsable;
 	private EquipoComputo equipoComputo;
 	private Usuario usuarioByIdUsuarioAsignado;
+	@NotNull
+	@NotEmpty
 	private String descReparacion;
+	@NotNull
+	@NotEmpty
 	private String descMotivo;
 	private Timestamp fechaCreacion;
 	private Integer indVigenciaReparacion;

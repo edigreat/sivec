@@ -29,8 +29,8 @@ public class MngCrearEquipoForm implements Serializable {
     public MngCrearEquipoForm() {
     	 this.mngCaracteristicaEquipoList =  new ArrayList<MngCaracteristicaEquipo>();
     	 this.equipoComputo = new EquipoComputo();
-    	 usuarioResponsable = new TagAutoCompleteUsuario();
-    	 usuarioAsignado = new TagAutoCompleteUsuario();
+    	 this.usuarioResponsable = new TagAutoCompleteUsuario();
+    	 this.usuarioAsignado = new TagAutoCompleteUsuario();
     }
 
     TagAutoCompleteUsuario usuarioResponsable;

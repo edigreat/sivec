@@ -49,8 +49,8 @@
 						<th>Responsable Equipo</th>
 						<th>Estado</th>
 						<th>Acción</th>
-						<th>Reparación</th>
-						
+						<th>Registrar Reparación</th>
+						<th>Consultar reparación</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,11 +68,19 @@
 										> Editar/Asignar </a>		
 							</td>
 							<td>
-							<a class="linkTabla" href=" <c:url value="/equipo/registrarReparacion.html">
+							<a class="linkTabla" href=" <c:url value="/reparacion/registrarreparacionequipo.html">
    										  <c:param name="idEquipoComputo" value="${equipoComputo.idEquipoComputo}"/>
 										  </c:url>"
-										> Registrar Reparacion </a>		
+										> Registrar</a>		
 							</td>
+								<td>
+							<a class="linkTabla" href=" <c:url value="/reporte/buscarmovimientoporid.html">
+   										  <c:param name="idComputoString" value="${equipoComputo.idEquipoComputo}"/>
+										  </c:url>"
+										> Consultar </a>		
+							</td>
+							
+							
 						</tr>
 
 					</c:forEach>
