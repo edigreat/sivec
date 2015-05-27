@@ -81,6 +81,7 @@ out.println("==" + request.getAttribute(s));
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.color.animation.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.prettyPhoto.js" charset="utf-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery.autocomplete.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/default.js"></script>
 
 
