@@ -159,12 +159,7 @@ public class UsuarioController {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
-    public void regresarConsultaEquipoPorResponsable() {
-        // TODO implement here
-    }
+    
 
     /**
      * Muestra la lista de usuarios
@@ -222,13 +217,5 @@ public class UsuarioController {
 		}
     }
     
-
-   
-    /**
-     * 
-     */
-    public void cerrarDetalleEquipo() {
-        // TODO implement here
-    }
 
 }

@@ -8,7 +8,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -80,10 +82,10 @@ public class EquipoComputoDao {
      * @return
      */
     public EquipoComputo buscarEquipoComputoPorId(EquipoComputo equipoComputo) {
-    	String queryString = "from EquipoComputo u WHERE u.idEquipoComputo = :idEquipoComputo ";
-		Query queryObject = getCurrentSession().createQuery(queryString)
-				.setInteger("idEquipoComputo",equipoComputo.getIdEquipoComputo());
-		return  (EquipoComputo)queryObject.uniqueResult();
+    	return (EquipoComputo)getCurrentSession().createCriteria(EquipoComputo.class)
+			.add(Restrictions.eq("idEquipoComputo",equipoComputo.getIdEquipoComputo()))
+			.setFetchMode("equipoValorCaracs", FetchMode.JOIN)
+			.uniqueResult();
     }
 
     /**
@@ -132,6 +134,27 @@ public class EquipoComputoDao {
 		queryObject.setFirstResult(startResult);
 		queryObject.setMaxResults(maxRows);
 		return  queryObject.list();
+    }
+    
+    /**
+     * Obtiene toda la lista de usuarios
+     * @return lista de usuarios
+     */
+	@SuppressWarnings("unchecked")
+    public List<EquipoComputo> buscarTodos(String equipoComputo) {
+		return getCurrentSession().createCriteria(EquipoComputo.class)
+				.add(Restrictions.ilike("descTipoEquipo",equipoComputo,MatchMode.ANYWHERE))
+				.setFetchMode("tipoEquipoComputo", FetchMode.JOIN)
+    	    	.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
+    	    	.addOrder(
+    	    			Order.desc("idEquipoComputo")
+    	    			)
+    	    	.list();
+				
+		
+		
+    			
+		
     }
 
 }

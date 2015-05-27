@@ -21,4 +21,5 @@ public interface ConstantesPresentacion {
 	
 	//Nombre de los beans de sesion
 	String SESSION_TIPOS_EQUIPOS_COMPUTO="tipoEquipoComputoMap";
+	String SESSION_ESTADO_EQUIPO="estadoEquipoMap";
 }

@@ -38,7 +38,7 @@
         <property name="estadoEquipo" type="java.lang.String">
             <column name="estado_equipo" length="45" not-null="true" />
         </property>
-       <set name="equipoValorCaracs" inverse="true">
+       <set name="equipoValorCaracs" cascade="save-update, delete"  inverse="true">
             <key>
                 <column name="id_equipoComputo" not-null="true" />
             </key>

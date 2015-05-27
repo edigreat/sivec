@@ -10,7 +10,7 @@
             <column name="id_equipo_val_carac" />
             <generator class="identity" />
         </id>
-        <many-to-one name="equipoComputo" class="dominio.EquipoComputo" fetch="select">
+        <many-to-one name="equipoComputo" cascade="save-update, delete" class="dominio.EquipoComputo" fetch="select">
             <column name="id_equipoComputo" not-null="true" />
         </many-to-one>
         <property name="descripcionCaract" type="java.lang.String">

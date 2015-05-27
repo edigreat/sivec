@@ -9,8 +9,10 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div id="form-crea-equipo-container" class="col-md-10">
 
-  <form:form method="post" action="${pageContext.request.contextPath}/equipo/guardarinformacionequipo.html"   modelAttribute="mngCrearEquipoForm" cssClass="form-horizontal" role="form">
-	<h2 class="bg-primary text-center">Editar Equipo</h2>
+  <form:form method="post" action="${pageContext.request.contextPath}/equipo/actualizarinformacionusuario.html"   modelAttribute="mngCrearEquipoForm" cssClass="form-horizontal" role="form">
+		<form:hidden path="equipoComputo.idEquipoComputo" />
+	
+	<h2 class="bg-primary text-center">Editar Equipo : ${mngCrearEquipoForm.equipoComputo.idEquipoComputo}</h2>
 	<div class="row">
     <div id="form-crea-equipo-container" class="col-md-7">
     <div class="form-group ">
@@ -18,6 +20,13 @@
         </form:label>
         <div class="col-sm-4">
         <form:select path="equipoComputo.descTipoEquipo" items="${tipoEquipoComputoMap}" />
+        </div>
+    </div>
+     <div class="form-group ">
+        <form:label path="equipoComputo.estadoEquipo" class="control-label col-sm-3">Estado * :
+        </form:label>
+        <div class="col-sm-4">
+        <form:select path="equipoComputo.estadoEquipo" items="${estadoEquipoMap}" />
         </div>
     </div>
     <div class="form-group ">
@@ -75,19 +84,42 @@
 	</div>
 	</div>
 	<div class="row">
-	<div class="form-group ">
-	<div class="col-sm-4" ></div>	
+		<div class="form-group ">
+	<div class="col-sm-2" ></div>	
 		<div class="col-sm-2">
 			<input type="submit"  class="btn btn-primary" value="Guardar" />
 		</div>
 		<div class="col-sm-2">
 			<a class="btn btn-warning" href="${pageContext.request.contextPath}/equipo/cancelaractualizacion.html" role="button">Cancelar</a>
+		</div>
+		<div class="col-sm-2">
+		
+		  <button type="button" id="btnMostrarBorrarEquipo" class="btn btn-danger" data-toggle="modal" data-target="#confirmaEliminarEquipo">Eliminar</button>
 
 		</div>
+		
 		
    </div>
    </div>	
 	
+	<!-- Modal -->
+<div class="modal fade" id="confirmaEliminarEquipo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de eliminar el registro del equipo de computo: ${mngCrearEquipoForm.equipoComputo.idEquipoComputo} ? 
+      </div>
+      <div class="modal-footer">
+      	<a href="${pageContext.request.contextPath}/equipo/eliminarequipocomputo.html?idEquipoComputo=${mngCrearEquipoForm.equipoComputo.idEquipoComputo}" class="btn btn-danger">Eliminar</a>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
   </form:form>
 </div>
 

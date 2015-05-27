@@ -61,6 +61,22 @@ public class EquipoComputoService {
     @Autowired
     private EquipoValorCaracDao equipoValorCaracDao;
 
+    
+    /**
+     * Buscar todos los equipos  por tipo
+     * 
+     * @param startResult pagina inicial 
+     * @param maxRows tamanio de pagina 
+     * @return lista de equipo de acuerdo a su tipo
+     */
+    public MngAdminEquipo buscarTodos(String equipoComputo) {
+    		log.debug("Buscando usuarios con correo equipoComputo : ["+equipoComputo.trim());
+    		MngAdminEquipo mngAdminEquipo = new MngAdminEquipo(); 
+    		mngAdminEquipo.setFirstPageNumber(0);
+    		mngAdminEquipo.setLastPageNumber(0);
+    		mngAdminEquipo.setEquipoComputoList(equipoComputoDao.buscarTodos(equipoComputo));
+        return mngAdminEquipo;
+    }
     /**
      * Busca todos los equipos de computo registrados
      * @param startResult pagina de inicio  
@@ -113,7 +129,7 @@ public class EquipoComputoService {
 						mngCaracteristicaEquipo.getValorCaract());
     		mngCrearEquipoForm.getEquipoComputo().getEquipoValorCaracs().add(equipoValorCarac);
     		log.debug(mngCaracteristicaEquipo);
-        	equipoValorCaracDao.insertarUsuario(equipoValorCarac);
+        	equipoValorCaracDao.insertarEquipoValorCarac(equipoValorCarac);
 
     		}
         }
@@ -135,8 +151,40 @@ public class EquipoComputoService {
      * @param equipo de computo a acutalizar
      * @return equipo de computo actualizado
      */
-    public EquipoComputo actualizarEquipo(EquipoComputo equipoComputo) {
-     return equipoComputoDao.actualizarEquipoComputo(equipoComputo);
+    public MngCrearEquipoForm actualizarEquipo(MngCrearEquipoForm mngCrearEquipoForm) {
+    	mngCrearEquipoForm.getEquipoComputo().setUsuarioByIdUsuarioResponsable(usuarioDao.autenticarUsuario(1));
+    	EquipoComputo currentEquipoComputo  = new EquipoComputo();
+    	currentEquipoComputo.setIdEquipoComputo(mngCrearEquipoForm.getEquipoComputo().getIdEquipoComputo());
+    	EquipoComputo equipoComputo = equipoComputoDao.buscarEquipoComputoPorId(currentEquipoComputo);
+    	
+    	equipoComputo.setDescTipoEquipo(mngCrearEquipoForm.getEquipoComputo().getDescTipoEquipo());
+    	equipoComputo.setMarcaComputo(mngCrearEquipoForm.getEquipoComputo().getMarcaComputo());
+    	equipoComputo.setModeloComputo(mngCrearEquipoForm.getEquipoComputo().getModeloComputo());
+    	equipoComputo.setUbicacion(mngCrearEquipoForm.getEquipoComputo().getUbicacion());
+    	equipoComputo.setEstadoEquipo(mngCrearEquipoForm.getEquipoComputo().getEstadoEquipo());
+
+    	equipoComputo.getEquipoValorCaracs().clear();
+    	boolean hasSuccess=equipoValorCaracDao.eliminarCaracteristiscaPorIdEquipo(currentEquipoComputo.getIdEquipoComputo());
+    	equipoComputo = equipoComputoDao.actualizarEquipoComputo(equipoComputo);
+
+    	for(MngCaracteristicaEquipo mngCaracteristicaEquipo:mngCrearEquipoForm.getMngCaracteristicaEquipoList()){
+    		if(mngCaracteristicaEquipo.getDescripcionCaract()!=null&&
+    				!mngCaracteristicaEquipo.getDescripcionCaract().isEmpty() &&
+    				mngCaracteristicaEquipo.getValorCaract()!=null &&
+    				!mngCaracteristicaEquipo.getValorCaract().isEmpty())
+    		{
+    			EquipoValorCarac equipoValorCarac = new EquipoValorCarac(
+    					equipoComputo,
+						mngCaracteristicaEquipo.getDescripcionCaract(),
+						mngCaracteristicaEquipo.getValorCaract());
+    					equipoComputo.getEquipoValorCaracs().add(equipoValorCarac);
+    		log.debug(mngCaracteristicaEquipo);
+        	equipoValorCaracDao.insertarEquipoValorCarac(equipoValorCarac);
+
+    		}
+        }
+    	
+    	return mngCrearEquipoForm;
 
     }
 
@@ -145,8 +193,17 @@ public class EquipoComputoService {
      * @param equipo de computo a borrar
      * @return boolean si el borrado tuvo exito
      */
-    public boolean borrarEquipo(EquipoComputo equipoComputo) {
-        return equipoComputoDao.borrarEquipoComputo(equipoComputo);
+    public boolean borrarEquipo(String idEquipoComputoString) {
+    	int idEquipoComputo=0;
+    	if(isInteger(idEquipoComputoString)){
+    		idEquipoComputo = Integer.parseInt(idEquipoComputoString);
+        
+        }
+    	EquipoComputo equipoComputo = new EquipoComputo();
+    	equipoComputo.setIdEquipoComputo(idEquipoComputo);
+    	EquipoComputo currentEquipoComputo = equipoComputoDao.buscarEquipoComputoPorId(equipoComputo);
+    	boolean hasSuccess = equipoComputoDao.borrarEquipoComputo(currentEquipoComputo);
+        return hasSuccess;
     }
 
     /**
@@ -178,11 +235,28 @@ public class EquipoComputoService {
      * @param MngCrearEquipoForm manager de la pantalla editar equipo
      * @return manager con la informacion necesaria para editar un  equipo
      */
-    public MngCrearEquipoForm iniciarEditarEquipo(MngCrearEquipoForm mngCrearEquipo) {
-    	/*	mngCrearEquipo.setEquipoComputo(
-    		equipoComputoDao.buscarEquipoComputoPorId(
-    					mngCrearEquipo.getEquipoComputo()));*/
-        return mngCrearEquipo;
+    public MngCrearEquipoForm iniciarEditarEquipo(String idEquipoComputoString, MngCrearEquipoForm mngCrearEquipoForm) {
+    	int idEquipoComputo=0;
+    	if(isInteger(idEquipoComputoString)){
+    		idEquipoComputo = Integer.parseInt(idEquipoComputoString);
+        
+        }
+    	EquipoComputo equipoComputo =  new EquipoComputo();
+    	equipoComputo.setIdEquipoComputo(idEquipoComputo);
+    	equipoComputo = equipoComputoDao.buscarEquipoComputoPorId(equipoComputo);
+    	mngCrearEquipoForm.setEquipoComputo(equipoComputo);
+    	for(Object equipoValorCaracObj: equipoComputo.getEquipoValorCaracs()){
+    		EquipoValorCarac equipoValorCarac = (EquipoValorCarac)equipoValorCaracObj;
+    		log.info(equipoValorCarac);
+    		MngCaracteristicaEquipo mngCaracteristicaEquipo = new MngCaracteristicaEquipo();
+    		mngCaracteristicaEquipo.setDescripcionCaract(equipoValorCarac.getDescripcionCaract());
+    		mngCaracteristicaEquipo.setValorCaract(equipoValorCarac.getValorCaract());
+    		mngCrearEquipoForm.getMngCaracteristicaEquipoList().add(mngCaracteristicaEquipo);
+    	}
+    	for(int i=0;i<(MAX_ROWS-equipoComputo.getEquipoValorCaracs().size());i++){
+    		mngCrearEquipoForm.getMngCaracteristicaEquipoList().add(new MngCaracteristicaEquipo());
+    	}
+        return mngCrearEquipoForm;
     }
 
   

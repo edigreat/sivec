@@ -38,13 +38,11 @@
 	<definition name="registrarEquipo"  extends="base.definition" >
 		<put-attribute name="title" value="Registrar Equipos" />
 		<put-attribute name="body" value="/WEB-INF/pages/equipo/registrarEquipo.jsp" />
-		<put-attribute name="current" value="index" />
 	</definition>
 	
 	
 	<definition name="editarEquipo"  extends="base.definition" >
-		<put-attribute name="title" value="Registrar Equipos" />
+		<put-attribute name="title" value="Editar Equipos" />
 		<put-attribute name="body" value="/WEB-INF/pages/equipo/editarEquipo.jsp" />
-		<put-attribute name="current" value="index" />
 	</definition>
 	</tiles-definitions>

@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import presentacion.manager.MngCaracteristicaEquipo;
@@ -33,7 +36,7 @@ import servicio.EquipoComputoService;
  */
 @Controller("equipoComputoController")
 @RequestMapping("/equipo")
-@SessionAttributes({SESSION_TIPOS_EQUIPOS_COMPUTO})
+@SessionAttributes({SESSION_TIPOS_EQUIPOS_COMPUTO,SESSION_ESTADO_EQUIPO})
 public class EquipoComputoController implements Serializable {
 
 	
@@ -62,6 +65,14 @@ public class EquipoComputoController implements Serializable {
     	return tipoEquipoComputoMap;
     }
     
+    @ModelAttribute(SESSION_ESTADO_EQUIPO)
+    public Map<String,String> getEstadoEquipoMap(){
+    	Map<String,String> estadoEquipoMap = new HashMap<>();
+    	estadoEquipoMap.put("REGISTRADO","REGISTRADO");
+    	estadoEquipoMap.put("ASIGNADO","ASIGNADO");
+    	estadoEquipoMap.put("REPARACION","REPARACION");
+    	return estadoEquipoMap;
+    }
    
     
     /**
@@ -70,63 +81,17 @@ public class EquipoComputoController implements Serializable {
     @Autowired
     private EquipoComputoService equipoComputoService;
 
+    /**
+     * 
+     */
+    @RequestMapping(value="/eliminarequipocomputo")
+    public String confirmarBajaEquipo(SessionStatus status,@RequestParam("idEquipoComputo")String idEquipoComputo){
+    	equipoComputoService.borrarEquipo(idEquipoComputo);
+    	status.setComplete();
+    	return "redirect:/equipo/list.html";
+    }
+
     
-    /**
-     * 
-     */
-    @RequestMapping(value="/nuevo")
-    public void insertarEquipo() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void borrarEquipo() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void actualizarEquipo() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void buscarEquipoPorID() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void consultarTodos() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void cancelarBorrarEquipo() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void verDetalleEquipo() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void regresarConsultaEquipoPorResponsable() {
-        // TODO implement here
-    }
 
    
     /**
@@ -166,7 +131,8 @@ public class EquipoComputoController implements Serializable {
     }
 
     /**
-     * 
+     * Muestra la lista de la primera pagina de
+     * equipos de computo
      */
     @RequestMapping("/list")
     public ModelAndView mostrarAdministrarEquipos() {
@@ -174,17 +140,74 @@ public class EquipoComputoController implements Serializable {
     	return new ModelAndView("administrarequipo","mngAdminEquipo",equipoComputoService.buscarTodos("0",MAX_ROWS));    }
 
     /**
-     * 
+     * Muestra el listado de equipo
+     * por pagina
+     * @param startResult pagina a mostrar
+     * @return listado de usuarios de la pagina
      */
-    public void mostrarEditarEquipo() {
-        // TODO implement here
+    @RequestMapping("/list/{startResult}")
+    public ModelAndView mostrarAdministrarEquipos(@PathVariable("startResult") String startResult) {
+     	log.debug("Entrando a mostrarPantallaAdministrarEquipo " + startResult);
+     	return new ModelAndView("administrarequipo","mngAdminEquipo",equipoComputoService.buscarTodos(startResult,MAX_ROWS));
+     }
+    
+    /**
+     * Muestra la pantalla de editar equipo de computo
+     */
+    @RequestMapping("/editar")
+    public ModelAndView mostrarEditarEquipo(@RequestParam("idEquipoComputo")String idEquipoComputo) {
+    	log.info("Entrando a mostrarEditarEquipo [" +idEquipoComputo+"]" );
+    	 MngCrearEquipoForm mngCrearEquipoForm = equipoComputoService.iniciarEditarEquipo(idEquipoComputo,new MngCrearEquipoForm());
+        return new ModelAndView("editarEquipo","mngCrearEquipoForm",mngCrearEquipoForm);
+
+    }
+    
+    
+    /**
+     * Buscar a todos los usuarios que correspondan
+     * a un patron de correo
+     * @param correoElectronico
+     * @return lista con los usuarios que corresponden al patron de correo
+     */
+    @RequestMapping("/buscarEquipoPorTipo")
+    public ModelAndView buscarEquipoPorTipo(@RequestParam("tipoEquipoComputo")String tipoEquipoComputo) {
+    	return new ModelAndView("administrarequipo","mngAdminEquipo",equipoComputoService.buscarTodos(tipoEquipoComputo));
     }
 
     /**
-     * 
+     * Cancelela calquier operacion
+     * @param status status de la sesion
+     * @return listado de equipos de computo
      */
-    public void mostrarConfirmaBajaEquipo() {
-        // TODO implement here
+    @RequestMapping("/cancelaractualizacion")
+    public String cancelarActualizacion(SessionStatus status) {
+		status.setComplete();
+    	return "redirect:/equipo/list.html";
     }
+    
+    /**
+     * Guarda la informacion de un equipo de equipo actualizada
+     * Si tiene errores, regresa la misma pagina mostrandolos
+     * @param mngCrearUsuario informacion actualizada del usuario
+     * @param result mensajes de errores si existen
+     * @return resultado de la actualizacion
+     */
+      @RequestMapping("/actualizarinformacionusuario")
+      public String actualizarUsuario(@Valid MngCrearEquipoForm mngCrearEquipoForm,BindingResult result) {
+      	log.debug("Actualizando Equipo : " +mngCrearEquipoForm);
+      	log.info(mngCrearEquipoForm);
+  		log.debug("Tiene errores " + result.hasErrors());
+  		if(result.hasErrors()){
+  	    	  mngCrearEquipoForm = equipoComputoService.iniciarEditarEquipo(
+  	    			  mngCrearEquipoForm.getEquipoComputo().getIdEquipoComputo()+"",
+  	    			  new MngCrearEquipoForm());
+  			return "editarEquipo";
+  		}
+  		else
+  		{	
+  			mngCrearEquipoForm = equipoComputoService.actualizarEquipo(mngCrearEquipoForm);
+  			return "redirect:/equipo/list.html";
+  		}
+      }
 
 }

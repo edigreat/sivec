@@ -18,9 +18,9 @@
  </div>
      
      <div class="col-md-6">
-     <form name="formbuscarporid" id="formbuscarporid" action="${pageContext.request.contextPath}/equipo/buscarEquipoPorId.html" >
-     <label for="correoElectronico">Id del equipo</label>
-     <input type="text" id="correoElectronico" name="correoElectronico" />
+     <form name="formbuscarporid" id="formbuscarporid" action="${pageContext.request.contextPath}/equipo/buscarEquipoPorTipo.html" >
+     <label for="tipoEquipoComputo">Tipo equipo</label>
+     <input type="text" id="tipoEquipoComputo" name="tipoEquipoComputo" />
      <input type="submit" class="btn btn-primary  active"  value="buscar" />
       <span class="glyphicon glyphicon-search" aria-hidden="true">
      </span>

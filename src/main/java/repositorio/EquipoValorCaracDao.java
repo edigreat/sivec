@@ -7,6 +7,7 @@
 package repositorio;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,38 @@ public class EquipoValorCaracDao {
 	}
 	
 	
-	public EquipoValorCarac insertarUsuario(EquipoValorCarac equipoValorCarac) {
+	public EquipoValorCarac insertarEquipoValorCarac(EquipoValorCarac equipoValorCarac) {
     	log.debug("Guardando instancia  equipoValorCarac ");
     		getCurrentSession().save(equipoValorCarac);
 		log.debug("equipoValorCarac Guardado exitosamente");
 		
 		return equipoValorCarac;
     }
+	
+	 /**
+     * Actualiza la informacion de un EquipoValorCarac
+     * @param EquipoValorCarac a actualizar
+     * @return resultado de la  actualizacion
+     */
+    public boolean actualizarEquipoValorCarac(EquipoValorCarac equipoValorCarac) {
+    	getCurrentSession().update(equipoValorCarac);
+        return true;
+    }
+    
+    public boolean eliminarCaracteristiscaPorIdEquipo(Integer idEquipoComputo){
+    	boolean hasSuccess=false;  
+    	String hql = "delete from EquipoValorCarac where equipoComputo.idEquipoComputo= :idEquipoComputo ";
+    	  try{
+    		  Query query = getCurrentSession().createQuery(hql);
+    		  query.setInteger("idEquipoComputo", idEquipoComputo);
+    		  System.out.println(query.executeUpdate());
+    		  hasSuccess=true;
+    	  }
+    	  catch(Exception ex){
+    		 System.out.println(ex.toString()); 
+    	  
+    	  }
+    	  return hasSuccess;
+    }
+
 }
