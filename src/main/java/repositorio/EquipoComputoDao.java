@@ -139,24 +139,54 @@ public class EquipoComputoDao {
     }
     
     /**
-     * Obtiene toda la lista de usuarios
-     * @return lista de usuarios
+     * Obtiene una lista de equipos 
+     * por un patron en su descripcion
+     * @return lista de equipos
      */
 	@SuppressWarnings("unchecked")
     public List<EquipoComputo> buscarTodos(String equipoComputo) {
 		return getCurrentSession().createCriteria(EquipoComputo.class)
 				.add(Restrictions.ilike("descTipoEquipo",equipoComputo,MatchMode.ANYWHERE))
-				.setFetchMode("tipoEquipoComputo", FetchMode.JOIN)
     	    	.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
     	    	.addOrder(
     	    			Order.desc("idEquipoComputo")
     	    			)
     	    	.list();
-				
-		
-		
-    			
 		
     }
+	
+	
+	  /**
+     * @param startResult 
+     * @param maxRows 
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+	public List<EquipoComputo> buscarTodosPorIdAsignado(int pageNumber, int maxRows,int idAsignado) {
+    	return getCurrentSession().createCriteria(EquipoComputo.class)
+    	    	.setFirstResult((pageNumber - 1) * maxRows)
+    	    	 .setFetchMode("tipoEquipoComputo", FetchMode.JOIN)
+    	    	 .setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
+    	    	 .setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
+    			 .add(Restrictions.eq("usuarioByIdUsuarioAsignado.idUsuario",idAsignado))
+
+    	    	 .setMaxResults(maxRows)
+    	    	.addOrder(
+    	    			Order.desc("idEquipoComputo")
+    	    			)
+    	    	.list();
+    }
+    
+    /**
+   	 * Obtiene el total de registros de la tabla de usuarios
+   	 * @return numero de registros de usuario.
+   	 */
+   	public Long obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(int idAsignado){
+   		String queryString = "Select count(e.idEquipoComputo) from EquipoComputo e "
+   				+ "where e.usuarioByIdUsuarioAsignado.idUsuario=:idAsignado";
+   		Query queryObject = getCurrentSession().createQuery(queryString)
+				.setInteger("idAsignado",idAsignado);
+   		return (Long)queryObject.uniqueResult();
+   	}
 
 }

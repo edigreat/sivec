@@ -22,6 +22,7 @@ import presentacion.manager.MngCrearEquipoForm;
 import presentacion.manager.MngCrearReparacionForm;
 import dominio.EquipoComputo;
 import dominio.EquipoValorCarac;
+import dominio.Usuario;
 import repositorio.EquipoComputoDao;
 import repositorio.EquipoValorCaracDao;
 import repositorio.ReparacionEquipoDao;
@@ -70,13 +71,55 @@ public class EquipoComputoService {
      * @return lista de equipo de acuerdo a su tipo
      */
     public MngAdminEquipo buscarTodos(String equipoComputo) {
-    		log.debug("Buscando usuarios con correo equipoComputo : ["+equipoComputo.trim());
+    		log.debug("Buscando equipos por tipo : ["+equipoComputo.trim());
     		MngAdminEquipo mngAdminEquipo = new MngAdminEquipo(); 
     		mngAdminEquipo.setFirstPageNumber(0);
     		mngAdminEquipo.setLastPageNumber(0);
-    		mngAdminEquipo.setEquipoComputoList(equipoComputoDao.buscarTodos(equipoComputo));
+    		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodos(equipoComputo);
+    		if(equipoComputoList==null || equipoComputoList.isEmpty()){
+    			mngAdminEquipo.setHasError(true);
+    			mngAdminEquipo.setDescripcionError("No existe informacion");
+    		}
+    		else
+    		{
+        		mngAdminEquipo.setEquipoComputoList(equipoComputoList);
+
+    		}
         return mngAdminEquipo;
     }
+    
+    /**
+     * Busca todos los equipos de computo registrados
+     * @param startResult pagina de inicio  
+     * @param maxRows tamanio de la pagina
+     * @return lista de equipos
+     */
+    public MngAdminEquipo buscarTodosPorUsuarioAsignado(String startResultString, int maxRows,String idUsuario) {
+    	log.debug("Buscando equipos de la pagina : ["+startResultString.trim()+"] "+isInteger(startResultString.trim()));
+    	int startResult=0;
+    	int idUsuarioAsignado=0;
+        if(isInteger(startResultString) && isInteger(idUsuario)){
+        	startResult = Integer.parseInt(startResultString);
+        	idUsuarioAsignado = Integer.parseInt(idUsuario);
+        
+        }
+    	MngAdminEquipo mngAdminEquipo = new MngAdminEquipo(); 
+    	Usuario usuario = usuarioDao.autenticarUsuario(idUsuarioAsignado);
+    	mngAdminEquipo.setUsuario(usuario);
+        Long numTotalEquipos = equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(idUsuarioAsignado);
+        mngAdminEquipo.setNumTotalEquipos(numTotalEquipos.intValue());
+        
+
+        if(numTotalEquipos > 0){
+        	mngAdminEquipo.setLastPageNumber( (int)
+        			(mngAdminEquipo.getNumTotalEquipos()/maxRows)+1)
+        			;
+        	mngAdminEquipo.setFirstPageNumber(0);
+        	mngAdminEquipo.setEquipoComputoList(equipoComputoDao.buscarTodosPorIdAsignado(startResult, maxRows,idUsuarioAsignado));
+        }
+        return mngAdminEquipo;
+    }
+
     /**
      * Busca todos los equipos de computo registrados
      * @param startResult pagina de inicio  

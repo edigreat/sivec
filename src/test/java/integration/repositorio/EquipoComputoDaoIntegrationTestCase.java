@@ -40,8 +40,8 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 	}
 	
 	
-	/*
 	
+	/*
 	@Test
 	public void buscarTodosTest(){
 		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodos();
@@ -88,7 +88,7 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 		log.info(equipoComputoBuscado);
 		
 	}
-	*/
+	
 	
 	@Test
 	public void borrarEquipoComputoTest(){
@@ -102,7 +102,7 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 		//assertThat(resultado, is(true));
 		
 	}
-	/*
+	
 	@Test
 	public void buscarTodosConReparacionTest(){
 		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodosConReparacion(0,10);
@@ -129,4 +129,30 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 			//log.info(equipoComputo);
 		//}
 	}*/
+	
+	@Test
+	public void buscarTodosPorDescEquipoTest(){
+		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodos("MO");
+		assertThat(equipoComputoList, is(notNullValue()));
+		assertThat(equipoComputoList.isEmpty(), is(not(true)));
+
+		//for(EquipoComputo equipoComputo:equipoComputoList){
+			//log.info(equipoComputo);
+		//}
+	}
+	
+	@Test
+	public void buscarTodosPorIdAsignadoTest(){
+		List<EquipoComputo> equipoComputoList = equipoComputoDao.buscarTodosPorIdAsignado(0,10,3);
+		assertThat(equipoComputoList, is(notNullValue()));
+		assertThat(equipoComputoList.isEmpty(), is(not(true)));
+		Long total = equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(3);
+		assertThat(total.intValue(),greaterThan(0));
+
+		//for(EquipoComputo equipoComputo:equipoComputoList){
+			//log.info(equipoComputo);
+		//}
+	}
+	
+	
 }

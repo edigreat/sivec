@@ -6,8 +6,13 @@
  */
 package dominio;
 
+import static presentacion.manager.ConstantesPresentacion.FORMATO_FECHA;
+import static presentacion.manager.ConstantesPresentacion.FORMATO_HORA;
+
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -94,6 +99,16 @@ public class EquipoComputo implements java.io.Serializable {
 		this.reparacionEquipos = reparacionEquipos;
 	}
 
+
+	public String getFechaActuallizacionFormato(){
+   	 SimpleDateFormat simpleDateFormatFecha = 
+   	            new SimpleDateFormat(FORMATO_FECHA,new Locale("es"));
+   	SimpleDateFormat simpleDateFormatHora = 
+	            new SimpleDateFormat(FORMATO_HORA,new Locale("es"));
+   	 return simpleDateFormatFecha.format(this.fechaActualizacion.getTime()) 
+   			 + " "+simpleDateFormatHora.format(this.fechaActualizacion.getTime()) ;
+	}
+	
 	// Property accessors
 
 	public Integer getIdEquipoComputo() {

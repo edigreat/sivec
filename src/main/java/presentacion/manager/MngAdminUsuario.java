@@ -11,6 +11,10 @@ import dominio.Usuario;
  */
 public class MngAdminUsuario {
 
+	
+	private boolean hasError=false;
+	private String descripcionError="";
+	
     /**
      * Constructor Privado
      */
@@ -89,6 +93,26 @@ public class MngAdminUsuario {
 		return "MngAdminUsuario [numTotalUsuarios=" + numTotalUsuarios
 				+ ", lastPageNumber=" + lastPageNumber + ", firstPageNumber="
 				+ firstPageNumber + ", usuarioList=" + usuarioList + "]";
+	}
+
+
+	public boolean isHasError() {
+		return hasError;
+	}
+
+
+	public void setHasError(boolean hasError) {
+		this.hasError = hasError;
+	}
+
+
+	public String getDescripcionError() {
+		return descripcionError;
+	}
+
+
+	public void setDescripcionError(String descripcionError) {
+		this.descripcionError = descripcionError;
 	}
 
 	

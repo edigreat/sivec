@@ -11,6 +11,10 @@ import dominio.Usuario;
  */
 public class MngCrearReporte {
 
+	
+	private boolean hasError=false;
+	private String descripcionError="";
+	
 	/**
      * Atributo que se utiliza
      * para generar la paginacion
@@ -105,6 +109,22 @@ public class MngCrearReporte {
 
 	public void setFirstPageNumber(int firstPageNumber) {
 		this.firstPageNumber = firstPageNumber;
+	}
+
+	public boolean isHasError() {
+		return hasError;
+	}
+
+	public void setHasError(boolean hasError) {
+		this.hasError = hasError;
+	}
+
+	public String getDescripcionError() {
+		return descripcionError;
+	}
+
+	public void setDescripcionError(String descripcionError) {
+		this.descripcionError = descripcionError;
 	}
 
 }

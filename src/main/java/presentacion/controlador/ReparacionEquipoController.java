@@ -1,5 +1,7 @@
 package presentacion.controlador;
 
+import static presentacion.manager.ConstantesPresentacion.MAX_ROWS;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import presentacion.manager.MngAdminEquipo;
 import presentacion.manager.MngCrearReparacionForm;
+import servicio.EquipoComputoService;
 import servicio.ReparacionEquipoService;
 
 /**
@@ -44,6 +48,9 @@ public class ReparacionEquipoController implements Serializable  {
      */
     @Autowired
     private ReparacionEquipoService reparacionEquipoService;
+    
+    @Autowired
+    private EquipoComputoService equipoComputoService;
 
     /**
      * Inicializa la pantalla para
@@ -52,7 +59,17 @@ public class ReparacionEquipoController implements Serializable  {
     @RequestMapping("/registrarreparacionequipo")
     public ModelAndView mostrarRegistrarReparacion(@RequestParam("idEquipoComputo")String idEquipoComputo) {
     	log.debug("Iniciando registrar equipo" +  reparacionEquipoService);
+     	//TODO:Cambiar validar que tenga usuario asignado
+
     	MngCrearReparacionForm mngCrearReparacionForm = reparacionEquipoService.iniciarRegistrarReparacion(idEquipoComputo);
+    	if(mngCrearReparacionForm.isHasError()){
+    		MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+    		mngAdminEquipo.setHasError(true);
+    		mngAdminEquipo.setDescripcionError(mngCrearReparacionForm.getDescripcionError());
+        	return new ModelAndView("administrarequipo","mngAdminEquipo", mngAdminEquipo  ) ;
+
+    	}
+    	
     	return new ModelAndView("registrarReparacion","mngCrearReparacionForm",mngCrearReparacionForm);
    }
 

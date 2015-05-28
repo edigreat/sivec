@@ -73,9 +73,17 @@ public class ReparacionEquipoService {
     	EquipoComputo equipoComputo =  new EquipoComputo();
     	equipoComputo.setIdEquipoComputo(idEquipoComputo);
     	EquipoComputo currentEquipoComputo = equipoComputoDao.buscarEquipoComputoPorId(equipoComputo);
-    	log.debug("Equipo de computo encontrado " + currentEquipoComputo);
-    	mngCrearReparacionForm.setEquipoComputo(currentEquipoComputo);
-    	log.debug("Equipo de computo encontrado " + currentEquipoComputo.getEquipoValorCaracs());
+    	if(currentEquipoComputo.getUsuarioByIdUsuarioAsignado()==null)
+    	{
+    		mngCrearReparacionForm.setHasError(true);
+    		mngCrearReparacionForm.setDescripcionError("El equipo No ha sido asignado");
+    	}
+    	else{
+    		mngCrearReparacionForm.getUsuarioAsignado().setId(currentEquipoComputo.getUsuarioByIdUsuarioAsignado().getIdUsuario()+"");
+    		mngCrearReparacionForm.getUsuarioAsignado().setTagName(currentEquipoComputo.getUsuarioByIdUsuarioAsignado().getNombreCompleto()+"");
+    		log.debug("Equipo de computo encontrado " + currentEquipoComputo);
+    		mngCrearReparacionForm.setEquipoComputo(currentEquipoComputo);
+    		log.debug("Equipo de computo encontrado " + currentEquipoComputo.getEquipoValorCaracs());
 
     	for(Object equipoValorCaracObj: currentEquipoComputo.getEquipoValorCaracs()){
     		EquipoValorCarac equipoValorCarac = (EquipoValorCarac)equipoValorCaracObj;
@@ -86,14 +94,10 @@ public class ReparacionEquipoService {
     		mngCrearReparacionForm.getMngCaracteristicaEquipoList().add(mngCaracteristicaEquipo);
     	}
     	
-    	if(currentEquipoComputo.getUsuarioByIdUsuarioAsignado()!=null)
-    	{
-    		mngCrearReparacionForm.getUsuarioAsignado().setId(currentEquipoComputo.getUsuarioByIdUsuarioAsignado().getIdUsuario()+"");
-    		mngCrearReparacionForm.getUsuarioAsignado().setTagName(currentEquipoComputo.getUsuarioByIdUsuarioAsignado().getNombreCompleto()+"");
-
+    	
+    		mngCrearReparacionForm.getUsuarioResponsable().setId(currentEquipoComputo.getUsuarioByIdUsuarioResponsable().getIdUsuario()+"");
+    		mngCrearReparacionForm.getUsuarioResponsable().setTagName(currentEquipoComputo.getUsuarioByIdUsuarioResponsable().getNombreCompleto()+"");
     	}
-    	mngCrearReparacionForm.getUsuarioResponsable().setId(currentEquipoComputo.getUsuarioByIdUsuarioResponsable().getIdUsuario()+"");
-    	mngCrearReparacionForm.getUsuarioResponsable().setTagName(currentEquipoComputo.getUsuarioByIdUsuarioResponsable().getNombreCompleto()+"");
     	return mngCrearReparacionForm;
     }
 
@@ -163,7 +167,15 @@ public class ReparacionEquipoService {
         }
         	mngCrearReporte.setFirstPageNumber(0);
         	mngCrearReporte.setLastPageNumber(0); 
-        	mngCrearReporte.setReparacionEquipoList(reparacionEquipoDao.buscarReparacionPorEquipo(idEquipoComputo));
+        	List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarReparacionPorEquipo(idEquipoComputo);
+        	if(reparacionEquipoList==null || reparacionEquipoList.isEmpty()){
+        		mngCrearReporte.setHasError(true);
+        		mngCrearReporte.setDescripcionError("No cuenta con ninguna reparacion ");
+        	}
+        	else{
+        		mngCrearReporte.setReparacionEquipoList(reparacionEquipoList);
+        	}
+        	
         
         return mngCrearReporte;
     

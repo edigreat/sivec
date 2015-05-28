@@ -49,8 +49,8 @@ public class MenuAplicacionTag extends SimpleTagSupport {
 		   log.debug("-------> " +myDao);
 		   out.println("<li><a href=\"/sivec/usuario/list.html\">Usuarios</a></li>");
 		   out.println("<li><a href=\"/sivec/equipo/list.html\">Equipos</a></li>");
-		   out.println("<li><a href=\"#reviews\">Responsable</a></li>");
-		   out.println("<li><a href=\"#screens\">Reportes</a> </li>");
+		   out.println("<li><a href=\"/sivec/usuario/listUsuarioAsignado.html\">Responsable</a></li>");
+		   out.println("<li><a href=\"/sivec/reporte/list.html\">Reportes</a> </li>");
 	    }
 
 

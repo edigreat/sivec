@@ -40,7 +40,7 @@ public class UsuarioDao {
 	}
 	
     /**
-     * DAO to manage Usuario entities.
+     * Constructor publico.
      */
     public UsuarioDao() {
     	

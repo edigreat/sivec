@@ -110,7 +110,14 @@ public class UsuarioService {
         			(mngAdminUsuario.getNumTotalUsuarios()/maxRows)+1)
         			;
         	mngAdminUsuario.setFirstPageNumber(0);
-        	mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(startResult, maxRows));
+        	List<Usuario> usuarioList = usuarioDao.buscarTodos(startResult, maxRows);
+        	if(usuarioList==null || usuarioList.isEmpty()){
+        		mngAdminUsuario.setHasError(true);
+        		mngAdminUsuario.setDescripcionError("No existe en informacion");
+        	}
+        	else{
+            	mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(startResult, maxRows));
+        	}
         }
         return mngAdminUsuario;
     }
@@ -127,7 +134,14 @@ public class UsuarioService {
         	MngAdminUsuario mngAdminUsuario = new MngAdminUsuario(); 
         	mngAdminUsuario.setFirstPageNumber(0);
         	mngAdminUsuario.setLastPageNumber(0);
-        	mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(correoElectronico));
+        	List<Usuario> usuarioList = usuarioDao.buscarTodos(correoElectronico);
+        	if(usuarioList==null || usuarioList.isEmpty()){
+        		mngAdminUsuario.setHasError(true);
+        		mngAdminUsuario.setDescripcionError("No existe en informacion");
+        	}
+        	else{
+        		mngAdminUsuario.setUsuarioList(usuarioDao.buscarTodos(correoElectronico));
+        	}
         return mngAdminUsuario;
     }
     

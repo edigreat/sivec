@@ -9,6 +9,12 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="col-md-10">
      			<h3 class="text-center">Administrar Equipos </h3>
+     			<c:if test="${mngAdminEquipo.hasError==true}">
+				 <div class="alert alert-danger" role="alert">
+				 ${mngAdminEquipo.descripcionError}
+				  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				</div>
+				</c:if>
 <div class="col-md-3">
      <a href=" <c:url value="/equipo/registrar.html" />"
 		 class="btn btn-primary  active" >
@@ -35,7 +41,9 @@
 
 	<div class="panel-heading">
    	 	<h3 class="panel-title">Lista de Equipos</h3>
+   	 	
    	 </div>
+   	 
    <div class="panel-body">
    	
    

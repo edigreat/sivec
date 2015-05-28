@@ -9,6 +9,12 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="col-md-10">
      			<h3 class="text-center">Administrar Usuarios </h3>
+     			<c:if test="${mngAdminUsuario.hasError==true}">
+				 <div class="alert alert-danger" role="alert">
+				 ${mngAdminUsuario.descripcionError}
+				  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				</div>
+				</c:if>
 <div class="col-md-3">
      <a href=" <c:url value="/usuario/registrar.html" />"
 		 class="btn btn-primary  active" >
@@ -20,7 +26,7 @@
      <div class="col-md-6">
      <form name="formbuscarporid" id="formbuscarporid" action="${pageContext.request.contextPath}/usuario/buscarUsuarioPorEmail.html" >
      <label for="correoElectronico">Nombre de usuario</label>
-     <input type="text" id="correoElectronico" name="correoElectronico" />
+     <input type="text" id="correoElectronico" name="correoElectronico" maxlength="10" />
      <input type="submit" class="btn btn-primary  active"  value="buscar" />
       <span class="glyphicon glyphicon-search" aria-hidden="true">
      </span>

@@ -16,6 +16,9 @@ public class MngCrearReparacionForm {
     /**
      * 
      */
+	private boolean hasError=false;
+	private String descripcionError="";
+	
     public MngCrearReparacionForm() {
     	this.equipoComputo =  new EquipoComputo();
    	 	this.mngCaracteristicaEquipoList =  new ArrayList<MngCaracteristicaEquipo>();
@@ -115,6 +118,22 @@ public class MngCrearReparacionForm {
 
 	public void setUsuarioAsignado(TagAutoCompleteUsuario usuarioAsignado) {
 		this.usuarioAsignado = usuarioAsignado;
+	}
+
+	public boolean isHasError() {
+		return hasError;
+	}
+
+	public void setHasError(boolean hasError) {
+		this.hasError = hasError;
+	}
+
+	public String getDescripcionError() {
+		return descripcionError;
+	}
+
+	public void setDescripcionError(String descripcionError) {
+		this.descripcionError = descripcionError;
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import presentacion.manager.MngAdminEquipo;
 import presentacion.manager.MngCrearReporte;
 import dominio.ReparacionEquipo;
 import servicio.EquipoComputoService;
@@ -56,8 +57,14 @@ public class ReporteController implements Serializable {
      */
     @RequestMapping("/buscarmovimientoporid")
     public ModelAndView buscarMovimientosPorEquipo(@RequestParam("idComputoString")String idComputoString) {
-    	return new ModelAndView("adminmovimiento","mngCrearReporte",
-    			reparacionEquipoService.buscarReparacionPorEquipo(idComputoString));
+    	MngCrearReporte mngCrearReporte = reparacionEquipoService.buscarReparacionPorEquipo(idComputoString);
+    	if(mngCrearReporte.isHasError()){
+    		MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+    		mngAdminEquipo.setHasError(true);
+    		mngAdminEquipo.setDescripcionError(mngCrearReporte.getDescripcionError());
+    		return new ModelAndView("administrarequipo","mngAdminEquipo", mngAdminEquipo  ) ;
+    	}
+    	return new ModelAndView("adminmovimiento","mngCrearReporte",mngCrearReporte);
     }
     
     /**

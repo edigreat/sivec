@@ -3,12 +3,15 @@ package presentacion.manager;
 import java.util.*;
 
 import dominio.EquipoComputo;
+import dominio.Usuario;
 
 /**
  * @author Heriberto Galdamez
  */
 public class MngAdminEquipo {
 
+	private boolean hasError=false;
+	private String descripcionError="";
 	 /**
      * Atributo que se utiliza
      * para generar la paginacion
@@ -34,6 +37,8 @@ public class MngAdminEquipo {
     public MngAdminEquipo() {
     }
 
+    private Usuario usuario;
+    
     /**
      * 
      */
@@ -77,6 +82,30 @@ public class MngAdminEquipo {
 
 	public void setFirstPageNumber(int firstPageNumber) {
 		this.firstPageNumber = firstPageNumber;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public boolean isHasError() {
+		return hasError;
+	}
+
+	public void setHasError(boolean hasError) {
+		this.hasError = hasError;
+	}
+
+	public String getDescripcionError() {
+		return descripcionError;
+	}
+
+	public void setDescripcionError(String descripcionError) {
+		this.descripcionError = descripcionError;
 	}
 
 }

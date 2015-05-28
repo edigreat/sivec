@@ -26,7 +26,7 @@
         <div class="slug-pattern"><div class="overlay"><div class="slug-cut"></div></div></div>
 
 		<tiles:insertAttribute name="header" />
-	
+
 	 <div class="body">
             <div class="body-round"></div>
             <div class="body-wrapper">
