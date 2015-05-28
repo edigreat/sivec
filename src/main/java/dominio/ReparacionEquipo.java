@@ -6,7 +6,11 @@
  */
 package dominio;
 
+import static presentacion.manager.ConstantesPresentacion.FORMATO_FECHA;
+
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.validation.constraints.NotNull;
 
@@ -63,6 +67,12 @@ public class ReparacionEquipo implements java.io.Serializable {
 		this.indVigenciaReparacion = indVigenciaReparacion;
 	}
 
+	public String getFechaRegistroFormato(){
+   	 SimpleDateFormat simpleDateFormatFecha = 
+   	            new SimpleDateFormat(FORMATO_FECHA,new Locale("es"));
+   	 return simpleDateFormatFecha.format(this.fechaCreacion.getTime());
+	}
+	
 	public Integer getIdReparacionEquipo() {
 		return this.idReparacionEquipo;
 	}

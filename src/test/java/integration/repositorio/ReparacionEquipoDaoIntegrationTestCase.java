@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -21,6 +22,7 @@ import repositorio.ReparacionEquipoDao;
 @Transactional
 public class ReparacionEquipoDaoIntegrationTestCase extends AbstractUtilityTest {
 
+	private static Logger log = Logger.getLogger(ReparacionEquipoDaoIntegrationTestCase.class);
 	@Autowired
 	ReparacionEquipoDao reparacionEquipoDao;
 	
@@ -36,8 +38,11 @@ public class ReparacionEquipoDaoIntegrationTestCase extends AbstractUtilityTest 
 		List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarTodos();
 		assertThat(reparacionEquipoList,is(notNullValue()));
 		assertThat(reparacionEquipoList.isEmpty(), is(not(true)));
+		for(ReparacionEquipo reparacion:reparacionEquipoList){
+			log.debug(reparacion);
+		}
 	}
-	
+	/*
 	@Test
 	public void buscarTodosPaginaTest(){
 		List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarTodos(0,10);
@@ -72,6 +77,6 @@ public class ReparacionEquipoDaoIntegrationTestCase extends AbstractUtilityTest 
 		
 		
 	}
-	
+	*/
 	
 }

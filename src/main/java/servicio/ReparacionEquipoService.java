@@ -9,6 +9,8 @@ package servicio;
 import static presentacion.manager.ConstantesPresentacion.MAX_ROWS;
 import static servicio.UsuarioService.isInteger;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -120,6 +122,12 @@ public class ReparacionEquipoService {
         return mngCrearReporte;
     }
     
+    public MngCrearReporte buscarTodos(){
+    	MngCrearReporte mngCrearReporte = new MngCrearReporte(); 
+    	List<ReparacionEquipo> reparacionEquipoList= reparacionEquipoDao.buscarTodos();
+    	mngCrearReporte.setReparacionEquipoList(reparacionEquipoList);
+    	return mngCrearReporte;
+    }
     public MngCrearReporte buscarTodos(String startResultString, int maxRows) {
     	log.debug("Buscando usuarios de la pagina : ["+startResultString.trim()+"] "+isInteger(startResultString.trim()));
 

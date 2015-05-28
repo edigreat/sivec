@@ -28,8 +28,14 @@
     	</bean>
      -->
                         
-     <!--  configuracion de tiles   -->                 
-     <bean id="viewResolver"
+     <!--  configuracion de tiles   --> 
+     
+     <bean id="viewResolver1" class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="1"/>
+        <property name="location" value="/WEB-INF/views.xml"/>
+    </bean>         
+     
+     <bean id="viewResolver2"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass">
 			<value>

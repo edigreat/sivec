@@ -41,7 +41,7 @@
 							<td><c:out value="${reparacionEquipo.equipoComputo.descTipoEquipo}" /> </td>
 							<td><c:out value="${reparacionEquipo.usuarioByIdUsuarioResponsable.nombreCompleto}" /> </td>
 							<td><c:out value="${reparacionEquipo.equipoComputo.estadoEquipo}" /> </td>
-							<td><c:out value="${reparacionEquipo.fechaCreacion}" /> </td>
+							<td><c:out value="${reparacionEquipo.fechaRegistroFormato}" /> </td>
 						    <td><c:out value="${reparacionEquipo.descMotivo}" /> </td>
 							
 							<td><c:out value="${reparacionEquipo.usuarioByIdUsuarioAsignado.nombreCompleto}" /> </td>
@@ -53,6 +53,8 @@
 				</tbody>
 			</table>
 			<c:if test="${mngCrearReporte.lastPageNumber > 0}">
+			<div class="row">
+	  			<div class="col-md-11">
 	  			<nav class="text-center">
 				  <ul class="pagination">
 				    <li>
@@ -68,10 +70,22 @@
 				        <span aria-hidden="true">&raquo;</span>
 				      </a>
 				    </li>
+				   
 				  </ul>
-				</nav>
+  				</nav>
+  				</div>
+  				<div class="col-md-1 text-center">
+  				 <a href="<c:url value="/reporte/export.xls" />" >
+ 						 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+  				   </a>	
+  				   </div>
+				 
+  			</div>
 			</c:if>
 		</div>
+			
+		
+		
 </div>
 </div>
 </div> <!-- panel container -->

@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import presentacion.manager.MngCrearReporte;
+import dominio.ReparacionEquipo;
 import servicio.EquipoComputoService;
 import servicio.ReparacionEquipoService;
 
@@ -74,7 +77,7 @@ public class ReporteController implements Serializable {
      */
     @RequestMapping("/list/{startResult}")
     public ModelAndView mostrarPantallaAdministrarUsuarioPagina(@PathVariable("startResult") String startResult) {
-    	return new ModelAndView("adminmovimiento","mngCrearReporte",null);
+    	return new ModelAndView("adminmovimiento","mngCrearReporte",reparacionEquipoService.buscarTodos());
 
     }
     
@@ -82,17 +85,14 @@ public class ReporteController implements Serializable {
     /**
      * 
      */
-    public void mostrarGenerarReporte() {
-        // TODO implement here
-    }
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+	public ModelAndView generarReporteExcel() {
+    	MngCrearReporte mngCrearReporte = reparacionEquipoService.buscarTodos();
+    	System.out.println(mngCrearReporte.getReparacionEquipoList());
+		return new ModelAndView("reporteExcel", "reparacionEquipoList",mngCrearReporte.getReparacionEquipoList());
+	}
 
-    /**
-     * 
-     */
-    public void generarReporteExcel() {
-        // TODO implement here
-    }
-
+   
     /**
      * 
      */

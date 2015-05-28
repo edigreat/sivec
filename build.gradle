@@ -86,6 +86,7 @@ dependencies{
     compile 'commons-dbcp:commons-dbcp:1.4'  
     compile 'mysql:mysql-connector-java:5.1.13'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.10'
+	compile 'org.apache.poi:poi:3.6'
 	//Librerias para testing
     compile ('junit:junit:4.12') {
     	exclude group: 'org.hamcrest'
