@@ -7,6 +7,8 @@
 <%@page import="java.util.ArrayList,java.util.List,dominio.*"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+
 <div class="col-md-10">
      			<h3 class="text-center">Administrar Equipos </h3>
      			<c:if test="${mngAdminEquipo.hasError==true}">
@@ -58,7 +60,9 @@
 						<th>Estado</th>
 						<th>Acción</th>
 						<th>Registrar Reparación</th>
+					<security:authorize ifAnyGranted="ROLE_ADMIN">
 						<th>Consultar reparación</th>
+						</security:authorize>
 					</tr>
 				</thead>
 				<tbody>
@@ -81,12 +85,16 @@
 										  </c:url>"
 										> Registrar</a>		
 							</td>
+							<security:authorize ifAnyGranted="ROLE_ADMIN">
+							
 								<td>
+								
 							<a class="linkTabla" href=" <c:url value="/reporte/buscarmovimientoporid.html">
    										  <c:param name="idComputoString" value="${equipoComputo.idEquipoComputo}"/>
 										  </c:url>"
 										> Consultar </a>		
 							</td>
+							</security:authorize>
 							
 							
 						</tr>

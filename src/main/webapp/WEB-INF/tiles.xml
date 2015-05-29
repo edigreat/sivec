@@ -77,4 +77,10 @@
 		<put-attribute name="title" value="Equipos Asignados" />
 		<put-attribute name="body" value="/WEB-INF/pages/responsable/consultarEquipoResponsable.jsp" />
 	</definition>
+	
+		
+	<definition name="detallEquipoComputo"  extends="base.definition" >
+		<put-attribute name="title" value="Detalle de Equipo" />
+		<put-attribute name="body" value="/WEB-INF/pages/responsable/detalleEquipo.jsp" />
+	</definition>
 </tiles-definitions>

@@ -51,7 +51,8 @@ dependencies{
     }
     compile 'org.springframework.security:spring-security-web:'+SPRING_SECURITY_VERSION
     compile 'org.springframework.security:spring-security-config:'+SPRING_SECURITY_VERSION
-    
+	compile 'org.springframework.security:spring-security-taglibs:'+SPRING_SECURITY_VERSION
+	
     
     //Dependencias hibernate
    

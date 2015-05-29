@@ -15,10 +15,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import presentacion.manager.MngAdminEquipo;
+import presentacion.manager.MngCrearReparacionForm;
 import dominio.Usuario;
 import servicio.EquipoComputoService;
+import servicio.ReparacionEquipoService;
 
 /**
  * @author heriberto
@@ -28,6 +32,11 @@ import servicio.EquipoComputoService;
 @RequestMapping("/responsable")
 public class ResponsableController {
 	
+	
+	   @Autowired
+	    private ReparacionEquipoService reparacionEquipoService;
+	    
+	    
 	/**
 	 * log a utilizar
 	 */
@@ -53,5 +62,26 @@ public class ResponsableController {
 			String username = userDetails.getUsername();
 	     	return new ModelAndView("consultarEquipoResponsable","mngAdminEquipo",equipoComputoService.buscarTodosPorUsuarioAsignado("0",MAX_ROWS,username));
 	     }
+	    
+	    /**
+	     * Inicializa la pantalla para
+	     * registrar una reparacion
+	     */
+	    @RequestMapping("/detalleEquipoComputo")
+	    public ModelAndView mostrarDetalleEquipo(@RequestParam("idEquipoComputo")String idEquipoComputo) {
+	    	log.debug("Iniciando rmostrarDetalleEquipo " +  idEquipoComputo);
+
+	    	MngCrearReparacionForm mngCrearReparacionForm = reparacionEquipoService.iniciarRegistrarReparacion(idEquipoComputo);
+	    	if(mngCrearReparacionForm.isHasError()){
+	    		MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+	    		mngAdminEquipo.setHasError(true);
+	    		mngAdminEquipo.setDescripcionError(mngCrearReparacionForm.getDescripcionError());
+	        	return new ModelAndView("administrarequipo","mngAdminEquipo", mngAdminEquipo  ) ;
+
+	    	}
+	    	
+	    	return new ModelAndView("detallEquipoComputo","mngCrearReparacionForm",mngCrearReparacionForm);
+	   }
+   
 
 }

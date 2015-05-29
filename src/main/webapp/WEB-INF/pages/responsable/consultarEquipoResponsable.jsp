@@ -50,7 +50,7 @@
 							<td><c:out value="${equipoComputo.fechaActuallizacionFormato}" /> </td>
 							
 							<td>
-							<a class="linkTabla" href=" <c:url value="/responsable/detalleequipo.html">
+							<a class="linkTabla" href=" <c:url value="/responsable/detalleEquipoComputo.html">
    										  <c:param name="idEquipoComputo" value="${equipoComputo.idEquipoComputo}"/>
 										  </c:url>"
 										> Ver Detalle</a>		

@@ -59,7 +59,6 @@ public class ReparacionEquipoController implements Serializable  {
     @RequestMapping("/registrarreparacionequipo")
     public ModelAndView mostrarRegistrarReparacion(@RequestParam("idEquipoComputo")String idEquipoComputo) {
     	log.debug("Iniciando registrar equipo" +  reparacionEquipoService);
-     	//TODO:Cambiar validar que tenga usuario asignado
 
     	MngCrearReparacionForm mngCrearReparacionForm = reparacionEquipoService.iniciarRegistrarReparacion(idEquipoComputo);
     	if(mngCrearReparacionForm.isHasError()){
