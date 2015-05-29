@@ -159,9 +159,9 @@ INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(3,'CASA 
 INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(4,'CENTRO DE CIENCIAS FISICAS');
 INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(5,'CENTRO DE ESTUDIOS SOBRE LA UNIVERSIDAD');    
     
-INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(1,'REF_ADMIN',' Usuario Administrador');
-INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(2,'REF_CAPTURISTA',' Usuario capturista');
-INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(3,'REF_RESPONSABLE','Usuario Responsable');  
+INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(1,'ROLE_ADMIN',' Usuario Administrador');
+INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(2,'ROLE_CAPTURISTA',' Usuario capturista');
+INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(3,'ROLE_RESPONSABLE','Usuario Responsable');  
 
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,1);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,2);

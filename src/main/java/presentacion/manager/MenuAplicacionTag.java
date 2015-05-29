@@ -30,8 +30,8 @@ public class MenuAplicacionTag extends SimpleTagSupport {
 		
 	   private static final Logger log = Logger.getLogger(MenuAplicacionTag.class);
 	   
-	   
-	   private static UsuarioDao myDao;
+	   @Autowired
+	   private  UsuarioDao myDao;
 	  
 	   public void doTag()
 	      throws JspException, IOException
@@ -44,19 +44,18 @@ public class MenuAplicacionTag extends SimpleTagSupport {
 		    //	log.debug(menuRol);
 		   // }
 		   //out.print("Hola");
-		   //UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		   //log.debug("-------> " +userDetails);
+		   UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		   log.debug("-------> " +userDetails);
 		   log.debug("-------> " +myDao);
 		   out.println("<li><a href=\"/sivec/usuario/list.html\">Usuarios</a></li>");
 		   out.println("<li><a href=\"/sivec/equipo/list.html\">Equipos</a></li>");
-		   out.println("<li><a href=\"/sivec/usuario/listUsuarioAsignado.html\">Responsable</a></li>");
+		   out.println("<li><a href=\"/sivec/responsable/listUsuarioAsignado.html\">Responsable</a></li>");
 		   out.println("<li><a href=\"/sivec/reporte/list.html\">Reportes</a> </li>");
+		   
+		   
+
 	    }
 
 
-	   @Autowired
-	   public static void setUsuarioDao(UsuarioDao usuarioDao) {
-		MenuAplicacionTag.myDao = usuarioDao;
-	}
 
 }

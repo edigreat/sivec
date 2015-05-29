@@ -62,6 +62,8 @@ public class EquipoComputoService {
     @Autowired
     private EquipoValorCaracDao equipoValorCaracDao;
 
+    @Autowired
+    private UsuarioService usuarioService;
     
     /**
      * Buscar todos los equipos  por tipo
@@ -94,28 +96,29 @@ public class EquipoComputoService {
      * @param maxRows tamanio de la pagina
      * @return lista de equipos
      */
-    public MngAdminEquipo buscarTodosPorUsuarioAsignado(String startResultString, int maxRows,String idUsuario) {
+    public MngAdminEquipo buscarTodosPorUsuarioAsignado(String startResultString, int maxRows,String username) {
     	log.debug("Buscando equipos de la pagina : ["+startResultString.trim()+"] "+isInteger(startResultString.trim()));
     	int startResult=0;
-    	int idUsuarioAsignado=0;
-        if(isInteger(startResultString) && isInteger(idUsuario)){
+    	if(isInteger(startResultString)){
         	startResult = Integer.parseInt(startResultString);
-        	idUsuarioAsignado = Integer.parseInt(idUsuario);
         
         }
     	MngAdminEquipo mngAdminEquipo = new MngAdminEquipo(); 
-    	Usuario usuario = usuarioDao.autenticarUsuario(idUsuarioAsignado);
+    	Usuario usuario = usuarioService.buscarUsuarioPorEmail(username);
     	mngAdminEquipo.setUsuario(usuario);
-        Long numTotalEquipos = equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(idUsuarioAsignado);
+        Long numTotalEquipos = equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(usuario.getIdUsuario());
         mngAdminEquipo.setNumTotalEquipos(numTotalEquipos.intValue());
         
-
         if(numTotalEquipos > 0){
         	mngAdminEquipo.setLastPageNumber( (int)
         			(mngAdminEquipo.getNumTotalEquipos()/maxRows)+1)
         			;
         	mngAdminEquipo.setFirstPageNumber(0);
-        	mngAdminEquipo.setEquipoComputoList(equipoComputoDao.buscarTodosPorIdAsignado(startResult, maxRows,idUsuarioAsignado));
+        	mngAdminEquipo.setEquipoComputoList(equipoComputoDao.buscarTodosPorIdAsignado(startResult, maxRows,usuario.getIdUsuario()));
+        }
+        else{
+        	mngAdminEquipo.setHasError(true);
+        	mngAdminEquipo.setDescripcionError("No tiene asignaciones");
         }
         return mngAdminEquipo;
     }

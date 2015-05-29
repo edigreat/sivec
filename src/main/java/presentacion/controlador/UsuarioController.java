@@ -132,19 +132,7 @@ public class UsuarioController {
     	return new ModelAndView("administrarusuario","mngAdminUsuario",usuarioService.buscarTodos(correoElectronico));
     }
 
-    @RequestMapping("/listUsuarioAsignado/{startResult}")
-    public ModelAndView mostrarPantallaPorUsuarioAsignadoPaginado(@PathVariable("startResult") String startResult) {
-     	log.debug("Entrando a mostrarPantallaPorUsuarioAsignadoPaginado " + startResult);
-     	//TODO:Cambiar la implementacion
-     	return new ModelAndView("consultarEquipoResponsable","mngAdminEquipo",equipoComputoService.buscarTodosPorUsuarioAsignado(startResult,MAX_ROWS,"4"));
-     }
-    
-    @RequestMapping("/listUsuarioAsignado")
-    public ModelAndView mostrarPantallaPorUsuarioAsignado() {
-     	log.debug("Entrando a mostrarPantallaPorUsuarioAsignado" );
-     	//TODO:Cambiar la implementacion
-     	return new ModelAndView("consultarEquipoResponsable","mngAdminEquipo",equipoComputoService.buscarTodosPorUsuarioAsignado("0",MAX_ROWS,"1"));
-     }
+   
 
     /**
      * 

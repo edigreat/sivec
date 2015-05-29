@@ -58,15 +58,15 @@
 	  			<nav class="text-center">
 				  <ul class="pagination">
 				    <li>
-				      <a href="<c:url value="/reparacion/list.html" />" aria-label="Previous">
+				      <a href="<c:url value="/reporte/list.html" />" aria-label="Previous">
 				        <span aria-hidden="true">&laquo;</span>
 				      </a>
 				    </li>
 				    <c:forEach var="i" items="${mngCrearReporte.pageNumberList}">
-				   	<li><a href="<c:url value="/reparacion/list/${i}.html" />"> <c:out value="${i}"/></a></li>
+				   	<li><a href="<c:url value="/reporte/list/${i}.html" />"> <c:out value="${i}"/></a></li>
 					</c:forEach>
 				    <li>
-				      <a href="<c:url value="/reparacion/list/${mngCrearReporte.lastPageNumber}.html" />" aria-label="Next">
+				      <a href="<c:url value="/reporte/list/${mngCrearReporte.lastPageNumber}.html" />" aria-label="Next">
 				        <span aria-hidden="true">&raquo;</span>
 				      </a>
 				    </li>
@@ -82,6 +82,16 @@
 				 
   			</div>
 			</c:if>
+			<c:if test="${mngCrearReporte.consultaPorEquipo==true}">
+			<div class="col-md-12 text-center">
+  				 <a href="<c:url value="/reporte/${mngCrearReporte.idEquipoComputo}/export.xls" />" >
+ 						 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+  				   </a>	
+  				   </div>
+			</c:if>
+			        	
+			
+			
 		</div>
 			
 		

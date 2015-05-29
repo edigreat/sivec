@@ -15,6 +15,9 @@ public class MngCrearReporte {
 	private boolean hasError=false;
 	private String descripcionError="";
 	
+	private boolean consultaPorEquipo=false;
+	private int idEquipoComputo=0;
+	
 	/**
      * Atributo que se utiliza
      * para generar la paginacion
@@ -125,6 +128,22 @@ public class MngCrearReporte {
 
 	public void setDescripcionError(String descripcionError) {
 		this.descripcionError = descripcionError;
+	}
+
+	public boolean isConsultaPorEquipo() {
+		return consultaPorEquipo;
+	}
+
+	public void setConsultaPorEquipo(boolean consultaPorEquipo) {
+		this.consultaPorEquipo = consultaPorEquipo;
+	}
+
+	public int getIdEquipoComputo() {
+		return idEquipoComputo;
+	}
+
+	public void setIdEquipoComputo(int idEquipoComputo) {
+		this.idEquipoComputo = idEquipoComputo;
 	}
 
 }

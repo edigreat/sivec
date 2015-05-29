@@ -34,6 +34,24 @@ public class ReparacionEquipoDao {
     public ReparacionEquipoDao() {
     }
 
+    
+    /**
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+	public List<ReparacionEquipo> buscarTodosPorIdEquipo(int idEquipo) {
+    	return getCurrentSession().createCriteria(ReparacionEquipo.class)
+    	    	.setFetchMode("equipoComputo", FetchMode.JOIN)
+    			.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
+    			.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
+    			.add(Restrictions.eq("equipoComputo.idEquipoComputo", idEquipo))
+    	    	.addOrder(
+    	    			Order.desc("idReparacionEquipo")
+    	    			)
+    	    	.list();
+    
+    }
+    
     /**
      * @return
      */

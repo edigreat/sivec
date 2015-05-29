@@ -10,10 +10,15 @@
 <div class="col-md-10">
      			<h4 class="text-center">Lista de  Equipos Asignados </h4>
      			<h5 >Nombre de usuario: ${mngAdminEquipo.usuario.nombreCompleto} </h5>
-
+				<c:if test="${mngAdminEquipo.hasError==true}">
+				 <div class="alert alert-danger" role="alert">
+				 ${mngAdminEquipo.descripcionError}
+				  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				</div>
+				</c:if>
 
 </div>
-<div id="panel-container" class="col-md-12">
+<div id="panel-container" class="col-md-10">
 <br />
 <div class="panel panel-primary ">
 
@@ -45,7 +50,7 @@
 							<td><c:out value="${equipoComputo.fechaActuallizacionFormato}" /> </td>
 							
 							<td>
-							<a class="linkTabla" href=" <c:url value="/reparacion/registrarreparacionequipo.html">
+							<a class="linkTabla" href=" <c:url value="/responsable/detalleequipo.html">
    										  <c:param name="idEquipoComputo" value="${equipoComputo.idEquipoComputo}"/>
 										  </c:url>"
 										> Ver Detalle</a>		
@@ -63,15 +68,15 @@
 	  			<nav class="text-center">
 				  <ul class="pagination">
 				    <li>
-				      <a href="<c:url value="/equipo/list.html" />" aria-label="Previous">
+				      <a href="<c:url value="/responsable/listUsuarioAsignado.html" />" aria-label="Previous">
 				        <span aria-hidden="true">&laquo;</span>
 				      </a>
 				    </li>
 				    <c:forEach var="i" items="${mngAdminEquipo.pageNumberList}">
-				   	<li><a href="<c:url value="/equipo/list/${i}.html" />"> <c:out value="${i}"/></a></li>
+				   	<li><a href="<c:url value="/responsable/listUsuarioAsignado/${i}.html" />"> <c:out value="${i}"/></a></li>
 					</c:forEach>
 				    <li>
-				      <a href="<c:url value="/equipo/list/${mngAdminEquipo.lastPageNumber}.html" />" aria-label="Next">
+				      <a href="<c:url value="/responsable/listUsuarioAsignado/${mngAdminEquipo.lastPageNumber}.html" />" aria-label="Next">
 				        <span aria-hidden="true">&raquo;</span>
 				      </a>
 				    </li>

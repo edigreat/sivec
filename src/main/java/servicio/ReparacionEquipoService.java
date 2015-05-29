@@ -132,6 +132,14 @@ public class ReparacionEquipoService {
     	mngCrearReporte.setReparacionEquipoList(reparacionEquipoList);
     	return mngCrearReporte;
     }
+    
+    public MngCrearReporte buscarTodosPorIdEquipo(String idEquipoString){
+    	MngCrearReporte mngCrearReporte = new MngCrearReporte(); 
+    	int idEquipo = Integer.parseInt(idEquipoString);
+    	List<ReparacionEquipo> reparacionEquipoList= reparacionEquipoDao.buscarTodosPorIdEquipo(idEquipo);
+    	mngCrearReporte.setReparacionEquipoList(reparacionEquipoList);
+    	return mngCrearReporte;
+    }
     public MngCrearReporte buscarTodos(String startResultString, int maxRows) {
     	log.debug("Buscando usuarios de la pagina : ["+startResultString.trim()+"] "+isInteger(startResultString.trim()));
 
@@ -174,6 +182,8 @@ public class ReparacionEquipoService {
         	}
         	else{
         		mngCrearReporte.setReparacionEquipoList(reparacionEquipoList);
+        		mngCrearReporte.setConsultaPorEquipo(true);
+        		mngCrearReporte.setIdEquipoComputo(idEquipoComputo);
         	}
         	
         

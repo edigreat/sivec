@@ -12,7 +12,24 @@
 		<put-attribute name="footer" value="/WEB-INF/comunes/footer.jsp" />
 	</definition>
 	
+	
 	<!-- Paginas de usuario -->
+	<definition name="403"  extends="base.definition" >
+		<put-attribute name="title" value="Error de Acceso"  />
+		<put-attribute name="header" value="" />
+		
+		<put-attribute name="body" value="/WEB-INF/comunes/errorAccesoSistema.jsp" />
+		<put-attribute name="footer" value="" />
+		
+	</definition>
+	
+	<!-- Paginas de usuario -->
+	<definition name="principalSistema"  extends="base.definition" >
+		<put-attribute name="title" value="Pagina Principal SIVEC" />
+		<put-attribute name="body" value="/WEB-INF/pages/principalSistema.jsp" />
+	</definition>
+	
+	
 	<definition name="administrarusuario"  extends="base.definition" >
 		<put-attribute name="title" value="Administrar Usuarios" />
 		<put-attribute name="body" value="/WEB-INF/pages/usuario/administrarUsuario.jsp" />

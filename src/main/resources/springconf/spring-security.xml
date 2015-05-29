@@ -8,9 +8,21 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<security:http>
- 		<security:form-login login-page="/usuario/list.html" authentication-failure-url="/index.jsp?failed=1"  />
-		<security:logout />
- 		<security:intercept-url pattern="/secret" access="ROLE_ADMIN" />
+ 		<security:form-login login-page="/index.jsp" authentication-failure-url="/index.jsp?failed=1" 
+ 		 default-target-url='/seguridad/paginaPrincipal.html'
+ 		 />
+		<security:logout logout-url="/index.jsp"  invalidate-session="true" />
+		<security:access-denied-handler error-page="/seguridad/403.html" />
+	
+ 		<security:intercept-url pattern="/usuario/**"  access="ROLE_ADMIN" />
+ 		<security:intercept-url pattern="/reporte/**"  access="ROLE_ADMIN" />
+ 		<security:intercept-url pattern="/equipo/**" access="ROLE_ADMIN,ROLE_CAPTURISTA" />
+ 		<security:intercept-url pattern="/reparacion/**" access="ROLE_ADMIN,ROLE_CAPTURISTA" />
+		
+		<security:intercept-url pattern="/responsable/**" access="ROLE_ADMIN,ROLE_RESPONSABLE,ROLE_CAPTURISTA" />
+		<security:intercept-url pattern="/seguridad/**"   access="ROLE_ADMIN,ROLE_RESPONSABLE,ROLE_CAPTURISTA" />
+ 		
+
 	</security:http>
 	
 	<security:authentication-manager>

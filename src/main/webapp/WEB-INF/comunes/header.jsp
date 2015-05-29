@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="/WEB-INF/menuaplicaciontag.tld" prefix="menuapp" %>
   <div class="header">
@@ -24,6 +26,9 @@
                                 <ul class="tabs menu">
                                     <li>
                                     	<menuapp:menuseguridad/>
+                                    </li>
+                                    <li>
+										<a href="<c:url value="/seguridad/salirdelsistema.html" />" > Salir </a>
                                     </li>
                                  </ul>
                                  </div>

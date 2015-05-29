@@ -84,7 +84,7 @@ public class ReporteController implements Serializable {
      */
     @RequestMapping("/list/{startResult}")
     public ModelAndView mostrarPantallaAdministrarUsuarioPagina(@PathVariable("startResult") String startResult) {
-    	return new ModelAndView("adminmovimiento","mngCrearReporte",reparacionEquipoService.buscarTodos());
+    	return new ModelAndView("adminmovimiento","mngCrearReporte",reparacionEquipoService.buscarTodos(startResult,MAX_ROWS));
 
     }
     
@@ -101,10 +101,15 @@ public class ReporteController implements Serializable {
 
    
     /**
-     * 
+     * Genera un reporte en excel de
+     * un equipo de computo
+     * @param idEquipoComputo
+     * @return reporte en excel
      */
-    public void mostrarGenerarReportePorEquipo() {
-        // TODO implement here
+    @RequestMapping(value = "{idEquipoComputo}/export", method = RequestMethod.GET)
+    public ModelAndView generarReporteExcelPorEquipo(@PathVariable("idEquipoComputo") String idEquipoComputo) {
+    	MngCrearReporte mngCrearReporte = reparacionEquipoService.buscarTodosPorIdEquipo(idEquipoComputo);
+		return new ModelAndView("reporteExcel", "reparacionEquipoList",mngCrearReporte.getReparacionEquipoList());
     }
 
 }
