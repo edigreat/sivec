@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import static presentacion.manager.ConstantesPresentacion.*;
 import dominio.Usuario;
+import presentacion.manager.MngAdminUsuario;
 import presentacion.manager.MngCrearUsuario;
 import servicio.EquipoComputoService;
 import servicio.UsuarioService;
@@ -83,18 +84,21 @@ public class UsuarioController {
    * @return resultado de la actualizacion
    */
     @RequestMapping("/actualizarinformacionusuario")
-    public String actualizarUsuario(@Valid MngCrearUsuario mngCrearUsuario,BindingResult result) {
+    public ModelAndView actualizarUsuario(@Valid MngCrearUsuario mngCrearUsuario,BindingResult result) {
     	log.debug("Actualizando usuario : " +mngCrearUsuario);
     	log.info(mngCrearUsuario);
 		log.debug("Tiene errores " + result.hasErrors());
 		if(result.hasErrors()){
 	    	mngCrearUsuario =usuarioService.iniciarEditarUsuario(mngCrearUsuario,mngCrearUsuario.getUsuario().getIdUsuario());
-			return "editarUsuario";
+			return new ModelAndView("editarUsuario","mngCrearUsuario",mngCrearUsuario);
 		}
 		else
 		{	
 	    	boolean isUpdate = usuarioService.actualizarUsuario(mngCrearUsuario);
-			return "redirect:/usuario/list.html";
+	    	MngAdminUsuario mngAdminUsuario =  usuarioService.buscarTodos("0",MAX_ROWS);
+    		mngAdminUsuario.setHasMensaje(true);
+    		mngAdminUsuario.setDescripcionMensaje("Registro actualizado con exito, id actualizado  " + mngCrearUsuario.getUsuario().getIdUsuario());
+    		return new ModelAndView("administrarusuario","mngAdminUsuario",mngAdminUsuario);
 		}
     }
 
@@ -116,10 +120,22 @@ public class UsuarioController {
      * @return resultado de la operacion
      */
     @RequestMapping("/eliminarusuario")
-    public String confirmarBajaUsuario(SessionStatus status,@RequestParam("idUsuario")String idUsuario){
-    	usuarioService.borrarUsuario(idUsuario);
-    	status.setComplete();
-    	return "redirect:/usuario/list.html";
+    public ModelAndView confirmarBajaUsuario(SessionStatus status,@RequestParam("idUsuario")String idUsuario){
+    	
+    	MngCrearUsuario mngCrearUsuario = 
+    			usuarioService.iniciarEditarUsuario(new MngCrearUsuario(),Integer.parseInt(idUsuario));
+    	
+    	usuarioService.borrarUsuario(idUsuario,mngCrearUsuario);
+    	if(mngCrearUsuario.isHasError()){
+            return new ModelAndView("editarUsuario","mngCrearUsuario",mngCrearUsuario);
+    	}
+    	else{
+    		status.setComplete();
+    		MngAdminUsuario mngAdminUsuario =  usuarioService.buscarTodos("0",MAX_ROWS);
+    		mngAdminUsuario.setHasMensaje(true);
+    		mngAdminUsuario.setDescripcionMensaje("Registro Eliminado con exito , id eliminado  " + idUsuario);
+    		return new ModelAndView("administrarusuario","mngAdminUsuario",mngAdminUsuario);
+    	}
     }
     /**
      * Buscar a todos los usuarios que correspondan
@@ -131,24 +147,6 @@ public class UsuarioController {
     public ModelAndView buscarUsuarioPorEmail(@RequestParam("correoElectronico")String correoElectronico) {
     	return new ModelAndView("administrarusuario","mngAdminUsuario",usuarioService.buscarTodos(correoElectronico));
     }
-
-   
-
-    /**
-     * 
-     */
-    public void seleccionarEquipo() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void verDetalleEquipo() {
-        // TODO implement here
-    }
-
-    
 
     /**
      * Muestra la lista de usuarios
@@ -192,18 +190,31 @@ public class UsuarioController {
      * envia mensajes de error
      */
     @RequestMapping("/guardarinformacionusuario")
-    public String guardarInformacionUsuario(
+    public ModelAndView guardarInformacionUsuario(
     		@Valid MngCrearUsuario mngCrearUsuario,BindingResult result) {
     	log.info(mngCrearUsuario);
 		log.debug("Tiene errores " + result.hasErrors());
 		if(result.hasErrors()){
+			
 			mngCrearUsuario =usuarioService.iniciarCrearUsuario(mngCrearUsuario);
-	    	return "registrarUsuario";
+			return new ModelAndView("registrarUsuario","mngCrearUsuario",mngCrearUsuario);
+	    	
 		}
 		else
 		{	
 			mngCrearUsuario =usuarioService.insertarUsuario(mngCrearUsuario);
-			return "redirect:/usuario/list.html";
+			if(mngCrearUsuario.isHasError()){
+				mngCrearUsuario =usuarioService.iniciarCrearUsuario(mngCrearUsuario);
+				return new ModelAndView("registrarUsuario","mngCrearUsuario",mngCrearUsuario);
+	    	}
+	    	else
+	    	{
+	    		MngAdminUsuario mngAdminUsuario =  usuarioService.buscarTodos("0",MAX_ROWS);
+	    		mngAdminUsuario.setHasMensaje(true);
+	    		mngAdminUsuario.setDescripcionMensaje("Registro con exito, id asignado  " + mngCrearUsuario.getUsuario().getIdUsuario());
+	    		return new ModelAndView("administrarusuario","mngAdminUsuario",mngAdminUsuario);
+
+	    	}
 		}
     }
     

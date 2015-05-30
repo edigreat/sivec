@@ -16,10 +16,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dominio.EquipoComputo;
 import dominio.MenuItem;
 import dominio.MenuRol;
 import dominio.Usuario;
@@ -32,7 +34,7 @@ import repositorio.MenuItemDao;
 import repositorio.MenuRolDao;
 import repositorio.ReparacionEquipoDao;
 import repositorio.UsuarioDao;
-
+import static presentacion.manager.ConstantesPresentacion.MAX_ROWS;
 /**
  * @author heriberto
  *
@@ -175,7 +177,27 @@ public class UsuarioService {
     	mngCrearUsuario.getUsuario().setMenuRol(menuRol);
     	mngCrearUsuario.getUsuario().setIndVigenciaUsuario(1);
     	log.debug(mngCrearUsuario);
-    	mngCrearUsuario.setUsuario(usuarioDao.insertarUsuario(mngCrearUsuario.getUsuario()));
+    	Usuario usuario = null;
+    	usuario = usuarioDao.buscarUsuarioPorEmail(mngCrearUsuario.getUsuario().getCorreoEletronico());
+    	if(usuario!=null)
+    	{
+    		mngCrearUsuario.setHasError(true);
+    		mngCrearUsuario.setDescripcionError("La dirección de correo electronico ya existe");
+    	
+    	}
+    	else{
+	    	try{
+	    		usuario = usuarioDao.insertarUsuario(mngCrearUsuario.getUsuario());
+	    		mngCrearUsuario.setUsuario(usuario);
+	    	}
+	    	catch(ConstraintViolationException e){
+	    		log.warn("Error al insertar " + e.getMessage());
+	    		mngCrearUsuario.setHasError(true);
+	    		mngCrearUsuario.setDescripcionError("La dirección de correo electronico ya existe");
+
+	    	}
+    	}
+    	
     	log.debug("<--- insertarUsuario");
 
     	return mngCrearUsuario;
@@ -198,6 +220,8 @@ public class UsuarioService {
      */
     public boolean actualizarUsuario(MngCrearUsuario mngEditarUsuarioInstance) {
     	log.debug("---> actualizarUsuario " + mngEditarUsuarioInstance.getMenuRolSeleccionado());
+    	boolean  res = false;
+    	
     	Usuario usuarioUpdate = usuarioDao.autenticarUsuario(mngEditarUsuarioInstance.getUsuario().getIdUsuario());
     	MenuRol menuRol = menuRolDao.buscarMenuRolPorId(mngEditarUsuarioInstance.getMenuRolSeleccionado());
     	usuarioUpdate.setMenuRol(menuRol);
@@ -207,7 +231,8 @@ public class UsuarioService {
     	usuarioUpdate.setCorreoEletronico(mngEditarUsuarioInstance.getUsuario().getCorreoEletronico());
     	usuarioUpdate.setPassword(mngEditarUsuarioInstance.getUsuario().getPassword());
     	usuarioUpdate.setDependenciaUniversitaria(mngEditarUsuarioInstance.getUsuario().getDependenciaUniversitaria());
-    	boolean res= usuarioDao.actualizarUsuario(usuarioUpdate);
+    	res= usuarioDao.actualizarUsuario(usuarioUpdate);
+    	
         return res;
     }
 
@@ -216,13 +241,23 @@ public class UsuarioService {
      * @param idUsuario id del usuario 
      * @return indicador de exito del borrado
      */
-    public boolean borrarUsuario(String  idUsuario) {
+    public boolean borrarUsuario(String  idUsuario,MngCrearUsuario mngCrearUsuario) {
     	boolean isSuccessDelete=false;
     	if(isInteger(idUsuario)){
     		 int intIdUsuario=Integer.parseInt(idUsuario);
     		 Usuario usuario = usuarioDao.autenticarUsuario(intIdUsuario);
     		 log.debug("Usuario a borrar " + usuario);
-    		 isSuccessDelete = usuarioDao.borrarUsuario(usuario);
+    		 Long equipoComputoListAsig  = equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(intIdUsuario);
+    		 Long equipoComputoListResp  = equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioResponsable(intIdUsuario);
+    		log.debug("asignado " + equipoComputoListAsig +" responsable "+equipoComputoListResp) ;
+    		 if(equipoComputoListAsig > 0 && equipoComputoListResp > 0){
+    		 	 isSuccessDelete = usuarioDao.borrarUsuario(usuario);
+    		 }
+    		 else{
+    			 	mngCrearUsuario.setHasError(true);
+    	    		mngCrearUsuario.setDescripcionError("El usuario es responsable de "+equipoComputoListResp 
+    	    				+" equipos y  tiene "+equipoComputoListAsig+" asignados, no se puede borrar");
+    		 }
     	}
     	
         return  isSuccessDelete;

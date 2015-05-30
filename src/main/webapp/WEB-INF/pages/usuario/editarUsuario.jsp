@@ -10,7 +10,9 @@
 <br />
 
 <div id="form-edita-usuario-container" class="col-md-10 ">
-
+<c:if test="${mngCrearUsuario.hasError==true}">
+		<div class="alert alert-danger" role="alert">${mngCrearUsuario.descripcionError}</div>
+	</c:if>
 <form:form method="post" action="${pageContext.request.contextPath}/usuario/actualizarinformacionusuario.html" 
   modelAttribute="mngCrearUsuario" cssClass="form-horizontal" role="form">
 	<form:hidden path="usuario.idUsuario" />
@@ -44,7 +46,7 @@
 		<form:label path="usuario.correoEletronico" class="control-label col-sm-2">Dirección Correo eléctronico *:
 		</form:label>
 		<div class="col-sm-6">
-			<form:input path="usuario.correoEletronico" class="form-control" maxlength="50" />
+			<form:input path="usuario.correoEletronico" class="form-control" maxlength="50" readonly="true" />
 				<form:errors path="usuario.correoEletronico"   cssClass="text-danger pull-left" element="div" />
 		</div> 
 	</div>
@@ -94,9 +96,13 @@
    </div>		
 <!-- Modal -->
 <div class="modal fade" id="confirmaEliminarUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <br />
+  <br />
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+      	<h2 class="bg-primary text-center">Eliminar Usuario:  ${mngCrearUsuario.usuario.idUsuario}</h2>
+      
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
       </div>

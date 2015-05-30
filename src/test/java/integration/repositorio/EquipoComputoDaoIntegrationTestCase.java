@@ -154,5 +154,12 @@ public class EquipoComputoDaoIntegrationTestCase extends AbstractUtilityTest {
 		//}
 	}
 	
+	@Test
+	public void obtenerTotalRegistrosEquipoComputoPorUsuarioAsignadoTest(){
+		Long val1=equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(13);
+		Long val2=equipoComputoDao.obtenerTotalRegistrosEquipoComputoPorUsuarioResponsable(13);
+		System.out.println("val1:: " + val1 +"  val2 ::"+ val2);
+
+	}
 	
 }

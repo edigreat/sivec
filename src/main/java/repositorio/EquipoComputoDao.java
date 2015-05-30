@@ -181,12 +181,24 @@ public class EquipoComputoDao {
    	 * Obtiene el total de registros de la tabla de usuarios
    	 * @return numero de registros de usuario.
    	 */
-   	public Long obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(int idAsignado){
-   		String queryString = "Select count(e.idEquipoComputo) from EquipoComputo e "
-   				+ "where e.usuarioByIdUsuarioAsignado.idUsuario=:idAsignado";
-   		Query queryObject = getCurrentSession().createQuery(queryString)
-				.setInteger("idAsignado",idAsignado);
-   		return (Long)queryObject.uniqueResult();
+   	public Long obtenerTotalRegistrosEquipoComputoPorUsuarioResponsable(int idUsuario){
+   		String query = "Select count(e.idEquipoComputo) from EquipoComputo e "
+   				+ " WHERE e.usuarioByIdUsuarioResponsable.idUsuario=:idUsuario";
+   		Query queryTotal = getCurrentSession().createQuery(query).setInteger("idUsuario", idUsuario);
+   	
+   		return (Long)queryTotal.uniqueResult();
+   	}
+
+    /**
+   	 * Obtiene el total de registros de la tabla de usuarios
+   	 * @return numero de registros de usuario.
+   	 */
+   	public Long obtenerTotalRegistrosEquipoComputoPorUsuarioAsignado(int idUsuario){
+   		String query = "Select count(e.idEquipoComputo) from EquipoComputo e "
+   				+ " WHERE e.usuarioByIdUsuarioAsignado.idUsuario=:idUsuario";
+   		Query queryTotal = getCurrentSession().createQuery(query).setInteger("idUsuario", idUsuario);
+   	
+   		return (Long)queryTotal.uniqueResult();
    	}
 
 }

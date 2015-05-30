@@ -73,17 +73,20 @@ public class ReparacionEquipoController implements Serializable  {
    }
 
     @RequestMapping("/confirmarreparacion")
-    public String confirmarRegistrarReparacion(
+    public ModelAndView confirmarRegistrarReparacion(
     		@Valid MngCrearReparacionForm mngCrearReparacionForm,
     		BindingResult result){
     	log.debug("Tiene errores " + result.hasErrors());
   		
   		if(result.hasErrors()){
-  			
-  			return "registrarReparacion";
+  	       	return new ModelAndView("registrarReparacion","mngCrearReparacionForm",mngCrearReparacionForm);
   		}else{
   			MngCrearReparacionForm insertarReparacionEquipo = reparacionEquipoService.insertarReparacionEquipo(mngCrearReparacionForm);
-  			return "redirect:/equipo/list.html";
+  			MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+  	    	mngAdminEquipo.setHasMensaje(true);
+  	       	mngAdminEquipo.setDescripcionMensaje("Reparación guardada con exito");
+  	       	return new ModelAndView("administrarequipo","mngAdminEquipo",mngAdminEquipo);
+  	       	
   		}
     }
 

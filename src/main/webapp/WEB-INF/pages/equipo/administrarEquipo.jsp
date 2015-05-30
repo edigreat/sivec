@@ -11,6 +11,12 @@
 
 <div class="col-md-10">
      			<h3 class="text-center">Administrar Equipos </h3>
+     			<c:if test="${mngAdminEquipo.hasMensaje==true}">
+				 <div class="alert alert-success" role="alert">
+				 ${mngAdminEquipo.descripcionMensaje}
+				  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				</div>
+				</c:if>
      			<c:if test="${mngAdminEquipo.hasError==true}">
 				 <div class="alert alert-danger" role="alert">
 				 ${mngAdminEquipo.descripcionError}

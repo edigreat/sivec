@@ -15,6 +15,10 @@ public class MngAdminUsuario {
 	private boolean hasError=false;
 	private String descripcionError="";
 	
+	
+
+	private boolean hasMensaje=false;
+	private String descripcionMensaje="";
     /**
      * Constructor Privado
      */
@@ -113,6 +117,26 @@ public class MngAdminUsuario {
 
 	public void setDescripcionError(String descripcionError) {
 		this.descripcionError = descripcionError;
+	}
+
+
+	public boolean isHasMensaje() {
+		return hasMensaje;
+	}
+
+
+	public void setHasMensaje(boolean hasMensaje) {
+		this.hasMensaje = hasMensaje;
+	}
+
+
+	public String getDescripcionMensaje() {
+		return descripcionMensaje;
+	}
+
+
+	public void setDescripcionMensaje(String descripcionMensaje) {
+		this.descripcionMensaje = descripcionMensaje;
 	}
 
 	

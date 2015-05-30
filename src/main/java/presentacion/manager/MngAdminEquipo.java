@@ -10,6 +10,12 @@ import dominio.Usuario;
  */
 public class MngAdminEquipo {
 
+	
+
+	private boolean hasMensaje=false;
+	private String descripcionMensaje="";
+	
+	
 	private boolean hasError=false;
 	private String descripcionError="";
 	 /**
@@ -106,6 +112,22 @@ public class MngAdminEquipo {
 
 	public void setDescripcionError(String descripcionError) {
 		this.descripcionError = descripcionError;
+	}
+
+	public boolean isHasMensaje() {
+		return hasMensaje;
+	}
+
+	public void setHasMensaje(boolean hasMensaje) {
+		this.hasMensaje = hasMensaje;
+	}
+
+	public String getDescripcionMensaje() {
+		return descripcionMensaje;
+	}
+
+	public void setDescripcionMensaje(String descripcionMensaje) {
+		this.descripcionMensaje = descripcionMensaje;
 	}
 
 }

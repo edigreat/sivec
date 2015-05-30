@@ -12,7 +12,7 @@
   <form:form method="post" action=""   modelAttribute="mngCrearReparacionForm" cssClass="form-horizontal" role="form">
 		<form:hidden path="equipoComputo.idEquipoComputo" />
 	
-	<h2 class="bg-primary text-center">Detalle de equipo Equipo : ${mngCrearReparacionForm.equipoComputo.idEquipoComputo}</h2>
+	<h2 class="bg-primary text-center">Detalle de Equipo : ${mngCrearReparacionForm.equipoComputo.idEquipoComputo}</h2>
 	<div class="row">
     <div id="form-crea-equipo-container" class="col-md-7">
     <div class="form-group ">

@@ -124,5 +124,18 @@ public class ReparacionEquipoDao {
     	    			)
     	    	.list();
     }
+    
+    /**
+   	 * Obtiene el total de registros de la tabla de reparaciones
+   	 * @return numero de registros.
+   	 */
+   	public int borrarReparacionesPorIdEquipo(int idEquipo){
+   		String query = "DELETE from ReparacionEquipo r WHERE r.equipoComputo.idEquipoComputo = :idEquipo";
+   		Query queryTotal = getCurrentSession().createQuery(query);
+   		queryTotal.setInteger("idEquipo", idEquipo);
+   		int result = queryTotal.executeUpdate();
+   		return result;
+   	}
+ 
 
 }

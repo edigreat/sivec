@@ -20,6 +20,10 @@ public class MngCrearUsuario {
     public MngCrearUsuario() {
     }
     
+	private boolean hasError=false;
+	private String descripcionError="";
+	
+	
     private Integer menuRolSeleccionado=0;
 
     /**
@@ -88,6 +92,22 @@ public class MngCrearUsuario {
 		return "MngCrearUsuario [menuRolSeleccionado=" + menuRolSeleccionado
 				+ ", dependenciaUniList=" + dependenciaUniList + ", menuRol="
 				+ menuRol + ", usuario=" + usuario + "]";
+	}
+
+	public boolean isHasError() {
+		return hasError;
+	}
+
+	public void setHasError(boolean hasError) {
+		this.hasError = hasError;
+	}
+
+	public String getDescripcionError() {
+		return descripcionError;
+	}
+
+	public void setDescripcionError(String descripcionError) {
+		this.descripcionError = descripcionError;
 	}
 
 }

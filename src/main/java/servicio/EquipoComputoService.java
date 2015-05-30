@@ -162,8 +162,8 @@ public class EquipoComputoService {
     	mngCrearEquipoForm.getEquipoComputo().setUsuarioByIdUsuarioResponsable(usuarioDao.autenticarUsuario(idUsuarioResponsable));
     	mngCrearEquipoForm.getEquipoComputo().setIndVigenciaEquipo(0);
     	mngCrearEquipoForm.getEquipoComputo().setEstadoEquipo(EQUIPO_REGISTRADO);
-    	equipoComputoDao.insertarEquipoComputo(mngCrearEquipoForm.getEquipoComputo());
-
+    	EquipoComputo equipoComputo = equipoComputoDao.insertarEquipoComputo(mngCrearEquipoForm.getEquipoComputo());
+    	mngCrearEquipoForm.setEquipoComputo(equipoComputo);
     	for(MngCaracteristicaEquipo mngCaracteristicaEquipo:mngCrearEquipoForm.getMngCaracteristicaEquipoList()){
     		if(mngCaracteristicaEquipo.getDescripcionCaract()!=null&&
     				!mngCaracteristicaEquipo.getDescripcionCaract().isEmpty() &&
@@ -262,6 +262,7 @@ public class EquipoComputoService {
     	EquipoComputo equipoComputo = new EquipoComputo();
     	equipoComputo.setIdEquipoComputo(idEquipoComputo);
     	EquipoComputo currentEquipoComputo = equipoComputoDao.buscarEquipoComputoPorId(equipoComputo);
+    	int res= reparacionEquipoDao.borrarReparacionesPorIdEquipo(currentEquipoComputo.getIdEquipoComputo());
     	boolean hasSuccess = equipoComputoDao.borrarEquipoComputo(currentEquipoComputo);
         return hasSuccess;
     }

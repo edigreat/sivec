@@ -25,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import dominio.Usuario;
+import presentacion.manager.MngAdminEquipo;
 import presentacion.manager.MngCaracteristicaEquipo;
 import presentacion.manager.MngCrearEquipoForm;
 import presentacion.manager.TagAutoCompleteUsuario;
@@ -106,10 +107,14 @@ public class EquipoComputoController implements Serializable {
      * Confirma la eliminacion de un registro de usuario
      */
     @RequestMapping(value="/eliminarequipocomputo")
-    public String confirmarBajaEquipo(SessionStatus status,@RequestParam("idEquipoComputo")String idEquipoComputo){
+    public ModelAndView confirmarBajaEquipo(SessionStatus status,@RequestParam("idEquipoComputo")String idEquipoComputo){
     	equipoComputoService.borrarEquipo(idEquipoComputo);
     	status.setComplete();
-    	return "redirect:/equipo/list.html";
+    	MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+    	mngAdminEquipo.setHasMensaje(true);
+       	mngAdminEquipo.setDescripcionMensaje("Registro borrado con exito, id eliminado : " + idEquipoComputo);
+       	return new ModelAndView("administrarequipo","mngAdminEquipo",mngAdminEquipo);
+    	
     }
 
     /**
@@ -148,18 +153,22 @@ public class EquipoComputoController implements Serializable {
      * Confirma y guarda la información de un equipo
      */
     @RequestMapping(value="/guardarinformacionequipo",method=RequestMethod.POST)
-    public String registarEquipoComputo(@Valid MngCrearEquipoForm mngCrearEquipoForm,
+    public ModelAndView registarEquipoComputo(@Valid MngCrearEquipoForm mngCrearEquipoForm,
     		BindingResult result) {
        log.debug(mngCrearEquipoForm);
        log.debug("Tiene errores " + result.hasErrors());
 		if(result.hasErrors()){
-			return "registrarEquipo";
+	    	return new ModelAndView("registrarEquipo","mngCrearEquipoForm",mngCrearEquipoForm);
 		}
 		else
 		{	
 	       	equipoComputoService.insertarEquipo(mngCrearEquipoForm);
+	       
+	       	MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+	       	mngAdminEquipo.setHasMensaje(true);
+	       	mngAdminEquipo.setDescripcionMensaje("Registro con exito, id asignado : " + mngCrearEquipoForm.getEquipoComputo().getIdEquipoComputo());
+	       	return new ModelAndView("administrarequipo","mngAdminEquipo",mngAdminEquipo);
 
-			return "redirect:/equipo/list.html";
 		}
     }
 
@@ -226,7 +235,7 @@ public class EquipoComputoController implements Serializable {
      * @return resultado de la actualizacion
      */
       @RequestMapping("/actualizarinformacionusuario")
-      public String actualizarUsuario(
+      public ModelAndView actualizarUsuario(
     		  @Valid MngCrearEquipoForm mngCrearEquipoForm,BindingResult result) {
       	log.info(mngCrearEquipoForm);
   		log.debug("Tiene errores " + result.hasErrors());
@@ -248,12 +257,16 @@ public class EquipoComputoController implements Serializable {
   	    	  mngCrearEquipoForm = equipoComputoService.iniciarEditarEquipo(
   	    			  mngCrearEquipoForm.getEquipoComputo().getIdEquipoComputo()+"",
   	    			  new MngCrearEquipoForm());
-  			return "editarEquipo";
+  	       	return new ModelAndView("editarEquipo","mngCrearEquipoForm",mngCrearEquipoForm);
+
   		}
   		else
   		{	
   			mngCrearEquipoForm = equipoComputoService.actualizarEquipo(mngCrearEquipoForm);
-  			return "redirect:/equipo/list.html";
+  			MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+	       	mngAdminEquipo.setHasMensaje(true);
+	       	mngAdminEquipo.setDescripcionMensaje("Registro actualizado con exito, id actualizado : " + mngCrearEquipoForm.getEquipoComputo().getIdEquipoComputo());
+	       	return new ModelAndView("administrarequipo","mngAdminEquipo",mngAdminEquipo);
   		}
       }
 

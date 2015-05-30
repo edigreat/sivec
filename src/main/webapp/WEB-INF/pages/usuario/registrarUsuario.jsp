@@ -8,8 +8,12 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div id="form-crea-usuario-container" class="col-md-10">
+<!-- inicia va el contenido -->
 
   <form:form method="post" action="${pageContext.request.contextPath}/usuario/guardarinformacionusuario.html" modelAttribute="mngCrearUsuario" cssClass="form-horizontal" role="form">
+	<c:if test="${mngCrearUsuario.hasError==true}">
+		<div class="alert alert-danger" role="alert">${mngCrearUsuario.descripcionError}</div>
+	</c:if>
 	<div class="form-group ">
 			<h2 class="bg-primary text-center">Registrar Usuario</h2>
 	

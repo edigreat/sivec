@@ -123,9 +123,13 @@
 	
 	<!-- Modal -->
 <div class="modal fade" id="confirmaEliminarEquipo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <br />
+ <br />
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+      <h2 class="bg-primary text-center">Eliminar Equipo:  ${mngCrearEquipoForm.equipoComputo.idEquipoComputo}</h2>
+      
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
       </div>

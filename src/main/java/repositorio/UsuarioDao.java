@@ -140,6 +140,7 @@ public class UsuarioDao {
     public boolean borrarUsuario(Usuario usuario) {
     	boolean resultado=false;
     	try{
+    		
     	getCurrentSession().delete(usuario);
     	resultado=true;
     	}

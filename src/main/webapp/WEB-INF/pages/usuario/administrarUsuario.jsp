@@ -9,6 +9,12 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="col-md-10">
      			<h3 class="text-center">Administrar Usuarios </h3>
+     			<c:if test="${mngAdminUsuario.hasMensaje==true}">
+				 <div class="alert alert-success" role="alert">
+				 ${mngAdminUsuario.descripcionMensaje}
+				  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				</div>
+				</c:if>
      			<c:if test="${mngAdminUsuario.hasError==true}">
 				 <div class="alert alert-danger" role="alert">
 				 ${mngAdminUsuario.descripcionError}
