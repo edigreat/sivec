@@ -26,6 +26,7 @@
 			<table class="table table-striped table-condensed">
 				<thead>
 					<tr>
+					    <th>Clave Equipo</th>
 						<th>Tipo</th>
 						<th>Responsable Equipo</th>
 						<th>Estado</th>
@@ -38,6 +39,7 @@
 				<tbody>
 					<c:forEach items="${mngCrearReporte.reparacionEquipoList}" var="reparacionEquipo" varStatus="status">
 						<tr>
+							<td><c:out value="${reparacionEquipo.equipoComputo.idEquipoComputo}" /> </td>
 							<td><c:out value="${reparacionEquipo.equipoComputo.descTipoEquipo}" /> </td>
 							<td><c:out value="${reparacionEquipo.usuarioByIdUsuarioResponsable.nombreCompleto}" /> </td>
 							<td><c:out value="${reparacionEquipo.equipoComputo.estadoEquipo}" /> </td>
@@ -75,8 +77,9 @@
   				</nav>
   				</div>
   				<div class="col-md-1 text-center">
-  				 <a href="<c:url value="/reporte/export.xls" />" >
- 						 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+  				 <a href="<c:url value="/reporte/export.xls" />" > 
+ 						 <span class="glyphicon glyphicon-file" aria-hidden="true"> </span>
+ 						 xls
   				   </a>	
   				   </div>
 				 
