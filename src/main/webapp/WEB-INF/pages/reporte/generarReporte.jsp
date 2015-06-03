@@ -9,7 +9,12 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="col-md-10">
      			<h3 class="text-center">Reporte Reparaciones </h3>
-  
+  	<c:if test="${mngCrearReporte.hasError==true}">
+				 <div class="alert alert-danger" role="alert">
+				 ${mngCrearReporte.descripcionError}
+				  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				</div>
+				</c:if>
 </div>
 <div id="panel-container" class="col-md-10">
 <br />
@@ -17,6 +22,8 @@
 
 	<div class="panel-heading">
    	 	<h3 class="panel-title">Lista de Reparaciones</h3>
+   	 	
+   	 	
    	 </div>
    <div class="panel-body">
    	

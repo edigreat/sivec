@@ -72,9 +72,14 @@ public class ReporteController implements Serializable {
      * @return
      */
     @RequestMapping("/list")
-    public ModelAndView mostrarPantallaAdministrarUsuario() {
-     	log.debug("Entrando a mostrarPantallaAdministrarUsuario ");
-     	return new ModelAndView("adminmovimiento","mngCrearReporte",reparacionEquipoService.buscarTodos("0",MAX_ROWS));
+    public ModelAndView mostrarPantallaAdministrarReporte() {
+     	log.debug("Entrando a mostrarPantallaAdministrarReporte ");
+     	MngCrearReporte mngCrearReporte = reparacionEquipoService.buscarTodos("0",MAX_ROWS);
+    	if(mngCrearReporte.getReparacionEquipoList()==null || mngCrearReporte.getReparacionEquipoList().size()==0){
+    		mngCrearReporte.setHasError(true);
+    		mngCrearReporte.setDescripcionError("No se encontraron registros");
+    	}
+     	return new ModelAndView("adminmovimiento","mngCrearReporte",mngCrearReporte);
      }
     
     /**

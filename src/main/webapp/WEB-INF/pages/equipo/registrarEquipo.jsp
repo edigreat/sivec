@@ -53,6 +53,8 @@
              <form:input path="nombreUsuarioResponsable"  id="txt-busqueda-responsable" class="form-control" maxlength="40" />
        		 <form:errors path="nombreUsuarioResponsable"  cssClass="text-danger pull-left" element="div" />
        		 <form:hidden path="usuarioResponsableTag" id="usuarioResponsableTag" />
+       		 <span id="helpBlock" class="help-block">Busca por apellido Paterno.</span>
+       		 
         </div> 
     </div>
     

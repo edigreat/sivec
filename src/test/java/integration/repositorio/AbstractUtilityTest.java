@@ -20,7 +20,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/springconf/spring-principal.xml" , "classpath:/springconf/spring-security.xml"})
+@ContextConfiguration(locations = { "classpath:/springconf/spring-principal.xml" , "classpath:/springconf/spring-security.xml",
+									"classpath:/springconf/spring-basededatos.xml"})
 @TestExecutionListeners({TransactionalTestExecutionListener.class})
 @TransactionConfiguration(transactionManager = "transactionManager")
 public class AbstractUtilityTest extends AbstractJUnit4SpringContextTests  {

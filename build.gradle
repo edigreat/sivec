@@ -78,6 +78,7 @@ dependencies{
     compile 'org.apache.tiles:tiles-core:'+TILES_VERSION
     compile 'org.apache.tiles:tiles-jsp:'+TILES_VERSION
     
+	
     compile 'javax.servlet:servlet-api:2.5'
     compile 'javax.servlet:jstl:1.2'
     compile 'org.slf4j:slf4j-log4j12:1.5.8'
@@ -150,3 +151,6 @@ into "src/main/webapp/WEB-INF/lib"
 from configurations.compile
 
 }
+
+
+

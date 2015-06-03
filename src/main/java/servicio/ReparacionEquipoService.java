@@ -108,11 +108,12 @@ public class ReparacionEquipoService {
     public MngCrearReparacionForm insertarReparacionEquipo(MngCrearReparacionForm mngCrearReparacionForm) {
     	ReparacionEquipo reparacionEquipo=mngCrearReparacionForm.getReparacionEquipo();
     	EquipoComputo currentEquipoComputo = equipoComputoDao.buscarEquipoComputoPorId(mngCrearReparacionForm.getEquipoComputo());
+    	currentEquipoComputo.setEstadoEquipo("REPARACION");
     	reparacionEquipo.setEquipoComputo(currentEquipoComputo);
     	reparacionEquipo.setIndVigenciaReparacion(0);
     	reparacionEquipo.setUsuarioByIdUsuarioAsignado(currentEquipoComputo.getUsuarioByIdUsuarioAsignado());
     	reparacionEquipo.setUsuarioByIdUsuarioResponsable(currentEquipoComputo.getUsuarioByIdUsuarioResponsable());
-    	
+    	equipoComputoDao.actualizarEquipoComputo(currentEquipoComputo);
     	reparacionEquipoDao.insertarReparacionEquipo(reparacionEquipo);
         return mngCrearReparacionForm;
     }

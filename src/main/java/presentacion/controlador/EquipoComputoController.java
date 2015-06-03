@@ -179,7 +179,15 @@ public class EquipoComputoController implements Serializable {
     @RequestMapping("/list")
     public ModelAndView mostrarAdministrarEquipos() {
     	log.debug("Entrando a mostrarPantallaAdministrarEquipo ");
-    	return new ModelAndView("administrarequipo","mngAdminEquipo",equipoComputoService.buscarTodos("0",MAX_ROWS));    }
+		MngAdminEquipo mngAdminEquipo = equipoComputoService.buscarTodos("0",MAX_ROWS);
+		if(mngAdminEquipo.getEquipoComputoList()==null || mngAdminEquipo.getEquipoComputoList().size()==0){
+			mngAdminEquipo.setHasError(true);
+	       	mngAdminEquipo.setDescripcionError("No se encontraron registros");
+	       
+		}
+       	
+    	return new ModelAndView("administrarequipo","mngAdminEquipo",mngAdminEquipo);    
+    	}
 
     /**
      * Muestra el listado de equipo

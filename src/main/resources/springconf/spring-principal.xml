@@ -20,29 +20,6 @@
 	<!--  carga el archivo server.properites para leer las propiedades ${jdbc.*} y {h2.*} --> 
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 	
-	 <!--  Bean de datasource para la base de datos -->        
-	 <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-			<property name="driverClassName" value="${jdbc.driverClassName}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
-	</bean>
-	
-	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script 
-	<jdbc:initialize-database data-source="dataSource">
-	      <jdbc:script location="classpath:${jdbc.scriptSql}" />
-	</jdbc:initialize-database>	-->
-	
-	<!-- Crea un servidor web para la consola del bean h2Server 
-	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
-	    <constructor-arg value="-web,-webAllowOthers,-webPort,${h2.webport}"/>
-	</bean>-->
-			
-	<!--Levanta el  Servidor de la base de datos  
-	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" 
-			init-method="start" destroy-method="stop" depends-on="h2WebServer">
-	    <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,${h2.tcpport}"/>
-	</bean>  -->
 	
 	<bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">

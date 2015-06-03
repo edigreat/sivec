@@ -10,8 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
 import static org.hamcrest.Matchers.*;
+import dominio.MenuRol;
 import dominio.Usuario;
+import repositorio.MenuRolDao;
 import repositorio.UsuarioDao;
 
 
@@ -22,6 +25,8 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 
 	@Autowired
 	UsuarioDao usuarioDao;
+	@Autowired
+	MenuRolDao menuRolDao;
 	
 
 	@Before
@@ -29,18 +34,20 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		System.out.println ("------------------------------------------------");
 	}
 	
-	/*@Test
+	@Test
 	public void insertarUsuarioTest(){
 		Usuario usuarioNew = new Usuario("nombre","apPaterno","correoprueba1@gmail.com","pass",1,"dependencia");
+		MenuRol menuRol = menuRolDao.buscarMenuRolPorId(1);
+		usuarioNew.setMenuRol(menuRol);
 		usuarioNew=usuarioDao.insertarUsuario(usuarioNew);
 		assertThat(usuarioNew,is(notNullValue()));
 		assertThat(usuarioNew.getIdUsuario(), greaterThan(0));
 		log.info(""+usuarioNew);
 	}
-	*/
+
 	@Test
 	public void buscarTodosTest(){
-		List<Usuario> usuarioList = usuarioDao.buscarTodos("mi");
+		List<Usuario> usuarioList = usuarioDao.buscarTodos("gmail");
 		assertThat(usuarioList, is(notNullValue()));
 		assertThat(usuarioList.isEmpty(), is(not(true)));
 
@@ -68,7 +75,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		log.debug("Usuario " + usuario);
 		
 	}
-	/*
+
 	@Test
 	public void actualizarUsuarioTest(){
 		String apPaterno="actualizadoPaterno";
@@ -82,7 +89,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 		boolean res = usuarioDao.actualizarUsuario(usuario);
 		assertThat(res, is (true));
-		Usuario usuarioActualizado = usuarioDao.buscarUsuarioPorEmail("miccreo1");
+		Usuario usuarioActualizado = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
      	assertThat(usuarioActualizado,is(notNullValue()));
 		assertThat(usuarioActualizado.getApPaterno(), is(apPaterno));
 		assertThat(usuarioActualizado.getApMaterno(), is(apMaterno));
@@ -93,7 +100,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 
 	@Test
 	public void borrarUsuarioTest(){
-		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1");
+		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
 		boolean resultado = usuarioDao.borrarUsuario(usuario);
 		assertThat(resultado, is(true));
 		
@@ -108,7 +115,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 			log.info(usuario.toStringEquipos());
 		}
 		
-	}*/
+	}
 	
 	@Test
 	public void obtenerTotalRegistrosUsuarioTest(){

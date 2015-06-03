@@ -42,7 +42,7 @@ public class ReparacionEquipoDaoIntegrationTestCase extends AbstractUtilityTest 
 			log.debug(reparacion);
 		}
 	}
-	/*
+	
 	@Test
 	public void buscarTodosPaginaTest(){
 		List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarTodos(0,10);
@@ -53,7 +53,7 @@ public class ReparacionEquipoDaoIntegrationTestCase extends AbstractUtilityTest 
 	
 	@Test
 	public void buscarReparacionPorEquipoTest(){
-		List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarReparacionPorEquipo(14);
+		List<ReparacionEquipo> reparacionEquipoList = reparacionEquipoDao.buscarReparacionPorEquipo(1);
 		assertThat(reparacionEquipoList,is(notNullValue()));
 		assertThat(reparacionEquipoList.isEmpty(), is(not(true)));
 
@@ -77,6 +77,6 @@ public class ReparacionEquipoDaoIntegrationTestCase extends AbstractUtilityTest 
 		
 		
 	}
-	*/
+	
 	
 }
