@@ -47,12 +47,14 @@
         </div> 
     </div>
     <div class="form-group ">
-        <form:label path="nombreUsuarioResponsable" class="control-label col-sm-3">Responsable * :
+        <form:label path="nombreUsuarioResponsable" class="control-label col-sm-3">Dueño * :
         </form:label>
         <div class="col-sm-6">
              <form:input path="nombreUsuarioResponsable"  id="txt-busqueda-responsable" class="form-control" maxlength="40" />
        		 <form:errors path="nombreUsuarioResponsable"  cssClass="text-danger pull-left" element="div" />
        		 <form:hidden path="usuarioResponsableTag" id="usuarioResponsableTag" />
+       		 <form:errors path="usuarioResponsableTag"  cssClass="text-danger pull-left" element="div" />
+       		 
        		 <span id="helpBlock" class="help-block">Busca por apellido Paterno.</span>
        		 
         </div> 

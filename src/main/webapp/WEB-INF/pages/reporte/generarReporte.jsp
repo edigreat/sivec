@@ -35,7 +35,7 @@
 					<tr>
 					    <th>Clave Equipo</th>
 						<th>Tipo</th>
-						<th>Responsable Equipo</th>
+						<th>Dueño Equipo</th>
 						<th>Estado</th>
 						<th>Fecha de Registro</th>
 						<th>Motivo </th> 

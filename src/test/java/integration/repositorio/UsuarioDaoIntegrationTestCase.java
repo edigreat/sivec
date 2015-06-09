@@ -58,7 +58,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	@Test
 	public void buscarTodosTestPaginado(){
-		int startResult=3;
+		int startResult=1;
 		int maxRows=5;
 		List<Usuario> usuarioList = usuarioDao.buscarTodos(startResult,maxRows);
 		assertThat(usuarioList, is(notNullValue()));
@@ -70,7 +70,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 	@Test
 	public void buscarUsuarioPorEmaiTestl(){
-		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
+		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("heriberto.galdamez@gmail.com");
 		assertThat(usuario, is(notNullValue()));
 		log.debug("Usuario " + usuario);
 		
@@ -81,7 +81,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 		String apPaterno="actualizadoPaterno";
 		String apMaterno="actualizadoMaterno";
 		
-		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
+		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("heriberto.galdamez@gmail.com");
 		assertThat(usuario,is(notNullValue()));
 		log.info("Recuperado : " + usuario);
 		usuario.setApMaterno(apMaterno);
@@ -89,7 +89,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 	
 		boolean res = usuarioDao.actualizarUsuario(usuario);
 		assertThat(res, is (true));
-		Usuario usuarioActualizado = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
+		Usuario usuarioActualizado = usuarioDao.buscarUsuarioPorEmail("heriberto.galdamez@gmail.com");
      	assertThat(usuarioActualizado,is(notNullValue()));
 		assertThat(usuarioActualizado.getApPaterno(), is(apPaterno));
 		assertThat(usuarioActualizado.getApMaterno(), is(apMaterno));
@@ -100,7 +100,7 @@ public class UsuarioDaoIntegrationTestCase extends AbstractUtilityTest {
 
 	@Test
 	public void borrarUsuarioTest(){
-		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1@gmail.com");
+		Usuario usuario = usuarioDao.buscarUsuarioPorEmail("heriberto.galdamez@gmail.com");
 		boolean resultado = usuarioDao.borrarUsuario(usuario);
 		assertThat(resultado, is(true));
 		

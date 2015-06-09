@@ -46,6 +46,9 @@ public class ReparacionEquipoDao {
     			.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
     			.add(Restrictions.eq("equipoComputo.idEquipoComputo", idEquipo))
     	    	.addOrder(
+    			Order.desc("equipoComputo.idEquipoComputo")
+    			)
+    			.addOrder(
     	    			Order.desc("idReparacionEquipo")
     	    			)
     	    	.list();
@@ -62,6 +65,9 @@ public class ReparacionEquipoDao {
     			.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
     			.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
     	    	.addOrder(
+    			Order.desc("equipoComputo.idEquipoComputo")
+    			)
+    			.addOrder(
     	    			Order.desc("idReparacionEquipo")
     	    			)
     	    	.list();
@@ -83,6 +89,9 @@ public class ReparacionEquipoDao {
 		.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
 		.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
     	.setMaxResults(pageSize)
+    	.addOrder(
+    			Order.desc("equipoComputo.idEquipoComputo")
+    			)
     	.addOrder(
     			Order.desc("idReparacionEquipo")
     			)
@@ -119,6 +128,9 @@ public class ReparacionEquipoDao {
     			.setFetchMode("usuarioByIdUsuarioResponsable", FetchMode.JOIN)
     			.setFetchMode("usuarioByIdUsuarioAsignado", FetchMode.JOIN)
     			.add(Restrictions.eq("equipoComputo.idEquipoComputo",idEquipoComputo))
+    			.addOrder(
+    			Order.desc("equipoComputo.idEquipoComputo")
+    			)
     	    	.addOrder(
     	    			Order.desc("idReparacionEquipo")
     	    			)

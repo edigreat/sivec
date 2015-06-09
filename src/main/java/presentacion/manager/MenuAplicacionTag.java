@@ -7,6 +7,7 @@
 package presentacion.manager;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -19,8 +20,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
+import dominio.MenuItem;
+import dominio.MenuRol;
+import dominio.Usuario;
 import repositorio.UsuarioDao;
+import servicio.UsuarioService;
 
 /**
  * @author heriberto
@@ -36,33 +43,23 @@ public class MenuAplicacionTag extends SimpleTagSupport {
 	      throws JspException, IOException
 	    {
 		   JspWriter out = getJspContext().getOut();
-		 
-		   //Usuario usuario = usuarioDao.buscarUsuarioPorEmail("miccreo1");
-		    //Set<MenuRol> menuRolList = usuario.getMenuRols();
-		    //for(MenuRol menuRol:menuRolList){
-		    //	log.debug(menuRol);
-		   // }
-		   //out.print("Hola");
+		
 		   UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		  // log.debug("-------> " +userDetails.getAuthorities());
+		   WebApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+		   UsuarioService usuarioService = (UsuarioService) ctx.getBean("usuarioService");
+		   log.debug("-------> ctx " +ctx);
+		   log.debug("-------> usuarioService " +usuarioService);
+		   
 		   String autorizacion="";
 		   for (GrantedAuthority auth : userDetails.getAuthorities()) {
 			   autorizacion = auth.getAuthority();
 	        }
-		   switch(autorizacion){
-		   case "ROLE_ADMIN":
-			   out.println("<li><a href=\"/sivec/usuario/list.html\">Usuarios</a></li>");
-			   out.println("<li><a href=\"/sivec/reporte/list.html\">Reportes</a> </li>");
-		   case "ROLE_CAPTURISTA":
-			   out.println("<li><a href=\"/sivec/equipo/list.html\">Equipos</a></li>");
-		   case "ROLE_RESPONSABLE":
-			   out.println("<li><a href=\"/sivec/responsable/listUsuarioAsignado.html\">Responsable</a></li>");
-		   
-			break;
-		   
-			   	
-		   }
-		   
+		   List<MenuRol> menuRolList = usuarioService.buscarListaMenuPorUsuario(autorizacion);
+		   for(Object object: menuRolList.get(0).getMenuItems()){
+				MenuItem menuItem = (MenuItem) object;
+				log.debug(menuItem);
+				out.println("<li><a href=\""+menuItem.getAccion()+"\">" + menuItem.getEtiqueta() +"</a></li>");
+			}
 		   
 
 	    }

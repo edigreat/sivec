@@ -17,7 +17,7 @@
             <column name="descripcion_rol" length="45" not-null="true" />
         </property>
         
-       <set name="menuItems" table="MenuItemRol" catalog="sivec">
+       <set name="menuItems" table="MenuItemRol" catalog="sivec" order-by="idMenuItem" >
             <key>
                 <column name="id_menuRol" not-null="true" />
             </key>

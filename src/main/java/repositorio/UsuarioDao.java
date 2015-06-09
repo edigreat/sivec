@@ -87,7 +87,7 @@ public class UsuarioDao {
     	.setFirstResult((pageNumber - 1) * pageSize)
     	.setMaxResults(pageSize)
     	.addOrder(
-    			Order.desc("idUsuario")
+    			Order.desc("fechaActualizacion")
     			)
     	.list();
     }

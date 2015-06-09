@@ -35,7 +35,7 @@
 					<tr>
 						<th>Cve. Ref</th>
 						<th>Tipo</th>
-						<th>Responsable Equipo</th>
+						<th>Dueño Equipo</th>
 						<th>Fecha ult. Movimiento</th>
 						<th>Acción</th>
 					

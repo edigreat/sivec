@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -311,5 +312,9 @@ public class UsuarioService {
     	}
     	mngCrearUsuario.setMenuRol(menuRolMap);
         return mngCrearUsuario;
+    }
+    
+    public List<MenuRol> buscarListaMenuPorUsuario(String refRole){
+    	return this.menuRolDao.buscarListaMenuPorUsuario(refRole);
     }
 }

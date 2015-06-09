@@ -2,6 +2,7 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp' 
+apply plugin: 'cobertura'     
 
 //version del proyecto
 version = '1.0'
@@ -14,6 +15,15 @@ targetCompatibility = 1.7
 
 def encoding = {it.encoding = 'UTF-8'}
 
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.2.4'     
+    }
+}
 
 
 //Repositorios
@@ -78,7 +88,8 @@ dependencies{
     compile 'org.apache.tiles:tiles-core:'+TILES_VERSION
     compile 'org.apache.tiles:tiles-jsp:'+TILES_VERSION
     
-	
+    compile 'javax.servlet.jsp:jsp-api:2.1'
+
     compile 'javax.servlet:servlet-api:2.5'
     compile 'javax.servlet:jstl:1.2'
     compile 'org.slf4j:slf4j-log4j12:1.5.8'
@@ -98,6 +109,7 @@ dependencies{
 
     compile 'com.h2database:h2:1.4.186'
 
+
 }
 
 test {
@@ -109,7 +121,14 @@ test {
 
 
 
+cobertura {
+    coverageFormats = ['html', 'xml']       
+    coverageIgnoreTrivial = true          
+    coverageIgnores = ['org.slf4j.Logger.*']      
+    coverageReportDir = new File("$buildDir/reports/cobertura") 
+}
 
+test.finalizedBy(project.tasks.cobertura)
 
 
 eclipse {

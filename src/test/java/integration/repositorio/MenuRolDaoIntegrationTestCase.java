@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.transaction.annotation.Transactional;
 
+import dominio.MenuItem;
 import dominio.MenuRol;
 import dominio.Usuario;
 import repositorio.MenuRolDao;
@@ -28,6 +29,7 @@ public class MenuRolDaoIntegrationTestCase  extends AbstractUtilityTest {
 	
 	@Autowired
 	MenuRolDao menuRolDao;
+	/*
 	
 	@Test
 	public void buscarTodosTest(){
@@ -65,5 +67,17 @@ public class MenuRolDaoIntegrationTestCase  extends AbstractUtilityTest {
 	    log.debug(menuRol);
 		
 	}
-	
+	*/
+	@Test
+	public void buscarListaMenuPorUsuario(){
+		
+		List<MenuRol> menuRolList = menuRolDao.buscarListaMenuPorUsuario("ROLE_ADMIN");
+		assertThat(menuRolList,is(notNullValue()));
+		//log.debug(menuRolList.size());
+		//log.debug(menuRolList.get(0).getMenuItems().size());
+		for(Object object: menuRolList.get(0).getMenuItems()){
+			MenuItem menuItem = (MenuItem) object;
+			log.debug(menuItem);
+		}
+	}
 }

@@ -20,7 +20,7 @@
                 <form class="login" action="<c:url value='j_spring_security_check' />" method="POST" >
                 <input type="text" placeholder="Nombre de usuario" name="j_username" />
                 <input type="password" placeholder="Contraseña" name="j_password" />
-                <input type="submit" value="Enviar" class="btn btn-success btn-sm" />
+                <input type="submit" name="Enviar" value="Enviar" class="btn btn-success btn-sm" />
                	<br />
                 <c:if test="${param.failed==1}">
         			<br />

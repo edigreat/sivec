@@ -143,14 +143,11 @@ CREATE TABLE IF NOT EXISTS EquipoValorCarac (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
-INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(1,null,'USUARIOS','etiqueta','memu');
-INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(2,null,'EQUIPOS','etiqueta','memu');
-INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(3,null,'REPORTES','etiqueta','memu');
-INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(4,1,'Administrar Usuarios','etiqueta','memu');
-INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(5,2,'Administrar Equipos','etiqueta','memu');
-INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(6,2,'Equipos Asignados','etiqueta','memu');
-INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(7,3,'Reporte Movimiento','etiqueta','memu');
+		   
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(1,null,'Usuarios','/sivec/usuario/list.html','menu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(2,null,'Reportes','/sivec/reporte/list.html','menu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(3,null,'Equipos','/sivec/equipo/list.html','menu');
+INSERT INTO MenuItem(id_menuItem,id_menuParent,etiqueta,accion,nombre_menu) values(4,null,'Responsable','/sivec/responsable/listUsuarioAsignado.html','menu');
 
 
 INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(1,'AUDITORIA INTERNA');
@@ -159,72 +156,49 @@ INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(3,'CASA 
 INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(4,'CENTRO DE CIENCIAS FISICAS');
 INSERT INTO DependenciaUniversitaria(id_dependencia,descripcion) values(5,'CENTRO DE ESTUDIOS SOBRE LA UNIVERSIDAD');    
     
-INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(1,'ROLE_ADMIN',' Usuario Administrador');
-INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(2,'ROLE_CAPTURISTA',' Usuario capturista');
-INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(3,'ROLE_RESPONSABLE','Usuario Responsable');  
+INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(1,'ROLE_ADMIN','ADMINISTRADOR');
+INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(2,'ROLE_CAPTURISTA',' CAPTURISTA');
+INSERT INTO MenuRol (id_menuRol,ref_role,descripcion_rol) values(3,'ROLE_RESPONSABLE','RESPONSABLE EQUIPO');  
 
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,1);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,2);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,3);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,4);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,5);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,6);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (1,7);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,1);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,2);
+
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,3);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,4);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,5);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,6);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (2,7);
 
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,1);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,2);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,3);
 INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,4);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,5);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,6);
-INSERT INTO MenuItemRol(id_menuRol,id_menuItem) values (3,7);
 
 
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (1,'HERIBERTO','GALDAMEZ','TORIJA',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'heriberto.galdamez@gmail.com','secreto',1,'IIMAS',1);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (2,'VICTOR','COLIN','SANCHEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'victor.colin@gmail.com','secreto',1,'BIBLIOTECA NACIONAL',1);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (3,'MARCO','LOPEZ','RODIGRUEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'marco.lopez@hotmail.com','secreto',1,'BIBLIOTECA NACIONAL',1);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (4,'ALEJANDRA','LOPEZ','RODRIGUEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'ale.lopez@hotmail.com','secreto',1,'CENTRO PARA EXTRANJEROS',2);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (5,'LUIS','NAVARRETE','CORTEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'luis.navarrete@hotmail.com','secreto',1,'CENTRO  PARA EXTRANJEROS',2);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (6,'MAURICIO','ROLDAN','ZENDEJAS',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'mauricio.roldan@yahoo.com.mx','secreto',1,'CENTRO PARA EXTRANJEROS',2);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (7,'CENOBIO','AGUIRRE','PINEDA',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'cenobio.aguirre@gmail.com','secreto',1,'CONSEJO ASESOR DE BIBLIOTECAS',2);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (8,'ASAEL','UGALDE','URIBE',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'asael.ugalde@hotmail.com','secreto',1,'CONSEJO ASESOR DE BIBLIOTECAS',2);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (9,'LEOVI','MARTINEZ','MARTINEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'leovi.martinez@hotmail.com','secreto',1,'CONSEJO ASESOR DE BIBLIOTECAS',2);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (10,'GRISEL','CORRAL','PADILLA',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'grisel.corral@yahoo.com','secreto',1,'DIRECCION DE RELACIONES LABORALES',3);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (11,'ANA','SOSA','MENDEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'ana.sosa@yahoo.com','secreto',1,'DIRECCION DE RELACIONES LABORALES',3);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (12,'WENDY','JUAREZ','GONZALEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'wendy.jaurez@yahoo.com','secreto',1,'DIRECCION DE RELACIONES LABORALES',3);
-INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (13,'LAURA','LOPEZ','ZANABRIA',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'laura.lopez@yahoo.com','secreto',1,'DIRECCION DE RELACIONES LABORALES',3);
 
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (1,'HERIBERTO','GALDAMEZ','TORIJA',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'heriberto.galdamez@gmail.com','1234567',1,'IIMAS',1);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (2,'VICTOR','SANCHEZ','COLIN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'victor.colin@gmail.com','1234567',1,'FACULTAD DE CIENCIAS',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (3,'ERNESTO','ROSETE','URIBE',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'ernesto.rosete@gmail.com','1234567',1,'FACULTAD DE INGENIERIA',3);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (4,'ALEJANDRA','LOPEZ','RODRIGUEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'alexa.lopez@hotmail.com','1234567',1,'FACULTAD DE DERECHO',1);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (5,'MARCO','LOPEZ','RODRIGUEZ',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'marco.lopez@hotmail.com','1234567',1,'FACULTAD DE DERECHO',2);
+INSERT INTO Usuario(id_usuario,nombre,ap_paterno,ap_materno,fecha_creacion,fecha_actualizacion,correo_eletronico,password,ind_vigencia_usuario,dependencia_universitaria,id_menuRol) values (6,'AARON','CARRO','CARRO',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'aaron.carro@yahoo.com','1234567',1,'FACULTAD DE DERECHO',3);
 
 
 INSERT INTO EquipoComputo 
 (id_equipoComputo,id_usuarioResponsable,desc_tipoEquipo,id_usuarioAsignado,marca_computo,modelo_computo,ubicacion,fecha_creacion,fecha_actualizacion,ind_vigencia_equipo,estado_equipo)
 VALUES
-(1,1,'MONITOR',2,'marca','modelo','ubicacion',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'REGISTRADO');
+(1,1,'MONITOR',2,'SAMSUNG','S550','Facultad de ciencias',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'REPARACION');
 
 
 INSERT INTO EquipoComputo 
 (id_equipoComputo,id_usuarioResponsable,desc_tipoEquipo,id_usuarioAsignado,marca_computo,modelo_computo,ubicacion,fecha_creacion,fecha_actualizacion,ind_vigencia_equipo,estado_equipo)
 VALUES
-(2,1,'CPU',2,'marca2','modelo2','ubicacion2',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'ASIGNADO');
-
-
-
+(2,4,'CPU',2,'COOL MASTER','Z550','Facultad de Ingenieria',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'REPARACION');
 
 
 INSERT INTO ReparacionEquipo 
 (id_reparacionEquipo,id_equipoComputo,id_usuarioAsignado,id_usuarioResponsable,desc_reparacion,desc_motivo,fecha_creacion,fecha_actualizacion,ind_vigencia_reparacion)
 values
-(1,1,1,2,'cambio','no prende',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
+(1,1,2,1,'cambio','no prende',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
 
 INSERT INTO ReparacionEquipo 
 (id_reparacionEquipo,id_equipoComputo,id_usuarioAsignado,id_usuarioResponsable,desc_reparacion,desc_motivo,fecha_creacion,fecha_actualizacion,ind_vigencia_reparacion)
 values
-(2,2,3,4,'actualizacion de memoria ram','maquina muy lenta',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
+(2,2,2,4,'actualizacion de memoria ram','maquina muy lenta',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
 

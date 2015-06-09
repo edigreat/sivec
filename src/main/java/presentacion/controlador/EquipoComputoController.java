@@ -158,7 +158,21 @@ public class EquipoComputoController implements Serializable {
        log.debug(mngCrearEquipoForm);
        log.debug("Tiene errores " + result.hasErrors());
 		if(result.hasErrors()){
+			for (Object object : result.getAllErrors()) {
+  			    if(object instanceof FieldError) {
+  			        FieldError fieldError = (FieldError) object;
+
+  			        System.out.println(fieldError.getField() + " "+fieldError.getDefaultMessage());
+  			    }
+
+  			    if(object instanceof ObjectError) {
+  			        ObjectError objectError = (ObjectError) object;
+ 
+  			        System.out.println(objectError.getObjectName());
+  			    }
+  			    }
 	    	return new ModelAndView("registrarEquipo","mngCrearEquipoForm",mngCrearEquipoForm);
+	    	
 		}
 		else
 		{	

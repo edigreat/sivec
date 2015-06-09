@@ -57,7 +57,7 @@
     </div>
     
     <div class="form-group ">
-        <form:label path="nombreUsuarioResponsable" class="control-label col-sm-3">Responsable * :
+        <form:label path="nombreUsuarioResponsable" class="control-label col-sm-3">Dueño * :
         </form:label>
         <div class="col-sm-6">
              <form:input path="nombreUsuarioResponsable"  id="txt-busqueda-responsable" class="form-control" maxlength="40" />

@@ -41,7 +41,7 @@ public class MngReporteExcelView extends AbstractExcelView {
 		List<String> titulosList= new ArrayList<String>();
 		titulosList.add("Id Equipo");
 		titulosList.add("Tipo de equipo");
-		titulosList.add("Responsable Equipo");
+		titulosList.add("Dueño Equipo");
 		titulosList.add("Estado");
 		titulosList.add("Fecha de Registro");
 		titulosList.add("Motivo  ");

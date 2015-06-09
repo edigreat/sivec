@@ -7,6 +7,8 @@ import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -84,5 +86,19 @@ public class MenuRolDao {
     			//.add(Restrictions.eq("idMenuRol",idMenuRol))
     			//.uniqueResult();
     }
+	
+	
+	/**
+     * Busca los roles asignados a un usuario
+     * @param usuario 
+     * @return lista de roles asignados
+     */
+    @SuppressWarnings("unchecked")
+	public List<MenuRol> buscarListaMenuPorUsuario(String refRole) {
+    	return getCurrentSession().createCriteria(MenuRol.class)
+				.setFetchMode("menuItems", FetchMode.JOIN)
+				.add(Restrictions.eq ("refRole",refRole)).list();
+    }
+    
 
 }

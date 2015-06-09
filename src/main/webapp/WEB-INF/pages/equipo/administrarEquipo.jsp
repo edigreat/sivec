@@ -62,7 +62,7 @@
 					<tr>
 						<th>Cve. Ref</th>
 						<th>Tipo</th>
-						<th>Responsable Equipo</th>
+						<th>Dueño Equipo</th>
 						<th>Estado</th>
 						<th>Acción</th>
 						<th>Registrar Reparación</th>

@@ -29,7 +29,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 	
 	@Test
 	public void buscarTodosTest(){
-		MngAdminUsuario mngAdminUsuario = usuarioService.buscarTodos("2",10);
+		MngAdminUsuario mngAdminUsuario = usuarioService.buscarTodos("1",10);
 		assertThat(mngAdminUsuario, is(notNullValue()));
 		assertThat(mngAdminUsuario.getUsuarioList().isEmpty(), is(not(true)));
 		log.info(mngAdminUsuario);
@@ -37,7 +37,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 			log.info(usuario);
 		}
 	}
-	/*
+	
 	@Test
 	public void insertarUsuarioTest(){
 		MngCrearUsuario mngCrearUsuario  = new MngCrearUsuario();
@@ -60,7 +60,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 			log.info(dependenciaUniversitaria);
 		}
     }
-    @Test
+  /*  @Test
 	public void borrarUsuarioTestFail(){
 		boolean isSuccess =  usuarioService.borrarUsuario("error");
 		assertThat(isSuccess,is(false));
@@ -70,7 +70,7 @@ public class UsuarioServiceIntegrationTestCase extends AbstractUtilityTest{
 	
 	@Test
 	public void borrarUsuarioTest(){
-		boolean isSuccess =  usuarioService.borrarUsuario("17");
+		boolean isSuccess =  usuarioService.borrarUsuario(1);
 		assertThat(isSuccess,is(true));
 		
 	}*/

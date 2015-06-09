@@ -44,7 +44,7 @@ public class MngCrearEquipoForm implements Serializable {
     private Usuario usuario;
     
     @NotNull
-    @NotEmpty
+    @NotEmpty(message="Debe ser un usuario valido")
     private String usuarioResponsableTag;
     
     private String usuarioAsignadoTag;

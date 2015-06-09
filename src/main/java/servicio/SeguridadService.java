@@ -66,4 +66,5 @@ public class SeguridadService implements UserDetailsService  {
 		return new User(usuario.getCorreoEletronico(), usuario.getPassword(),true,true,true,true, grantedAuthorities);
 	}
 
+	
 }

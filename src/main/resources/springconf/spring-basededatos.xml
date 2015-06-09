@@ -23,12 +23,12 @@
 			<property name="password" value="${jdbc.password}" />
 	</bean>
 	
-	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script-->
+	 <!-- inicializa la base de datos defininida en e bean dataSource con el contenido del script	
 	<jdbc:initialize-database data-source="dataSource">
 	      <jdbc:script location="classpath:${jdbc.scriptSql}" />
-	</jdbc:initialize-database>	
+	</jdbc:initialize-database> 
 	
-	 
+	 -->
 	
        
     
